@@ -4,7 +4,7 @@ import { prisma } from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
 import { euro, compact } from "@/lib/format";
 import { StatusPill } from "@/components/app/StatusPill";
-import { advanceDeal } from "../actions";
+import { advanceDeal } from "@/app/app/deals/actions";
 import { CopyLink } from "@/components/app/CopyLink";
 
 export const dynamic = "force-dynamic";
