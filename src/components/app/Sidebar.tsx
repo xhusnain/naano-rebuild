@@ -15,7 +15,13 @@ const ITEMS: Item[] = [
   { href: "/app/billing", label: "Billing", icon: "card", stub: true },
 ];
 
-export function Sidebar() {
+export function Sidebar({
+  user,
+  logout,
+}: {
+  user: { name: string; company: string };
+  logout: () => Promise<void>;
+}) {
   const path = usePathname();
 
   return (
@@ -53,6 +59,22 @@ export function Sidebar() {
           </Link>
         );
       })}
+
+      <div className="mt-auto border-t border-line pt-3">
+        <div className="hidden px-3 lg:block">
+          <div className="truncate text-sm font-semibold text-ink">{user.name}</div>
+          <div className="truncate text-[11px] text-muted">{user.company}</div>
+        </div>
+        <form action={logout}>
+          <button
+            type="submit"
+            className="mt-2 w-full rounded-xl px-3 py-2 text-left text-sm font-medium text-muted transition hover:bg-surface hover:text-ink"
+          >
+            <span className="hidden lg:inline">Sign out</span>
+            <span className="lg:hidden">→</span>
+          </button>
+        </form>
+      </div>
     </aside>
   );
 }

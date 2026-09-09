@@ -1,31 +1,22 @@
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/db";
+import { readSession } from "@/lib/auth";
 
-export const SESSION_COOKIE = "naano_uid";
+export const SESSION_COOKIE = "naano_session";
 
-/**
- * The signed-in user.
- *
- * Auth (step 2) is not built yet. Until it is, this falls back to the seeded
- * demo brand so the campaign flow is usable and testable on its own. When auth
- * lands it only has to set and clear SESSION_COOKIE — every caller of this
- * function stays unchanged.
- */
 export async function getCurrentUser() {
   const jar = await cookies();
-  const id = jar.get(SESSION_COOKIE)?.value;
-
-  if (id) {
-    const user = await prisma.user.findUnique({ where: { id } });
-    if (user) return user;
-  }
-
-  // TODO(step 2): remove this fallback once /login issues real sessions.
-  return prisma.user.findFirst({ where: { role: "brand" } });
+  const id = readSession(jar.get(SESSION_COOKIE)?.value);
+  if (!id) return null;
+  return prisma.user.findUnique({ where: { id } });
 }
 
 export async function requireBrand() {
   const user = await getCurrentUser();
-  if (!user || user.role !== "brand") return null;
-  return user;
+  return user && user.role === "brand" ? user : null;
+}
+
+export async function requireCreator() {
+  const user = await getCurrentUser();
+  return user && user.role === "creator" ? user : null;
 }
