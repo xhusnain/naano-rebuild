@@ -1,69 +1,398 @@
-import Image from "next/image";
+import Link from "next/link";
+import { Nav } from "@/components/site/Nav";
+import { Footer } from "@/components/site/Footer";
+import { CreatorCard } from "@/components/CreatorCard";
+import { CREATORS } from "@/lib/creators";
+
+const STEPS = [
+  {
+    n: "01",
+    title: "Match",
+    body: "Browse vetted B2B creators your buyers already follow. Fit comes first — we rank on audience match, not follower count.",
+    detail: ["92% fit · RevOps", "88% fit · DevTools", "84% fit · Sales"],
+  },
+  {
+    n: "02",
+    title: "Brief",
+    body: "Generate a campaign brief in one click: objectives, key messages, creator guidelines and tracked links, ready to send.",
+    detail: ["Objectives set", "Key messages drafted", "Tracking links ready"],
+  },
+  {
+    n: "03",
+    title: "Manage",
+    body: "Every creator moves through the same pipeline, so you always know what is written, what is scheduled and what is live.",
+    detail: ["Draft ready", "Scheduled", "Live"],
+  },
+  {
+    n: "04",
+    title: "Track",
+    body: "Each post carries its own tracked link. Clicks, leads and pipeline trace back to the individual creator who drove them.",
+    detail: ["€48.2K pipeline", "124K views", "418 leads"],
+  },
+  {
+    n: "05",
+    title: "Pay",
+    body: "Contracts, invoices and payouts handled by Naano. One invoice for you, one payout for each creator.",
+    detail: ["Contract signed", "Invoice issued", "€1,240 paid out"],
+  },
+];
+
+const FAQS = [
+  [
+    "How much does a post cost?",
+    "Creators set their own flat fee per post, starting at €20. The median is €84 under 5K followers, €180 between 5K and 10K, and €312 between 10K and 25K. Top creators charge €400 to €1,500.",
+  ],
+  [
+    "How is this different from LinkedIn Ads?",
+    "You are borrowing trust, not buying impressions. In Q1 2026 our campaigns averaged €18 per lead against €55–90 on LinkedIn Ads, at a 12% click-through rate against a 0.8% benchmark.",
+  ],
+  [
+    "How do you track results?",
+    "Every post carries a unique tracked link. When somebody clicks it we record the click against that specific creator and campaign, then follow it through to leads and pipeline.",
+  ],
+  [
+    "Are creators vetted?",
+    "Yes. Around 2,000–3,000 creators across 100 countries, from roughly 1K to 500K followers, all working in B2B verticals: sales, RevOps, devtools, HR-tech, product, marketing ops, fintech and vertical SaaS.",
+  ],
+  [
+    "What do I pay Naano?",
+    "Self-Serve is €0 per month — you pay only for the posts you book. Managed is €700 per month and we run the campaigns for you.",
+  ],
+];
 
 export default function Home() {
+  const featured = CREATORS.slice(0, 3);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <>
+      <Nav />
+
+      {/* ---------------------------------------------------------------- hero */}
+      <section className="nn-sky">
+        <div className="mx-auto max-w-6xl px-5 pb-20 pt-20 text-center">
+          <Link
+            href="/marketplace"
+            className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-1.5 text-xs font-semibold text-muted shadow-sm transition hover:text-ink"
+          >
+            <span className="size-1.5 rounded-full bg-success" />
+            2,000+ vetted B2B creators, live now
+            <span className="text-brand">→</span>
+          </Link>
+
+          <h1 className="mx-auto mt-7 max-w-3xl font-display text-5xl font-extrabold leading-[1.05] text-ink sm:text-6xl">
+            Where B2B brands
+            <br />
+            work with{" "}
+            <span className="bg-[linear-gradient(100deg,#1652f0,#3080ff)] bg-clip-text text-transparent">
+              creators
+            </span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted">
+            Find the creators your buyers already trust, launch campaigns in days,
+            and track the clicks, leads and pipeline generated by every post.
+          </p>
+
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href="/register?role=saas"
+              className="rounded-full bg-brand px-6 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_-8px_rgba(22,82,240,0.6)] transition hover:bg-brand-strong"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              Find creators
+            </Link>
+            <Link
+              href="/register?role=influencer"
+              className="rounded-full border border-line bg-white px-6 py-3 text-sm font-semibold text-ink shadow-sm transition hover:border-grey"
             >
-              Learning
-            </a>{" "}
-            center.
+              Join as a creator
+            </Link>
+          </div>
+
+          <p className="mt-4 text-xs text-grey">
+            Flat fee per post, from €20. No retainer to browse.
+          </p>
+
+          {/* proof bar */}
+          <div className="mx-auto mt-16 grid max-w-4xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-4">
+            {[
+              ["5M+", "Impressions delivered"],
+              ["30K+", "Leads generated"],
+              ["5K+", "Posts published"],
+              ["2,000+", "Vetted creators"],
+            ].map(([v, l]) => (
+              <div key={l} className="bg-white px-5 py-6">
+                <div className="font-display text-3xl font-extrabold text-ink">{v}</div>
+                <div className="mt-1 text-xs font-medium text-muted">{l}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------- the 5-step loop */}
+      <section id="how" className="mx-auto max-w-6xl scroll-mt-20 px-5 py-24">
+        <div className="text-center">
+          <div className="nn-eyebrow">How it works</div>
+          <h2 className="mt-3 font-display text-4xl font-extrabold text-ink">
+            Five steps, one platform
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-muted">
+            From finding the right creator to paying them, without leaving Naano.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="mt-14 space-y-5">
+          {STEPS.map((s, i) => (
+            <div
+              key={s.n}
+              className="nn-card grid items-center gap-8 p-7 md:grid-cols-[auto_1fr_auto]"
+            >
+              <div className="font-display text-5xl font-extrabold text-brand-soft">
+                {s.n}
+              </div>
+              <div>
+                <h3 className="font-display text-xl font-bold text-ink">{s.title}</h3>
+                <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted">
+                  {s.body}
+                </p>
+              </div>
+              <div className="flex flex-col gap-2">
+                {s.detail.map((d, j) => (
+                  <span
+                    key={d}
+                    className={
+                      j === i % 3
+                        ? "rounded-full bg-brand px-3.5 py-1.5 text-center text-xs font-semibold text-white"
+                        : "rounded-full bg-brand-soft px-3.5 py-1.5 text-center text-xs font-semibold text-brand"
+                    }
+                  >
+                    {d}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* ------------------------------------------------------------ marketplace */}
+      <section className="nn-sky border-y border-line">
+        <div className="mx-auto max-w-6xl px-5 py-24">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <div className="nn-eyebrow">The marketplace</div>
+              <h2 className="mt-3 font-display text-4xl font-extrabold text-ink">
+                Fit first, followers second
+              </h2>
+              <p className="mt-4 max-w-lg text-muted">
+                Every creator is scored against your ICP before you ever see a
+                follower count. Filter by vertical, audience size, price and country.
+              </p>
+            </div>
+            <Link
+              href="/marketplace"
+              className="rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-strong"
+            >
+              Browse all creators
+            </Link>
+          </div>
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {featured.map((c, i) => (
+              <CreatorCard key={c.id} creator={c} rank={i + 1} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ----------------------------------------------------------------- proof */}
+      <section className="mx-auto max-w-6xl px-5 py-24">
+        <div className="text-center">
+          <div className="nn-eyebrow">Q1 2026, first-party data</div>
+          <h2 className="mt-3 font-display text-4xl font-extrabold text-ink">
+            Cheaper leads, by a distance
+          </h2>
+        </div>
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {[
+            ["€18", "average cost per lead", "vs €55–90 on LinkedIn Ads"],
+            ["12%", "click-through rate", "vs a 0.8% platform benchmark"],
+            ["312", "campaigns run", "across eight B2B verticals"],
+          ].map(([v, l, s]) => (
+            <div key={l} className="nn-card p-8">
+              <div className="font-display text-5xl font-extrabold text-brand">{v}</div>
+              <div className="mt-3 font-display font-bold text-ink">{l}</div>
+              <div className="mt-1 text-sm text-muted">{s}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------------ case study */}
+      <section className="mx-auto max-w-6xl px-5 pb-24">
+        <div className="nn-card overflow-hidden">
+          <div className="grid md:grid-cols-2">
+            <div className="p-10">
+              <div className="nn-eyebrow">Case study</div>
+              <h3 className="mt-3 font-display text-3xl font-extrabold text-ink">
+                BlogSEO
+              </h3>
+              <p className="mt-4 leading-relaxed text-muted">
+                Nine creators activated across SEO, content and growth. Every post
+                carried its own tracked link, so each trial could be attributed to the
+                creator who drove it.
+              </p>
+              <blockquote className="mt-8 border-l-2 border-brand pl-5">
+                <p className="text-sm italic leading-relaxed text-ink">
+                  “We manage €10M+ of influence budget every year. For B2B, Naano
+                  simply makes our life easier.”
+                </p>
+                <footer className="mt-3 text-xs font-semibold text-muted">
+                  David Zmirov · CEO, Zmirov Communication
+                </footer>
+              </blockquote>
+            </div>
+            <div className="grid grid-cols-1 gap-px bg-line sm:grid-cols-3 md:grid-cols-1">
+              {[
+                ["9", "creators activated"],
+                ["2,940", "qualified clicks"],
+                ["512", "trials started"],
+              ].map(([v, l]) => (
+                <div
+                  key={l}
+                  className="flex flex-col justify-center bg-[#f7faff] px-10 py-8"
+                >
+                  <div className="font-display text-4xl font-extrabold text-brand">{v}</div>
+                  <div className="mt-1 text-sm font-medium text-muted">{l}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* --------------------------------------------------------------- pricing */}
+      <section id="pricing" className="nn-sky scroll-mt-20 border-y border-line">
+        <div className="mx-auto max-w-5xl px-5 py-24">
+          <div className="text-center">
+            <div className="nn-eyebrow">Pricing</div>
+            <h2 className="mt-3 font-display text-4xl font-extrabold text-ink">
+              Pay per post, or hand it over
+            </h2>
+          </div>
+          <div className="mt-14 grid gap-6 md:grid-cols-2">
+            <div className="nn-card flex flex-col p-9">
+              <h3 className="font-display text-lg font-bold text-ink">Self-Serve</h3>
+              <div className="mt-4 font-display text-5xl font-extrabold text-ink">
+                €0<span className="text-lg font-bold text-grey">/mo</span>
+              </div>
+              <p className="mt-3 text-sm text-muted">
+                Browse, book and track yourself. You pay only for the posts you book.
+              </p>
+              <ul className="mt-7 space-y-3 text-sm text-ink">
+                {[
+                  "Full marketplace access",
+                  "AI-drafted campaign briefs",
+                  "Tracked links and attribution",
+                  "Contracts, invoices and payouts",
+                ].map((f) => (
+                  <li key={f} className="flex gap-2.5">
+                    <span className="text-success">✓</span>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/register?role=saas"
+                className="mt-auto pt-8 text-center"
+              >
+                <span className="block rounded-full border border-line bg-white px-5 py-3 text-sm font-semibold text-ink transition hover:border-grey">
+                  Start free
+                </span>
+              </Link>
+            </div>
+
+            <div className="nn-card relative flex flex-col border-brand/30 p-9 ring-1 ring-brand/20">
+              <span className="absolute -top-3 left-9 rounded-full bg-brand px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
+                Done for you
+              </span>
+              <h3 className="font-display text-lg font-bold text-ink">Managed</h3>
+              <div className="mt-4 font-display text-5xl font-extrabold text-ink">
+                €700<span className="text-lg font-bold text-grey">/mo</span>
+              </div>
+              <p className="mt-3 text-sm text-muted">
+                We select the creators, write the briefs and run the campaigns.
+              </p>
+              <ul className="mt-7 space-y-3 text-sm text-ink">
+                {[
+                  "Everything in Self-Serve",
+                  "Creator selection and outreach",
+                  "Brief writing and review",
+                  "Monthly performance reporting",
+                ].map((f) => (
+                  <li key={f} className="flex gap-2.5">
+                    <span className="text-success">✓</span>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/register?role=saas" className="mt-auto pt-8 text-center">
+                <span className="block rounded-full bg-brand px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-strong">
+                  Talk to us
+                </span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------------------- faq */}
+      <section className="mx-auto max-w-3xl px-5 py-24">
+        <h2 className="text-center font-display text-4xl font-extrabold text-ink">
+          Questions
+        </h2>
+        <div className="mt-12 divide-y divide-line">
+          {FAQS.map(([q, a]) => (
+            <details key={q} className="group py-5">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display font-bold text-ink marker:hidden">
+                {q}
+                <span className="text-xl text-grey transition group-open:rotate-45">
+                  +
+                </span>
+              </summary>
+              <p className="mt-3 text-sm leading-relaxed text-muted">{a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------------------- cta */}
+      <section className="mx-auto max-w-6xl px-5 pb-24">
+        <div className="overflow-hidden rounded-3xl bg-[linear-gradient(120deg,#1240d0,#1652f0_55%,#3080ff)] px-10 py-16 text-center">
+          <h2 className="font-display text-4xl font-extrabold text-white">
+            Launch your first campaign this week
+          </h2>
+          <p className="mx-auto mt-4 max-w-lg text-white/80">
+            Browse the marketplace free. Pay only when you book a post.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Link
+              href="/register?role=saas"
+              className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-brand transition hover:bg-brand-soft"
+            >
+              Find creators
+            </Link>
+            <Link
+              href="/login"
+              className="rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+            >
+              Sign in to a demo account
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </>
   );
 }
