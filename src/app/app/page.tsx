@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
 import { euro, compact } from "@/lib/format";
 import { StatusPill } from "@/components/app/StatusPill";
+import { LiveStatsProvider, LiveCount, LivePulse } from "@/components/app/LiveStats";
 
 export const dynamic = "force-dynamic";
 
@@ -20,8 +21,10 @@ export default async function Dashboard() {
   const clicks = deals.reduce((s, d) => s + d._count.clicks, 0);
   const spend = deals.reduce((s, d) => s + d.price, 0);
   const live = deals.filter((d) => d.status === "live");
+  const byDeal = Object.fromEntries(deals.map((d) => [d.id, d._count.clicks]));
 
   return (
+    <LiveStatsProvider initial={{ total: clicks, byDeal }}>
     <div className="mx-auto max-w-5xl px-6 py-10">
       <h1 className="font-display text-3xl font-extrabold text-ink">
         {user?.companyName ?? "Dashboard"}
@@ -32,7 +35,15 @@ export default async function Dashboard() {
       </p>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-4">
-        <Stat label="Clicks attributed" value={compact(clicks)} highlight />
+        <div className="nn-card p-5">
+          <div className="flex items-center justify-between">
+            <div className="nn-eyebrow">Clicks attributed</div>
+            <LivePulse />
+          </div>
+          <div className="mt-1.5 font-display text-3xl font-extrabold text-brand">
+            <LiveCount initial={clicks} />
+          </div>
+        </div>
         <Stat label="Creators booked" value={String(deals.length)} />
         <Stat label="Spend" value={euro(spend)} />
         <Stat
@@ -57,7 +68,7 @@ export default async function Dashboard() {
               </div>
               <div className="text-right">
                 <div className="font-display text-2xl font-extrabold text-brand">
-                  {d._count.clicks}
+                  <LiveCount dealId={d.id} initial={d._count.clicks} />
                 </div>
                 <div className="text-[10px] font-semibold uppercase tracking-wider text-grey">
                   clicks
@@ -75,6 +86,7 @@ export default async function Dashboard() {
         Book more creators
       </Link>
     </div>
+    </LiveStatsProvider>
   );
 }
 

@@ -6,6 +6,7 @@ import { euro, compact } from "@/lib/format";
 import { StatusPill } from "@/components/app/StatusPill";
 import { advanceDeal } from "@/app/app/deals/actions";
 import { CopyLink } from "@/components/app/CopyLink";
+import { LiveStatsProvider, LiveCount, LiveSum, LivePulse } from "@/components/app/LiveStats";
 
 export const dynamic = "force-dynamic";
 
@@ -33,8 +34,13 @@ export default async function CampaignDetail({
   const spend = campaign.deals.reduce((s, d) => s + d.price, 0);
   const live = campaign.deals.filter((d) => d.status === "live");
   const cpc = clicks > 0 ? spend / clicks : 0;
+  const dealIds = campaign.deals.map((d) => d.id);
+  const byDeal = Object.fromEntries(
+    campaign.deals.map((d) => [d.id, d._count.clicks])
+  );
 
   return (
+    <LiveStatsProvider initial={{ total: clicks, byDeal }}>
     <div className="mx-auto max-w-5xl px-6 py-10">
       <Link href="/app/campaigns" className="text-sm font-medium text-muted hover:text-ink">
         ← Campaigns
@@ -52,7 +58,15 @@ export default async function CampaignDetail({
 
       {/* ----------------------------------------------------------- headline */}
       <div className="mt-8 grid gap-4 sm:grid-cols-4">
-        <Stat label="Clicks attributed" value={compact(clicks)} highlight />
+        <div className="nn-card p-5">
+          <div className="flex items-center justify-between">
+            <div className="nn-eyebrow">Clicks attributed</div>
+            <LivePulse />
+          </div>
+          <div className="mt-1.5 font-display text-3xl font-extrabold text-brand">
+            <LiveSum dealIds={dealIds} initial={clicks} />
+          </div>
+        </div>
         <Stat label="Creators live" value={`${live.length}/${campaign.deals.length}`} />
         <Stat label="Spend" value={euro(spend)} />
         <Stat label="Cost per click" value={clicks ? `€${cpc.toFixed(2)}` : "—"} />
@@ -87,7 +101,7 @@ export default async function CampaignDetail({
 
                 <div className="text-right">
                   <div className="font-display text-2xl font-extrabold text-brand">
-                    {d._count.clicks}
+                    <LiveCount dealId={d.id} initial={d._count.clicks} />
                   </div>
                   <div className="text-[10px] font-semibold uppercase tracking-wider text-grey">
                     clicks
@@ -117,6 +131,7 @@ export default async function CampaignDetail({
         <BriefBlock title="Creator guidelines" body={campaign.guidelines} />
       </section>
     </div>
+    </LiveStatsProvider>
   );
 }
 
