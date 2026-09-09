@@ -106,9 +106,44 @@ async function main() {
     }
   }
 
+  // A second campaign holding a pending offer for the creator demo account, so
+  // the creator side has something to accept live in a walkthrough rather than
+  // opening on an empty inbox.
+  const offer = await prisma.campaign.create({
+    data: {
+      brandId: brand.id,
+      name: "Devtools launch — waitlist",
+      objective: "Get platform engineers onto the waitlist for Northwind Pipelines",
+      keyMessages: [
+        "Pipelines you can read six months later",
+        "No DSL to learn — it is the language you already use",
+        "Runs on your own infrastructure",
+      ].join("\n"),
+      guidelines: [
+        "Write in your own voice",
+        "Show the implementation, not the marketing site",
+        "Tracked link in the first comment",
+        "Disclose the partnership",
+      ].join("\n"),
+      landingUrl: "https://northwind.example.com/pipelines",
+      status: "live",
+      deals: {
+        create: {
+          creatorId: me.id,
+          creatorSlug: me.slug,
+          creatorName: me.name,
+          price: me.postCost,
+          status: "invited",
+          trackingCode: makeTrackingCode(),
+        },
+      },
+    },
+  });
+
   const clicks = await prisma.click.count();
   console.log(
-    `seeded: 2 users, 1 campaign, ${picked.length} deals, ${clicks} clicks\n` +
+    `seeded: 2 users, 2 campaigns, ${picked.length + 1} deals, ${clicks} clicks\n` +
+      `  pending offer for ${me.name} in "${offer.name}"\n` +
       `  brand   ${DEMO.brand.email} / ${DEMO.brand.password}\n` +
       `  creator ${DEMO.creator.email} / ${DEMO.creator.password}`
   );
