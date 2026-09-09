@@ -43,3 +43,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local sqlite (DATABASE_URL is file:./dev.db, resolved from the repo root)
+dev.db
+dev.db-journal
+dev.db-wal
+dev.db-shm
+prisma/dev.db

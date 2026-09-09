@@ -1,0 +1,88 @@
+// Only the MUTABLE half of the product lives here.
+//
+// Creators are static seed data in src/lib/creators.ts — they do not change at
+// runtime, so they are not rows. A Deal references a creator by its seed id.
+// That keeps browsing the marketplace working with no database attached.
+//
+// SQLite for local development. SQLite has no enums, so status fields are
+// strings with the allowed values documented beside them.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  // Connection URL lives in prisma.config.ts (Prisma 7 moved it out of the schema).
+}
+
+model User {
+  id           String     @id @default(cuid())
+  email        String     @unique
+  passwordHash String
+  name         String
+  // "brand" | "creator"
+  role         String
+  // brands only
+  companyName  String?
+  // creators only: links this account to a seeded creator in src/lib/creators.ts
+  creatorSlug  String?
+  createdAt    DateTime   @default(now())
+
+  campaigns    Campaign[]
+}
+
+model Campaign {
+  id          String   @id @default(cuid())
+  brand       User     @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  brandId     String
+  name        String
+  objective   String
+  // the AI-drafted brief, rendered from the campaign inputs
+  keyMessages String
+  guidelines  String
+  landingUrl  String
+  // "draft" | "live" | "complete"
+  status      String   @default("draft")
+  createdAt   DateTime @default(now())
+
+  deals       Deal[]
+
+  @@index([brandId])
+}
+
+model Deal {
+  id          String   @id @default(cuid())
+  campaign    Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  campaignId  String
+  // seed creator id, e.g. "cr_007" — not a foreign key by design
+  creatorId   String
+  creatorSlug String
+  creatorName String
+  price       Int
+  // "invited" | "accepted" | "declined" | "draft" | "scheduled" | "live" | "paid"
+  status      String   @default("invited")
+  // the short code behind /r/<code>; this is what makes attribution per-creator
+  trackingCode String  @unique
+  postUrl     String?
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+
+  clicks      Click[]
+
+  @@index([campaignId])
+  @@index([creatorSlug])
+}
+
+model Click {
+  id           String   @id @default(cuid())
+  deal         Deal     @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  dealId       String
+  trackingCode String
+  referer      String?
+  userAgent    String?
+  createdAt    DateTime @default(now())
+
+  @@index([dealId])
+  @@index([trackingCode])
+}
