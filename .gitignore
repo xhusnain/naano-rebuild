@@ -1,0 +1,11 @@
+node_modules/
+.next/
+out/
+.env
+.env.*
+!.env.example
+.DS_Store
+*.pem
+.vercel
+
+# .agent-logs/ is intentionally NOT ignored — 8x requires it committed.
