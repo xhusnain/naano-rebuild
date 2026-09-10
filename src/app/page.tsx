@@ -4,40 +4,8 @@ import { Footer } from "@/components/site/Footer";
 import { CreatorCard } from "@/components/CreatorCard";
 import { CREATORS } from "@/lib/creators";
 import { ScaleFrame } from "@/components/site/ScaleFrame";
+import { Testimonial } from "@/components/site/Testimonial";
 import { getCurrentUser } from "@/lib/session";
-
-const STEPS = [
-  {
-    n: "01",
-    title: "Match",
-    body: "Browse vetted B2B creators your buyers already follow. Fit comes first — we rank on audience match, not follower count.",
-    detail: ["92% fit · RevOps", "88% fit · DevTools", "84% fit · Sales"],
-  },
-  {
-    n: "02",
-    title: "Brief",
-    body: "Generate a campaign brief in one click: objectives, key messages, creator guidelines and tracked links, ready to send.",
-    detail: ["Objectives set", "Key messages drafted", "Tracking links ready"],
-  },
-  {
-    n: "03",
-    title: "Manage",
-    body: "Every creator moves through the same pipeline, so you always know what is written, what is scheduled and what is live.",
-    detail: ["Draft ready", "Scheduled", "Live"],
-  },
-  {
-    n: "04",
-    title: "Track",
-    body: "Each post carries its own tracked link. Clicks, leads and pipeline trace back to the individual creator who drove them.",
-    detail: ["€48.2K pipeline", "124K views", "418 leads"],
-  },
-  {
-    n: "05",
-    title: "Pay",
-    body: "Contracts, invoices and payouts handled by Naano. One invoice for you, one payout for each creator.",
-    detail: ["Contract signed", "Invoice issued", "€1,240 paid out"],
-  },
-];
 
 const FAQS = [
   [
@@ -186,51 +154,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* ------------------------------------------------------- the 5-step loop */}
-      <section id="how" className="mx-auto max-w-6xl scroll-mt-20 px-5 pb-24 pt-20">
-        <div className="text-center">
-          <div className="nn-eyebrow">How it works</div>
-          <h2 className="mt-3 font-sans text-4xl font-semibold tracking-[-0.03em] text-ink">
-            Five steps, one platform
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-muted">
-            From finding the right creator to paying them, without leaving Naano.
-          </p>
-        </div>
-
-        <div className="mt-14 space-y-5">
-          {STEPS.map((s, i) => (
-            <div
-              key={s.n}
-              className="nn-card grid items-center gap-8 p-7 md:grid-cols-[auto_1fr_auto]"
-            >
-              <div className="font-display text-5xl font-extrabold text-brand-soft">
-                {s.n}
-              </div>
-              <div>
-                <h3 className="font-display text-xl font-bold text-ink">{s.title}</h3>
-                <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted">
-                  {s.body}
-                </p>
-              </div>
-              <div className="flex flex-col gap-2">
-                {s.detail.map((d, j) => (
-                  <span
-                    key={d}
-                    className={
-                      j === i % 3
-                        ? "rounded-full bg-brand px-3.5 py-1.5 text-center text-xs font-semibold text-white"
-                        : "rounded-full bg-brand-soft px-3.5 py-1.5 text-center text-xs font-semibold text-brand"
-                    }
-                  >
-                    {d}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      <Testimonial />
 
       {/* ------------------------------------------------------------ marketplace */}
       <section className="nn-sky border-y border-line">
