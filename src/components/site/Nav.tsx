@@ -4,13 +4,17 @@ import { logout } from "@/app/login/actions";
 import { MobileMenu } from "./MobileMenu";
 
 export function Wordmark({ className = "" }: { className?: string }) {
+  // naano's wordmark measures 123.3 x 25.8 at 1440.
   return (
-    <Link href="/" className={`flex items-center gap-2 ${className}`}>
-      <svg viewBox="0 0 28 18" className="h-[22px] w-[34px]" aria-hidden>
-        <path d="M2 13c3.5-7 8.5-11 13-11 3.6 0 6 2.4 6 6 0 4.6-4.6 8-10.5 8-3.6 0-6.4-1.2-8.5-3z" fill="#111318" />
-        <circle cx="22.5" cy="14" r="2.5" fill="#1652f0" />
+    <Link href="/" className={`flex items-center gap-[7px] ${className}`}>
+      <svg viewBox="0 0 30 20" className="h-[24px] w-[34px] shrink-0" aria-hidden>
+        <path
+          d="M2.2 14.2C5.6 6.4 11.2 2 16.4 2c4.1 0 6.9 2.7 6.9 6.7 0 5.2-5.2 9-11.8 9-4.1 0-7.2-1.3-9.3-3.5z"
+          fill="#17181c"
+        />
+        <circle cx="24.6" cy="15.4" r="2.9" fill="#1652f0" />
       </svg>
-      <span className="font-display text-[26px] font-bold leading-none tracking-[-0.03em] text-ink">
+      <span className="font-display text-[29px] font-bold leading-none tracking-[-0.035em] text-[#17181c]">
         naano
       </span>
     </Link>
@@ -25,6 +29,14 @@ const LINKS = [
   ["Resources", "/#faq"],
 ] as const;
 
+/**
+ * Site header, measured against naano's at 1440:
+ *   48px page gutters, 63px tall, fully transparent over the hero photo
+ *   wordmark 123x26 on the left
+ *   the link row and the actions form ONE right-hand group — the links are not
+ *   centred on the page, they sit 53px left of the language switcher
+ *   link gaps 27.5px · EN->Sign in 17px · Sign in->Sign up 9px
+ */
 export async function Nav() {
   const user = await getCurrentUser();
   const home = user?.role === "creator" ? "/studio" : "/app";
@@ -32,71 +44,72 @@ export async function Nav() {
 
   return (
     <header className="relative z-50">
-      <div className="mx-auto flex h-[63px] max-w-[1180px] items-center justify-between px-5">
+      <div className="mx-auto flex h-[63px] w-full max-w-[1440px] items-center justify-between px-6 lg:px-12">
         <Wordmark />
 
-        <nav className="hidden items-center gap-7 md:flex">
-          {LINKS.map(([label, href]) => (
-            <Link
-              key={label}
-              href={href}
-              className="inline-flex items-center gap-1 text-[15px] font-medium text-[#17181c] transition hover:opacity-70"
-            >
-              {label}
-              {label === "Resources" && (
-                <svg viewBox="0 0 24 24" className="size-3" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden>
-                  <path d="M6 9l6 6 6-6" />
-                </svg>
-              )}
-            </Link>
-          ))}
-        </nav>
+        <div className="flex items-center gap-[53px]">
+          <nav className="hidden items-center gap-[27.5px] lg:flex">
+            {LINKS.map(([label, href]) => (
+              <Link
+                key={label}
+                href={href}
+                className="inline-flex items-center gap-1 whitespace-nowrap text-[15px] font-medium leading-none text-[#17181c] transition hover:opacity-70"
+              >
+                {label}
+                {label === "Resources" && (
+                  <svg viewBox="0 0 24 24" className="mt-px size-[13px]" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden>
+                    <path d="M6 9l6 6 6-6" />
+                  </svg>
+                )}
+              </Link>
+            ))}
+          </nav>
 
-        <div className="flex items-center gap-2">
-          {/* naano ships a language switcher; ours is a visible stub — the site
-              is English only and i18n was deliberately cut. */}
-          <span
-            title="English (only language available in this rebuild)"
-            className="mr-1 hidden items-center gap-1 text-[13px] font-medium text-ink/70 lg:inline-flex"
-          >
-            <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.6">
-              <circle cx="12" cy="12" r="9" />
-              <path d="M3 12h18M12 3c2.5 2.6 2.5 15 0 18M12 3c-2.5 2.6-2.5 15 0 18" />
-            </svg>
-            EN
-          </span>
-          {user ? (
-            <>
-              <span className="hidden text-sm text-muted lg:inline">{user.name}</span>
-              <Link
-                href={home}
-                className="rounded-full bg-[#17181c] px-5 py-[11px] text-[15px] font-semibold leading-none text-white transition hover:opacity-90"
-              >
-                {homeLabel}
-              </Link>
-              <form action={logout} className="hidden sm:block">
-                <button className="rounded-full px-3 py-2 text-sm font-medium text-muted transition hover:text-ink">
-                  Sign out
-                </button>
-              </form>
-            </>
-          ) : (
-            <>
-              <Link
-                href="/login"
-                className="hidden rounded-full border border-[#e8e6e2] bg-white px-[18px] py-[10px] text-[15px] font-semibold leading-none text-[#17181c] transition hover:border-grey sm:block"
-              >
-                Sign in
-              </Link>
-              <Link
-                href="/register"
-                className="hidden rounded-full bg-[#17181c] px-5 py-[11px] text-[15px] font-semibold leading-none text-white transition hover:opacity-90 sm:block"
-              >
-                Sign up
-              </Link>
-            </>
-          )}
-          <MobileMenu links={LINKS} signedIn={!!user} home={home} homeLabel={homeLabel} />
+          <div className="flex items-center gap-[17px]">
+            <span
+              title="English — this rebuild is English only"
+              className="hidden items-center gap-1 text-[15px] font-medium leading-none text-[#17181c] md:inline-flex"
+            >
+              <svg viewBox="0 0 24 24" className="size-[15px]" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
+                <circle cx="12" cy="12" r="9" />
+                <path d="M3 12h18M12 3c2.5 2.6 2.5 15 0 18M12 3c-2.5 2.6-2.5 15 0 18" />
+              </svg>
+              EN
+            </span>
+
+            {user ? (
+              <div className="flex items-center gap-[9px]">
+                <Link
+                  href={home}
+                  className="rounded-full bg-[#17181c] px-[15px] py-[10px] text-[15px] font-semibold leading-none tracking-[-0.01em] text-white transition hover:opacity-90"
+                >
+                  {homeLabel}
+                </Link>
+                <form action={logout} className="hidden sm:block">
+                  <button className="px-1 text-[15px] font-medium text-[#787774] transition hover:text-[#17181c]">
+                    Sign out
+                  </button>
+                </form>
+              </div>
+            ) : (
+              <div className="hidden items-center gap-[9px] sm:flex">
+                <Link
+                  href="/login"
+                  className="rounded-full border border-[#e8e6e2] bg-white px-[14px] py-[9px] text-[15px] font-semibold leading-none tracking-[-0.01em] text-[#17181c] transition hover:border-[#d5d3ce]"
+                >
+                  Sign in
+                </Link>
+                <Link
+                  href="/register"
+                  className="rounded-full bg-[#17181c] px-[15px] py-[10px] text-[15px] font-semibold leading-none tracking-[-0.01em] text-white transition hover:opacity-90"
+                >
+                  Sign up
+                </Link>
+              </div>
+            )}
+
+            <MobileMenu links={LINKS} signedIn={!!user} home={home} homeLabel={homeLabel} />
+          </div>
         </div>
       </div>
     </header>
