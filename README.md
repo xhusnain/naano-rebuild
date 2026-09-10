@@ -1,36 +1,130 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# naano-rebuild
 
-## Getting Started
+A 24-hour rebuild of [naano.com](https://naano.com) — the B2B LinkedIn creator
+marketplace — built as a take-home exercise.
 
-First, run the development server:
+Not affiliated with Naano. Every creator in this app is invented and every
+avatar is generated; the product is cloned, real people's identities are not.
+
+---
+
+## Try it
+
+Two demo accounts, printed on the login page with one-click fill. A two-sided
+marketplace is not reviewable from one side, so both are seeded:
+
+| | |
+|---|---|
+| Brand | `brand@naano.demo` · `demo1234` |
+| Creator | `creator@naano.demo` · `demo1234` |
 
 ```bash
+npm install
+npm run db:push     # create the local SQLite database
+npm run db:seed     # demo accounts, a live campaign, click history
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+No signup, no cloud database, no API keys. SQLite lives in the repo root and is
+gitignored.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## The demo worth watching
 
-## Learn More
+Attribution is the product, so it is the thing to look at.
 
-To learn more about Next.js, take a look at the following resources:
+1. Sign in as the brand and open a campaign. Each creator has their own
+   tracked link, `/r/<code>`.
+2. Open one of those links in another tab.
+3. Watch that creator's number go up — and only that creator's.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The counter polls live and flashes when it moves. This is the difference
+between "we ran a campaign" and "this specific creator drove 47 clicks."
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## What is built
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Step | |
+|---|---|
+| 01 Match | Landing page, marketplace, 32 seeded creators, filters on vertical / audience tier / price / country, match scoring |
+| 02 Brief | Bulk-select creators → drafted campaign brief → invites sent |
+| 03 Manage | Deal lifecycle: invited → accepted → draft → scheduled → live → paid |
+| 04 Track | `/r/[code]` tracked links, per-creator click attribution, live counters |
+| 05 Pay | Deal prices, campaign spend, cost per click, creator earnings |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Both sides work. Brands book and track at `/app`; creators accept offers, mark
+posts published and see earnings at `/studio`.
+
+---
+
+## What is deliberately not built
+
+Cuts are shown in the app rather than hidden — `/app/messages` and
+`/app/billing` explain themselves rather than 404ing.
+
+- **Real LinkedIn OAuth and profile scraping.** Naano imports creator profiles
+  via Apify. It is an integration, not a product surface — a reviewer sees the
+  same card either way.
+- **Stripe Connect payouts and KYC.** Days of work, and a payout that moved
+  euros looks identical to a database row in a demo. The economics are computed
+  and shown; the settlement is not real.
+- **Messaging.** A large surface that demonstrates nothing distinctive, because
+  it is the same chat as everywhere else.
+- **The agencies side, blog/CMS, i18n.** Out of scope for 24 hours.
+- **LLM-drafted briefs.** The brief generator is rule-based. It composes from
+  the campaign inputs *and* the booked creators' verticals and ICP, so a
+  devtools booking produces a different brief than an HR-tech one. The seam for
+  a real completion is one function, `draftBrief`. Rule-based keeps the demo
+  offline, instant, and free of an API key in a public repo.
+
+---
+
+## Decisions worth explaining
+
+**Creators are not database rows.** They are static seed data. They do not
+change at runtime, so the entire browse experience — landing page, marketplace,
+filters, profiles — works with no database attached. Only the mutable half
+(accounts, campaigns, deals, clicks) is persisted. A `Deal` references a creator
+by seed id.
+
+**Every deal owns a tracking code, not every campaign.** That single choice is
+what makes attribution per-creator. It is enforced `@unique` at the database
+level and tested.
+
+**Prefetches and crawlers are not clicks.** `/r/[code]` redirects them but does
+not record them. Counting a LinkedIn unfurl would inflate exactly the number the
+brand pays against.
+
+**Sessions are signed.** A bare user id in a cookie would let anyone read
+another account's dashboard by editing one value in devtools.
+
+**Server actions re-check ownership.** They are public HTTP endpoints; the deal
+id arrives in a form post. Without the check, any signed-in creator could
+publish somebody else's booking.
+
+---
+
+## Stack
+
+Next.js 16 (App Router) · TypeScript · Tailwind v4 · Prisma 7 · SQLite · Vitest
+
+Design tokens are taken from naano's live CSS: `#1652f0` brand, Plus Jakarta
+Sans + Inter, the soft sky-to-white gradients.
+
+## Tests
+
+```bash
+npm test
+```
+
+57 specs. Unit tests for the pure modules, integration tests for attribution
+against a real database built from the real schema — a migration that breaks
+per-creator attribution fails the suite.
+
+## Agent logs
+
+`.agent-logs/` holds the prompt/response transcript required by the assignment.
+See [CAPTURE-TEST.md](./CAPTURE-TEST.md) for the mechanism, what was verified,
+and — honestly — what was not.
