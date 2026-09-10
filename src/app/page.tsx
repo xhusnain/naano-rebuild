@@ -116,31 +116,37 @@ export default async function Home() {
             Trusted by modern B2B teams
           </p>
 
-          {/* Trust marquee. The row is rendered twice and the track animates
-              0 -> -50%, so the loop is seamless — the same construction naano
-              uses (26s, linear, infinite). */}
+          {/* Trust marquee.
+              Heights are per-logo, taken from naano's *rendered* logo heights
+              (their CSS box is taller and object-contain fits inside it) — a
+              single shared height makes wordmarks like Abyssale tower over
+              icon-led marks like ringover. object-fit: contain, and
+              mix-blend-multiply only on the two files that ship a white plate,
+              exactly as they do it. The row is rendered twice and the track
+              animates 0 -> -50% for a seamless 26s loop. */}
           <div className="nn-marquee-viewport mt-8 w-full">
             <div className="nn-marquee-track">
               {[0, 1].map((copy) => (
                 <div key={copy} className="flex shrink-0 items-center" aria-hidden={copy === 1}>
                   {[
-                    ["lemlist", "lemlist"],
-                    ["folk", "folk."],
-                    ["leadbay", "LEADBAY"],
-                    ["ringover", "ringover"],
-                    ["attio", "attio"],
-                    ["lagrowthmachine", "La Growth Machine"],
-                    ["gojiberry", "gojiberry"],
-                    ["chatseo", "ChatSEO"],
-                    ["abyssale", "Abyssale"],
-                    ["blogseo", "BlogSEO"],
-                  ].map(([file, alt]) => (
+                    { file: "lemlist", alt: "lemlist", h: 36 },
+                    { file: "folk", alt: "folk.", h: 26 },
+                    { file: "leadbay", alt: "LEADBAY", h: 24 },
+                    { file: "ringover", alt: "ringover", h: 36 },
+                    { file: "attio", alt: "attio", h: 36, multiply: true },
+                    { file: "lagrowthmachine", alt: "La Growth Machine", h: 29 },
+                    { file: "gojiberry", alt: "gojiberry", h: 28 },
+                    { file: "chatseo", alt: "ChatSEO", h: 34 },
+                    { file: "abyssale", alt: "Abyssale", h: 26, multiply: true },
+                    { file: "blogseo", alt: "BlogSEO", h: 16 },
+                  ].map(({ file, alt, h, multiply }) => (
                     /* eslint-disable-next-line @next/next/no-img-element */
                     <img
                       key={`${copy}-${file}`}
                       src={`/lp/logo-${file}.png`}
                       alt={copy === 0 ? alt : ""}
-                      className="nn-marquee-logo mx-9 mix-blend-multiply"
+                      style={{ height: `${h}px` }}
+                      className={`nn-marquee-logo mx-[47px] ${multiply ? "mix-blend-multiply" : ""}`}
                     />
                   ))}
                 </div>

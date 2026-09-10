@@ -121,8 +121,10 @@
     .nn-marquee-track { animation: none; }
   }
   .nn-marquee-logo {
-    height: 19px;
+    /* height comes per-logo from the markup; naano sizes each brand
+       individually so they read at the same optical weight */
     width: auto;
+    object-fit: contain;
     opacity: 0.68;
     filter: grayscale(1) contrast(1.08);
   }
