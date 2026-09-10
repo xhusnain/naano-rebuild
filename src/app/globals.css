@@ -129,6 +129,18 @@
     filter: grayscale(1) contrast(1.08);
   }
 
+  /* Design frame: authored at 1672px, zoomed to the viewport. See ScaleFrame. */
+  .nn-scale-frame {
+    width: 100%;
+    margin-inline: auto;
+  }
+  @media (min-width: 1024px) {
+    .nn-scale-frame {
+      width: 1672px;
+      zoom: 0.861244; /* replaced per-viewport by ScaleFrame on mount */
+    }
+  }
+
   /* the same wash, scaled down, for card headers */
   .nn-sky-strip {
     background:

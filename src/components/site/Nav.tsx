@@ -4,19 +4,18 @@ import { logout } from "@/app/login/actions";
 import { MobileMenu } from "./MobileMenu";
 
 export function Wordmark({ className = "" }: { className?: string }) {
-  // naano's wordmark measures 123.3 x 25.8 at 1440.
+  // naano's nav wordmark is a single image containing both the mark and the
+  // lettering, 143 x 30 at their 1672px design width.
   return (
-    <Link href="/" className={`flex items-center gap-[7px] ${className}`}>
-      <svg viewBox="0 0 30 20" className="h-[24px] w-[34px] shrink-0" aria-hidden>
-        <path
-          d="M2.2 14.2C5.6 6.4 11.2 2 16.4 2c4.1 0 6.9 2.7 6.9 6.7 0 5.2-5.2 9-11.8 9-4.1 0-7.2-1.3-9.3-3.5z"
-          fill="#17181c"
-        />
-        <circle cx="24.6" cy="15.4" r="2.9" fill="#1652f0" />
-      </svg>
-      <span className="font-display text-[29px] font-bold leading-none tracking-[-0.035em] text-[#17181c]">
-        naano
-      </span>
+    <Link href="/" className={`flex items-center ${className}`} aria-label="naano — home">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/lp/naano-logo-nav.png"
+        alt="naano"
+        width={143}
+        height={30}
+        className="h-[30px] w-[143px] object-contain"
+      />
     </Link>
   );
 }
@@ -31,11 +30,12 @@ const LINKS = [
 
 /**
  * Site header, measured against naano's at 1440:
- *   48px page gutters, 63px tall, fully transparent over the hero photo
- *   wordmark 123x26 on the left
- *   the link row and the actions form ONE right-hand group — the links are not
- *   centred on the page, they sit 53px left of the language switcher
- *   link gaps 27.5px · EN->Sign in 17px · Sign in->Sign up 9px
+ *   Authored at naano's 1672px design width (see ScaleFrame), so these are
+ *   their values verbatim rather than anything derived:
+ *     56px gutters · 73px tall · transparent over the hero photo
+ *     wordmark 143 x 30
+ *     link row and actions are ONE right-hand group; the links are not centred
+ *     link gaps 32px · Sign in 87x41 · Sign up 95x41
  */
 export async function Nav() {
   const user = await getCurrentUser();
@@ -44,11 +44,14 @@ export async function Nav() {
 
   return (
     <header className="relative z-50">
-      <div className="mx-auto flex h-[63px] w-full max-w-[1440px] items-center justify-between px-6 lg:px-12">
+      {/* Full-bleed: naano has no max-width here. Their gutter is 3.35% of
+          the viewport — 48px at 1440, 67px at 2000 — so it scales with the
+          screen instead of the bar collapsing into a centred column. */}
+      <div className="flex h-[73px] w-full items-center justify-between px-[56px]">
         <Wordmark />
 
-        <div className="flex items-center gap-[53px]">
-          <nav className="hidden items-center gap-[27.5px] lg:flex">
+        <div className="flex items-center gap-[62px]">
+          <nav className="hidden items-center gap-[32px] lg:flex">
             {LINKS.map(([label, href]) => (
               <Link
                 key={label}
@@ -65,7 +68,7 @@ export async function Nav() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-[17px]">
+          <div className="flex items-center gap-[20px]">
             <span
               title="English — this rebuild is English only"
               className="hidden items-center gap-1 text-[15px] font-medium leading-none text-[#17181c] md:inline-flex"
@@ -78,10 +81,10 @@ export async function Nav() {
             </span>
 
             {user ? (
-              <div className="flex items-center gap-[9px]">
+              <div className="flex items-center gap-[10px]">
                 <Link
                   href={home}
-                  className="rounded-full bg-[#17181c] px-[15px] py-[10px] text-[15px] font-semibold leading-none tracking-[-0.01em] text-white transition hover:opacity-90"
+                  className="rounded-full bg-[#17181c] px-[20px] py-[13px] text-[15px] font-semibold leading-none text-white transition hover:opacity-90"
                 >
                   {homeLabel}
                 </Link>
@@ -92,16 +95,16 @@ export async function Nav() {
                 </form>
               </div>
             ) : (
-              <div className="hidden items-center gap-[9px] sm:flex">
+              <div className="hidden items-center gap-[10px] sm:flex">
                 <Link
                   href="/login"
-                  className="rounded-full border border-[#e8e6e2] bg-white px-[14px] py-[9px] text-[15px] font-semibold leading-none tracking-[-0.01em] text-[#17181c] transition hover:border-[#d5d3ce]"
+                  className="rounded-full border border-[#e8e6e2] bg-white px-[18px] py-[12px] text-[15px] font-semibold leading-none text-[#17181c] transition hover:border-[#d5d3ce]"
                 >
                   Sign in
                 </Link>
                 <Link
                   href="/register"
-                  className="rounded-full bg-[#17181c] px-[15px] py-[10px] text-[15px] font-semibold leading-none tracking-[-0.01em] text-white transition hover:opacity-90"
+                  className="rounded-full bg-[#17181c] px-[20px] py-[13px] text-[15px] font-semibold leading-none text-white transition hover:opacity-90"
                 >
                   Sign up
                 </Link>
