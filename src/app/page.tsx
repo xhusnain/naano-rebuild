@@ -84,7 +84,8 @@ export default async function Home() {
 
           <h1 className="mx-auto mt-8 max-w-4xl font-display text-[clamp(2.6rem,6.4vw,5rem)] font-extrabold leading-[0.98] tracking-[-0.035em] text-ink">
             The B2B LinkedIn
-            <br className="hidden sm:block" /> Creator Marketplace.
+            <br className="hidden sm:block" />
+            {" Creator Marketplace."}
           </h1>
 
           <p className="mx-auto mt-7 max-w-xl text-[17px] leading-relaxed text-ink-900/75">
@@ -115,16 +116,25 @@ export default async function Home() {
             Trusted by modern B2B teams
           </p>
 
-          {/* trust marquee */}
-          <div className="mt-8 overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]">
-            <div className="flex items-center justify-center gap-10 whitespace-nowrap opacity-70 sm:gap-14">
-              {["BlogSEO", "lemlist", "folk.", "LEADBAY", "ringover", "attio", "La Growth Machine"].map((b) => (
-                <span
-                  key={b}
-                  className="font-display text-[17px] font-bold tracking-tight text-ink-900/60"
-                >
-                  {b}
-                </span>
+          {/* trust marquee — naano's own partner logos */}
+          <div className="mt-8 overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]">
+            <div className="flex items-center justify-center gap-9 sm:gap-12">
+              {[
+                ["blogseo", "BlogSEO"],
+                ["ringover", "ringover"],
+                ["attio", "attio"],
+                ["lagrowthmachine", "La Growth Machine"],
+                ["gojiberry", "gojiberry"],
+                ["chatseo", "ChatSEO"],
+                ["abyssale", "Abyssale"],
+              ].map(([file, alt]) => (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  key={file}
+                  src={`/lp/logo-${file}.png`}
+                  alt={alt}
+                  className="h-6 w-auto opacity-60 mix-blend-multiply grayscale transition hover:opacity-90 sm:h-7"
+                />
               ))}
             </div>
           </div>

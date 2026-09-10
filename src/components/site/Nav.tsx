@@ -20,8 +20,9 @@ export function Wordmark({ className = "" }: { className?: string }) {
 const LINKS = [
   ["For companies", "/marketplace"],
   ["For creators", "/register?role=influencer"],
+  ["For agencies", "/#pricing"],
   ["How it works", "/#how"],
-  ["Pricing", "/#pricing"],
+  ["Resources", "/#faq"],
 ] as const;
 
 export async function Nav() {
@@ -39,14 +40,31 @@ export async function Nav() {
             <Link
               key={label}
               href={href}
-              className="text-[14px] font-medium text-ink/80 transition hover:text-ink"
+              className="inline-flex items-center gap-1 text-[14px] font-medium text-ink/80 transition hover:text-ink"
             >
               {label}
+              {label === "Resources" && (
+                <svg viewBox="0 0 24 24" className="size-3" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden>
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              )}
             </Link>
           ))}
         </nav>
 
         <div className="flex items-center gap-2">
+          {/* naano ships a language switcher; ours is a visible stub — the site
+              is English only and i18n was deliberately cut. */}
+          <span
+            title="English (only language available in this rebuild)"
+            className="mr-1 hidden items-center gap-1 text-[13px] font-medium text-ink/70 lg:inline-flex"
+          >
+            <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.6">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M3 12h18M12 3c2.5 2.6 2.5 15 0 18M12 3c-2.5 2.6-2.5 15 0 18" />
+            </svg>
+            EN
+          </span>
           {user ? (
             <>
               <span className="hidden text-sm text-muted lg:inline">{user.name}</span>

@@ -6,6 +6,11 @@ marketplace — built as a take-home exercise.
 Not affiliated with Naano. Every creator in this app is invented and every
 avatar is generated; the product is cloned, real people's identities are not.
 
+**On assets:** the hero sky and the partner logos in `public/lp/` are Naano's
+own files, captured from their public site so the UI matches theirs exactly, as
+the brief asks. They are their property, not mine, and are here only for this
+exercise. The hero image was 3MB and is re-encoded to ~130KB.
+
 ---
 
 ## Try it

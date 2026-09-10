@@ -66,16 +66,37 @@
      their image: a blue gradient with soft white cloud masses blurred over it.
      Layered radial gradients, so it scales and costs no bytes. */
   .nn-sky {
-    /* Blue sky gradient with a drawn cloud band anchored to the bottom, which
-       is how naano's hero reads. The clouds are an SVG rather than their stock
-       photograph, so nothing of theirs ships in this repo. */
-    background-color: #ffffff;
-    background-image:
-      url("/clouds.svg"),
-      linear-gradient(180deg, #a3d3f4 0%, #bcdff9 32%, #d6ecfc 60%, #eaf5fe 82%, #f8fcff 100%);
-    background-repeat: no-repeat, no-repeat;
-    background-position: bottom center, top center;
-    background-size: 100% 460px, 100% 100%;
+    /* naano renders the hero sky as a full-bleed photograph
+       (.lp-cloud-scene > .lp-cloud-image, object-fit: cover). Matched here.
+       The source PNG is 3MB; resized and re-encoded to ~130KB. */
+    position: relative;
+    background-color: #cfe7fa;
+    isolation: isolate;
+  }
+  .nn-sky::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: url("/lp/hero-clouds.jpg");
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    pointer-events: none;
+  }
+  /* fade the photograph into the page below it, as naano does */
+  .nn-sky::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 22%;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, #ffffff 96%);
+    pointer-events: none;
+  }
+  .nn-sky > * {
+    position: relative;
+    z-index: 2;
   }
 
   /* the same wash, scaled down, for card headers */
