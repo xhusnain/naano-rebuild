@@ -99,6 +99,34 @@
     z-index: 2;
   }
 
+  /* Trust-logo marquee, copied from naano's computed styles:
+     .naano-trust-track runs @keyframes naanoMarquee 0% -> -50% over 26s linear,
+     with the row duplicated so the wrap is seamless, and the viewport masked
+     at 8%/92%. Logos: 19px tall, 0.68 opacity, grayscale(1) contrast(1.08). */
+  .nn-marquee-viewport {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, rgba(0,0,0,0), #000 8%, #000 92%, rgba(0,0,0,0));
+    mask-image: linear-gradient(90deg, rgba(0,0,0,0), #000 8%, #000 92%, rgba(0,0,0,0));
+  }
+  .nn-marquee-track {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    animation: naanoMarquee 26s linear infinite;
+  }
+  .nn-marquee-viewport:hover .nn-marquee-track {
+    animation-play-state: paused;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .nn-marquee-track { animation: none; }
+  }
+  .nn-marquee-logo {
+    height: 19px;
+    width: auto;
+    opacity: 0.68;
+    filter: grayscale(1) contrast(1.08);
+  }
+
   /* the same wash, scaled down, for card headers */
   .nn-sky-strip {
     background:
@@ -120,4 +148,9 @@
     text-transform: uppercase;
     color: var(--color-muted);
   }
+}
+
+@keyframes naanoMarquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }

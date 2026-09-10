@@ -6,11 +6,11 @@ import { MobileMenu } from "./MobileMenu";
 export function Wordmark({ className = "" }: { className?: string }) {
   return (
     <Link href="/" className={`flex items-center gap-2 ${className}`}>
-      <svg viewBox="0 0 28 18" className="h-4 w-6" aria-hidden>
+      <svg viewBox="0 0 28 18" className="h-[22px] w-[34px]" aria-hidden>
         <path d="M2 13c3.5-7 8.5-11 13-11 3.6 0 6 2.4 6 6 0 4.6-4.6 8-10.5 8-3.6 0-6.4-1.2-8.5-3z" fill="#111318" />
         <circle cx="22.5" cy="14" r="2.5" fill="#1652f0" />
       </svg>
-      <span className="font-display text-[22px] font-extrabold tracking-tight text-ink">
+      <span className="font-display text-[26px] font-bold leading-none tracking-[-0.03em] text-ink">
         naano
       </span>
     </Link>
@@ -31,8 +31,8 @@ export async function Nav() {
   const homeLabel = user?.role === "creator" ? "Creator studio" : "Dashboard";
 
   return (
-    <header className="sticky top-0 z-50 bg-white/70 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-[1180px] items-center justify-between px-5">
+    <header className="relative z-50">
+      <div className="mx-auto flex h-[63px] max-w-[1180px] items-center justify-between px-5">
         <Wordmark />
 
         <nav className="hidden items-center gap-7 md:flex">
@@ -40,7 +40,7 @@ export async function Nav() {
             <Link
               key={label}
               href={href}
-              className="inline-flex items-center gap-1 text-[14px] font-medium text-ink/80 transition hover:text-ink"
+              className="inline-flex items-center gap-1 text-[15px] font-medium text-[#17181c] transition hover:opacity-70"
             >
               {label}
               {label === "Resources" && (
@@ -70,7 +70,7 @@ export async function Nav() {
               <span className="hidden text-sm text-muted lg:inline">{user.name}</span>
               <Link
                 href={home}
-                className="rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white transition hover:bg-ink-900"
+                className="rounded-full bg-[#17181c] px-5 py-[11px] text-[15px] font-semibold leading-none text-white transition hover:opacity-90"
               >
                 {homeLabel}
               </Link>
@@ -84,13 +84,13 @@ export async function Nav() {
             <>
               <Link
                 href="/login"
-                className="hidden rounded-full border border-line bg-white px-4 py-2 text-sm font-semibold text-ink shadow-sm transition hover:border-grey sm:block"
+                className="hidden rounded-full border border-[#e8e6e2] bg-white px-[18px] py-[10px] text-[15px] font-semibold leading-none text-[#17181c] transition hover:border-grey sm:block"
               >
                 Sign in
               </Link>
               <Link
                 href="/register"
-                className="hidden rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white transition hover:bg-ink-900 sm:block"
+                className="hidden rounded-full bg-[#17181c] px-5 py-[11px] text-[15px] font-semibold leading-none text-white transition hover:opacity-90 sm:block"
               >
                 Sign up
               </Link>
