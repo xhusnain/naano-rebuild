@@ -5,6 +5,7 @@ import { CREATORS } from "@/lib/creators";
 import { ScaleFrame } from "@/components/site/ScaleFrame";
 import { Testimonial } from "@/components/site/Testimonial";
 import { MarketplaceShowcase } from "@/components/site/MarketplaceShowcase";
+import { CampaignJourney } from "@/components/site/CampaignJourney";
 import { getCurrentUser } from "@/lib/session";
 
 const FAQS = [
@@ -157,6 +158,8 @@ export default async function Home() {
       <Testimonial />
 
       <MarketplaceShowcase />
+
+      <CampaignJourney />
 
       {/* ----------------------------------------------------------------- proof */}
       <section className="mx-auto max-w-6xl px-5 py-24">
