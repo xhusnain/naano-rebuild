@@ -51,7 +51,14 @@ export function MarketplaceShowcase() {
   const featured = CREATORS.slice(0, 6);
 
   return (
-    <section className="relative overflow-hidden bg-[#fcfcfb] pb-[120px] pt-[132px]">
+    <section
+      className="relative overflow-hidden pb-[120px] pt-[132px]"
+      style={{
+        // verbatim from naano's computed styles
+        backgroundImage:
+          "radial-gradient(circle at 50% 60%, rgba(208, 237, 251, 0.35), rgba(0, 0, 0, 0) 44%), linear-gradient(rgb(252, 252, 251) 0%, rgb(248, 252, 254) 62%, rgb(242, 250, 255) 100%)",
+      }}
+    >
       <div className="relative z-10 px-[56px] text-center">
         <span className="inline-flex items-center gap-2 rounded-full bg-white/[0.68] px-[14px] py-[7px] text-[13px] font-[650] leading-none text-[#555b63]">
           <span className="size-[7px] rounded-full bg-[#93c5fd]" />
@@ -141,16 +148,29 @@ export function MarketplaceShowcase() {
         {CLAIMS.map((claim, i) => (
           <div
             key={claim.title}
-            /* naano: 413x276, radius 26, padding 26/28/28, white at 82% over a
-               cloud wash that rises from the card's base */
-            className="flex h-[276px] flex-col justify-between overflow-hidden rounded-[26px] bg-white/[0.82] px-7 pb-7 pt-[26px] shadow-[0_1px_2px_rgba(15,23,42,0.04)] [background-image:radial-gradient(120%_60%_at_50%_128%,rgba(214,236,252,0.9)_0%,rgba(255,255,255,0)_62%)]"
+            /* naano: 401x268, radius 26, padding 26/28/28, white at 82%.
+               The cloud is not a gradient — it is .lp-marketplace__signal-cloud,
+               a child painting cloud-layer-bottom-v1.png at 145% size, pulled
+               28px left and 42px below the card so it bleeds and gets clipped. */
+            className="relative flex h-[268px] flex-col justify-between overflow-hidden rounded-[26px] bg-white/[0.82] px-7 pb-7 pt-[26px] shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
           >
-            <div className="flex flex-1 items-center">
+            <span
+              aria-hidden
+              className="pointer-events-none absolute bottom-[-42px] left-[-28px] h-[142px] w-[469px] max-w-none"
+              style={{
+                backgroundImage: "url('/lp/cloud-layer-bottom.png')",
+                backgroundSize: "145%",
+                backgroundPosition: "50% 100%",
+                backgroundRepeat: "no-repeat",
+                opacity: 0.82,
+              }}
+            />
+            <div className="relative z-10 flex flex-1 items-center">
               {i === 0 && <AvatarCluster />}
               {i === 1 && <FlagGrid />}
               {i === 2 && <MatchDiagram />}
             </div>
-            <div>
+            <div className="relative z-10">
               <div className="text-[19px] font-bold tracking-[-0.01em] text-[#111318]">
                 {claim.title}
               </div>
@@ -177,11 +197,11 @@ export function MarketplaceShowcase() {
  * and the README says so.
  */
 const CLUSTER = [
-  { file: "a", size: 64, dy: 11 },
-  { file: "d", size: 63, dy: 4 },
-  { file: "g", size: 62, dy: 0 },
-  { file: "b", size: 64, dy: 7 },
-  { file: "e", size: 65, dy: 15 },
+  { file: "a", ring: 62, photo: 54, dy: 11 },
+  { file: "d", ring: 61, photo: 53, dy: 4 },
+  { file: "g", ring: 60, photo: 52, dy: 0 },
+  { file: "b", ring: 62, photo: 54, dy: 7 },
+  { file: "e", ring: 63, photo: 55, dy: 15 },
 ];
 
 function AvatarCluster() {
@@ -192,8 +212,8 @@ function AvatarCluster() {
           key={a.file}
           className="grid shrink-0 place-items-center rounded-full bg-white/[0.94] shadow-[0_6px_16px_-6px_rgba(15,23,42,0.35)]"
           style={{
-            width: a.size,
-            height: a.size,
+            width: a.ring,
+            height: a.ring,
             marginLeft: i === 0 ? 0 : -2,
             marginTop: a.dy,
             zIndex: CLUSTER.length - i,
@@ -204,7 +224,7 @@ function AvatarCluster() {
             src={`/lp/avatar-${a.file}.png`}
             alt=""
             className="rounded-full object-cover"
-            style={{ width: a.size - 8, height: a.size - 8 }}
+            style={{ width: a.photo, height: a.photo }}
           />
         </span>
       ))}
