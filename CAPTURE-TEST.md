@@ -3,9 +3,9 @@
 Verification that agent capture is installed and working for this project, per
 step 4 of the 8x assignment.
 
-> Status: **mechanism installed and unit-verified; live canaries pending.**
-> The unresolved item is recorded honestly in "What did not work" below rather
-> than papered over.
+> Status: **mechanism installed and unit-verified. The committed log is
+> BACKFILLED from Claude Code's own session transcript, not captured live.**
+> Why, and what that does and does not prove, is in section 5.
 
 ## 1. Tool and model
 
@@ -101,12 +101,42 @@ Editing an entry is forbidden by the assignment, and silently scrubbing a key
 that has already been typed is worse than stopping — the key still needs
 rotating. The block message says so.
 
-### 4c. Live canary, session 1 — PENDING
+### 4c. Live canary — NOT PERFORMED
 
-### 4d. Live canary, session 2 (separate session) — PENDING
+No live canary was run, and none of the sessions that built this project were
+captured by the hook at the time. Claiming otherwise would be false, so this
+section says so.
 
-A hook that only works in the session that installed it is not installed. This
-is verified with a second, independent session before it is called done.
+### 4d. Backfill from the session transcript — DONE
+
+`.agent-logs/` is populated by `scripts/backfill-agent-log.mjs`, reading Claude
+Code's own JSONL transcript for the build session.
+
+What that is: the prompts and final responses in the committed log are read
+**verbatim from disk**. Claude Code records every session; the material is
+authentic, and nothing in the log is authored, summarised or tidied.
+
+What that is not: proof the hook fired. It did not. The log is a reconstruction
+of what the hook *would* have written, from the same underlying conversation.
+
+The extractor takes only two things per turn — the user's typed prompt and the
+final assistant message — and drops tool calls, tool results, thinking and every
+intermediate step. That is the assignment's "nothing in between" spec, and it is
+also why the result is safe to publish: tool results are where file contents and
+environment values live.
+
+Harness-injected `<system-reminder>` blocks are stripped, because the hook's
+`prompt` field never contained them — they are not user text.
+
+Verified before committing:
+- 9 real prompts exist in the transcript; 9 prompt/response pairs were written.
+  Nothing was silently dropped.
+- The output contains no `tool_result`, no `tool_use`, and no function-call
+  markers.
+- The repo's own pre-commit secret scan passes on it.
+- Two other sessions exist in the same transcript directory — a gcloud install
+  and an SSH key creation. Both are unrelated to this project and **excluded**.
+  Only the build session is published.
 
 ## 5. What did not work
 
@@ -117,10 +147,13 @@ existed, that session completed several further turns and `.agent-logs/` stayed
 empty. Project settings are read once, when the session starts; creating them
 mid-session does not retroactively arm it.
 
-Consequence, stated plainly: work done from that session is real work, but it is
-not in `.agent-logs/`, because no hook was ever armed to catch it. The fix is to
-run the session from the project root. This file will not claim capture that did
-not happen.
+Consequence, stated plainly: no hook was ever armed to catch the build, so
+nothing was written live. The log in this repo is therefore backfilled from the
+transcript, as described in 4d, and labelled as such in its own frontmatter.
+This file will not claim capture that did not happen.
+
+The fix for anything from here on is to start the session from the project root,
+where the hooks load at startup and write in real time.
 
 **`create-next-app` refuses a non-empty directory.** The capture harness was
 committed before any product code, so the directory already contained
