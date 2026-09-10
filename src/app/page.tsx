@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
-import { CreatorCard } from "@/components/CreatorCard";
 import { CREATORS } from "@/lib/creators";
 import { ScaleFrame } from "@/components/site/ScaleFrame";
 import { Testimonial } from "@/components/site/Testimonial";
+import { MarketplaceShowcase } from "@/components/site/MarketplaceShowcase";
 import { getCurrentUser } from "@/lib/session";
 
 const FAQS = [
@@ -156,35 +156,7 @@ export default async function Home() {
 
       <Testimonial />
 
-      {/* ------------------------------------------------------------ marketplace */}
-      <section className="nn-sky border-y border-line">
-        <div className="mx-auto max-w-6xl px-5 py-24">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <div className="nn-eyebrow">The marketplace</div>
-              <h2 className="mt-3 font-sans text-4xl font-semibold tracking-[-0.03em] text-ink">
-                Fit first, followers second
-              </h2>
-              <p className="mt-4 max-w-lg text-muted">
-                Every creator is scored against your ICP before you ever see a
-                follower count. Filter by vertical, audience size, price and country.
-              </p>
-            </div>
-            <Link
-              href="/marketplace"
-              className="rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-strong"
-            >
-              Browse all creators
-            </Link>
-          </div>
-
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {featured.map((c, i) => (
-              <CreatorCard key={c.id} creator={c} rank={i + 1} />
-            ))}
-          </div>
-        </div>
-      </section>
+      <MarketplaceShowcase />
 
       {/* ----------------------------------------------------------------- proof */}
       <section className="mx-auto max-w-6xl px-5 py-24">
