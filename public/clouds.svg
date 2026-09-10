@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 460" preserveAspectRatio="none">
+  <!-- Cloud band for the hero. Drawn, not photographed, so none of naano's
+       stock imagery ships in this public repo. -->
+  <defs>
+    <filter id="soft" x="-25%" y="-60%" width="150%" height="240%">
+      <feGaussianBlur stdDeviation="9" />
+    </filter>
+  </defs>
+
+  <!-- lower, denser bank -->
+  <g filter="url(#soft)" fill="#ffffff">
+    <ellipse cx="90"   cy="360" rx="230" ry="96"/>
+    <ellipse cx="300"  cy="330" rx="150" ry="78"/>
+    <ellipse cx="470"  cy="368" rx="200" ry="88"/>
+    <ellipse cx="700"  cy="336" rx="165" ry="76"/>
+    <ellipse cx="900"  cy="372" rx="225" ry="94"/>
+    <ellipse cx="1130" cy="338" rx="155" ry="74"/>
+    <ellipse cx="1330" cy="364" rx="215" ry="90"/>
+    <rect x="0" y="380" width="1440" height="80" />
+  </g>
+
+  <!-- upper puffs, softer -->
+  <g filter="url(#soft)" fill="#ffffff" opacity=".85">
+    <ellipse cx="200"  cy="250" rx="120" ry="48"/>
+    <ellipse cx="330"  cy="228" rx="78"  ry="34"/>
+    <ellipse cx="640"  cy="238" rx="132" ry="50"/>
+    <ellipse cx="780"  cy="220" rx="80"  ry="32"/>
+    <ellipse cx="1080" cy="246" rx="118" ry="46"/>
+    <ellipse cx="1230" cy="226" rx="76"  ry="30"/>
+  </g>
+</svg>
