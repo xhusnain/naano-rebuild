@@ -12,9 +12,30 @@
  */
 import { readFileSync, writeFileSync } from "node:fs";
 
-const target = process.argv[2];
+let target = process.argv[2];
+
+// `auto` derives the provider from DATABASE_URL. The build runs this, so a
+// deployment with a Postgres URL cannot ship a schema still saying sqlite —
+// which is a confusing failure that happens at connect time, not build time.
+if (target === "auto") {
+  // Must match src/lib/database-url.ts. Vercel Postgres sets POSTGRES_* rather
+  // than DATABASE_URL, and reading only the latter would build a sqlite schema
+  // against a Postgres database.
+  const pg = /^postgres(ql)?:\/\//i;
+  const explicit = (process.env.DATABASE_URL ?? "").trim();
+  const vercel =
+    (process.env.POSTGRES_PRISMA_URL ?? "").trim() ||
+    (process.env.POSTGRES_URL ?? "").trim() ||
+    (process.env.POSTGRES_URL_NON_POOLING ?? "").trim();
+
+  // Same precedence as src/lib/database-url.ts: a managed Postgres URL beats a
+  // local SQLite DATABASE_URL loaded from .env.
+  const url = explicit && pg.test(explicit) ? explicit : vercel || explicit;
+  target = /^postgres(ql)?:\/\//i.test(url) ? "postgresql" : "sqlite";
+}
+
 if (target !== "sqlite" && target !== "postgresql") {
-  console.error("usage: node scripts/switch-datasource.mjs <sqlite|postgresql>");
+  console.error("usage: node scripts/switch-datasource.mjs <sqlite|postgresql|auto>");
   process.exit(1);
 }
 

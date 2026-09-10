@@ -4,17 +4,18 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/switch-datasource.mjs auto && prisma generate && next build",
     "start": "next start",
     "lint": "eslint",
-    "db:push": "prisma db push",
+    "db:push": "node scripts/switch-datasource.mjs auto && prisma db push",
     "db:seed": "tsx prisma/seed.ts",
     "db:studio": "prisma studio",
     "db:reset": "prisma db push --force-reset && tsx prisma/seed.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "use:postgres": "node scripts/switch-datasource.mjs postgresql",
-    "use:sqlite": "node scripts/switch-datasource.mjs sqlite"
+    "use:sqlite": "node scripts/switch-datasource.mjs sqlite",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/adapter-better-sqlite3": "^7.10.0",
