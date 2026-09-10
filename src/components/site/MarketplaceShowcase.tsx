@@ -33,7 +33,8 @@ const RAIL_PATHS: Record<string, string> = {
  * real card component rather than going stale as an image.
  */
 export function MarketplaceShowcase() {
-  const featured = CREATORS.slice(0, 3);
+  // naano shows two rows of three inside the window
+  const featured = CREATORS.slice(0, 6);
 
   return (
     <section className="relative overflow-hidden bg-[#fcfcfb] pb-[120px] pt-[132px]">
@@ -96,13 +97,38 @@ export function MarketplaceShowcase() {
                     </svg>
                   </span>
                 ))}
+                <span className="mt-auto size-8 rounded-full bg-[#17181c]" />
               </div>
 
-              <div className="grid flex-1 grid-cols-3 gap-5 bg-[#fbfcff] p-6">
-                {featured.map((c, i) => (
-                  <CreatorCard key={c.id} creator={c} rank={i + 1} />
-                ))}
+              <div className="relative flex-1 bg-[#fbfcff]">
+                <div className="grid grid-cols-3 gap-5 p-6">
+                  {featured.map((c, i) => (
+                    <CreatorCard key={c.id} creator={c} rank={i + 1} preview />
+                  ))}
+                </div>
+
+                {/* the small chevron naano floats between the rows */}
+                <span className="pointer-events-none absolute bottom-[86px] left-1/2 grid size-8 -translate-x-1/2 place-items-center rounded-full border border-line bg-white text-[#9b9da3] shadow-sm">
+                  <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                    <path d="M6 9l6 6 6-6" />
+                  </svg>
+                </span>
               </div>
+            </div>
+          </div>
+
+          {/* naano floats an assistant prompt over the bottom of the window */}
+          <div className="pointer-events-none relative z-10 -mt-[26px] flex justify-center">
+            <div className="flex h-[52px] w-[700px] max-w-[70%] items-center gap-3 rounded-full border border-line/70 bg-white px-6 shadow-[0_10px_30px_-12px_rgba(15,23,42,0.28)]">
+              <svg viewBox="0 0 24 24" className="size-[18px] text-[#9b9da3]" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+                <circle cx="12" cy="12" r="9" strokeDasharray="4 3" />
+              </svg>
+              <span className="flex-1 text-left text-[15px] text-[#9b9da3]">
+                What can I help you find?
+              </span>
+              <svg viewBox="0 0 24 24" className="size-[18px] text-[#9b9da3]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden>
+                <path d="M8 10v4M12 7v10M16 10v4M4 11v2M20 11v2" />
+              </svg>
             </div>
           </div>
         </div>
