@@ -131,42 +131,30 @@ export function MarketplaceShowcase() {
             </div>
           </div>
 
-          {/* naano floats an assistant prompt over the bottom of the window */}
-          <div className="pointer-events-none relative z-10 -mt-[26px] flex justify-center">
-            <div className="flex h-[52px] w-[700px] max-w-[70%] items-center gap-3 rounded-full border border-line/70 bg-white px-6 shadow-[0_10px_30px_-12px_rgba(15,23,42,0.28)]">
-              <svg viewBox="0 0 24 24" className="size-[18px] text-[#9b9da3]" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
-                <circle cx="12" cy="12" r="9" strokeDasharray="4 3" />
-              </svg>
-              <span className="flex-1 text-left text-[15px] text-[#9b9da3]">
-                What can I help you find?
-              </span>
-              <svg viewBox="0 0 24 24" className="size-[18px] text-[#9b9da3]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden>
-                <path d="M8 10v4M12 7v10M16 10v4M4 11v2M20 11v2" />
-              </svg>
-            </div>
-          </div>
         </div>
       </div>
 
       {/* Three claims under the preview. naano illustrates each one; mine were
           text-only boxes. The avatars are this project's generated ones, not
           the photographs of real creators theirs uses. */}
-      <div className="relative z-10 mx-auto mt-[64px] grid w-[1430px] max-w-[calc(100%-112px)] grid-cols-1 gap-6 md:grid-cols-3">
+      <div className="relative z-10 mx-auto mt-[64px] grid w-[1280px] max-w-[calc(100%-112px)] grid-cols-1 gap-5 md:grid-cols-3">
         {CLAIMS.map((claim, i) => (
           <div
             key={claim.title}
-            className="flex min-h-[300px] flex-col overflow-hidden rounded-[24px] border border-line/60 bg-[linear-gradient(180deg,#ffffff_0%,#fbfcfe_58%,#eef6fd_100%)]"
+            /* naano: 413x276, radius 26, padding 26/28/28, white at 82% over a
+               cloud wash that rises from the card's base */
+            className="flex h-[276px] flex-col justify-between overflow-hidden rounded-[26px] bg-white/[0.82] px-7 pb-7 pt-[26px] shadow-[0_1px_2px_rgba(15,23,42,0.04)] [background-image:radial-gradient(120%_60%_at_50%_128%,rgba(214,236,252,0.9)_0%,rgba(255,255,255,0)_62%)]"
           >
-            <div className="flex flex-1 items-center justify-center px-8 pt-10">
+            <div className="flex flex-1 items-center">
               {i === 0 && <AvatarCluster />}
               {i === 1 && <FlagGrid />}
               {i === 2 && <MatchDiagram />}
             </div>
-            <div className="px-8 pb-8 pt-6">
-              <div className="text-[21px] font-bold tracking-[-0.01em] text-[#17181c]">
+            <div>
+              <div className="text-[19px] font-bold tracking-[-0.01em] text-[#111318]">
                 {claim.title}
               </div>
-              <div className="mt-2 text-[16px] leading-relaxed text-[#55575e]">
+              <div className="mt-1.5 text-[13.5px] leading-relaxed text-[#69717a]">
                 {claim.body}
               </div>
             </div>
@@ -177,27 +165,46 @@ export function MarketplaceShowcase() {
   );
 }
 
-/** Five overlapping creator avatars with tinted rings. */
+/**
+ * Five creator avatars in a shallow arc.
+ *
+ * Measured from naano: rings ~62-65px sitting ~61px apart, so they nearly touch
+ * rather than stack, each nudged a few pixels up or down to trace an arc, with
+ * slight size variation. Ring is white at 94%.
+ *
+ * The photographs are naano's own avatar files, used here because the brief is
+ * to reproduce their page exactly. They are Naano's assets, not this project's,
+ * and the README says so.
+ */
+const CLUSTER = [
+  { file: "a", size: 64, dy: 11 },
+  { file: "d", size: 63, dy: 4 },
+  { file: "g", size: 62, dy: 0 },
+  { file: "b", size: 64, dy: 7 },
+  { file: "e", size: 65, dy: 15 },
+];
+
 function AvatarCluster() {
-  const faces = CREATORS.slice(6, 11);
-  const rings = ["#c4b5fd", "#93c5fd", "#a5b4fc", "#7dd3fc", "#f0abfc"];
   return (
-    <div className="flex items-center">
-      {faces.map((c, i) => (
+    <div className="flex w-full items-start justify-center pt-2">
+      {CLUSTER.map((a, i) => (
         <span
-          key={c.id}
-          className="grid size-[62px] shrink-0 place-items-center rounded-full shadow-[0_4px_14px_-4px_rgba(15,23,42,0.28)]"
+          key={a.file}
+          className="grid shrink-0 place-items-center rounded-full bg-white/[0.94] shadow-[0_6px_16px_-6px_rgba(15,23,42,0.35)]"
           style={{
-            background: rings[i],
-            marginLeft: i === 0 ? 0 : -14,
-            zIndex: faces.length - i,
+            width: a.size,
+            height: a.size,
+            marginLeft: i === 0 ? 0 : -2,
+            marginTop: a.dy,
+            zIndex: CLUSTER.length - i,
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={c.avatar}
+            src={`/lp/avatar-${a.file}.png`}
             alt=""
-            className="size-[54px] rounded-full border-2 border-white bg-white object-cover"
+            className="rounded-full object-cover"
+            style={{ width: a.size - 8, height: a.size - 8 }}
           />
         </span>
       ))}
@@ -208,22 +215,22 @@ function AvatarCluster() {
 /** Seven flags as raised chips, four over three. */
 function FlagGrid() {
   return (
-    <div className="flex flex-col items-center gap-3">
-      <div className="flex gap-3">
+    <div className="flex w-full flex-col items-center gap-3.5 pt-1">
+      <div className="flex gap-4">
         {FLAGS.slice(0, 4).map((f) => (
           <span
             key={f}
-            className="grid h-[34px] w-[46px] place-items-center rounded-[9px] bg-white text-[20px] leading-none shadow-[0_3px_10px_-3px_rgba(15,23,42,0.3)]"
+            className="grid h-[38px] w-[50px] place-items-center rounded-[10px] bg-white text-[23px] leading-none shadow-[0_4px_12px_-4px_rgba(15,23,42,0.32)]"
           >
             {f}
           </span>
         ))}
       </div>
-      <div className="flex gap-3">
+      <div className="flex gap-4">
         {FLAGS.slice(4).map((f) => (
           <span
             key={f}
-            className="grid h-[34px] w-[46px] place-items-center rounded-[9px] bg-white text-[20px] leading-none shadow-[0_3px_10px_-3px_rgba(15,23,42,0.3)]"
+            className="grid h-[38px] w-[50px] place-items-center rounded-[10px] bg-white text-[23px] leading-none shadow-[0_4px_12px_-4px_rgba(15,23,42,0.32)]"
           >
             {f}
           </span>
@@ -235,17 +242,14 @@ function FlagGrid() {
 
 /** A creator, a fit score, and the buyer segments it maps to. */
 function MatchDiagram() {
-  const c = CREATORS[2];
   return (
-    <div className="flex w-full items-center justify-center gap-3">
+    <div className="flex w-full items-center justify-center gap-2.5">
       <div className="flex flex-col items-center">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={c.avatar}
-          alt=""
-          className="size-[54px] rounded-full border-2 border-white bg-white object-cover shadow-[0_4px_14px_-4px_rgba(15,23,42,0.28)]"
-        />
-        <span className="mt-2 whitespace-nowrap text-[11px] font-medium text-[#55575e]">
+        <span className="grid size-[58px] place-items-center rounded-full bg-white shadow-[0_6px_16px_-6px_rgba(15,23,42,0.35)]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/lp/avatar-f.png" alt="" className="size-[52px] rounded-full object-cover" />
+        </span>
+        <span className="mt-2 whitespace-nowrap text-[11.5px] font-medium text-[#55575e]">
           AI &amp; SaaS creator
         </span>
       </div>
