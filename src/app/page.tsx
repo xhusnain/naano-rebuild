@@ -6,6 +6,7 @@ import { ScaleFrame } from "@/components/site/ScaleFrame";
 import { Testimonial } from "@/components/site/Testimonial";
 import { MarketplaceShowcase } from "@/components/site/MarketplaceShowcase";
 import { CampaignJourney } from "@/components/site/CampaignJourney";
+import { ProofSection } from "@/components/site/ProofSection";
 import { getCurrentUser } from "@/lib/session";
 
 const FAQS = [
@@ -161,71 +162,7 @@ export default async function Home() {
 
       <CampaignJourney />
 
-      {/* ----------------------------------------------------------------- proof */}
-      <section className="mx-auto max-w-6xl px-5 py-24">
-        <div className="text-center">
-          <div className="nn-eyebrow">Q1 2026, first-party data</div>
-          <h2 className="mt-3 font-sans text-4xl font-semibold tracking-[-0.03em] text-ink">
-            Cheaper leads, by a distance
-          </h2>
-        </div>
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {[
-            ["€18", "average cost per lead", "vs €55–90 on LinkedIn Ads"],
-            ["12%", "click-through rate", "vs a 0.8% platform benchmark"],
-            ["312", "campaigns run", "across eight B2B verticals"],
-          ].map(([v, l, s]) => (
-            <div key={l} className="nn-card p-8">
-              <div className="font-display text-5xl font-extrabold text-brand">{v}</div>
-              <div className="mt-3 font-display font-bold text-ink">{l}</div>
-              <div className="mt-1 text-sm text-muted">{s}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------------ case study */}
-      <section className="mx-auto max-w-6xl px-5 pb-24">
-        <div className="nn-card overflow-hidden">
-          <div className="grid md:grid-cols-2">
-            <div className="p-10">
-              <div className="nn-eyebrow">Case study</div>
-              <h3 className="mt-3 font-sans text-3xl font-semibold tracking-[-0.03em] text-ink">
-                BlogSEO
-              </h3>
-              <p className="mt-4 leading-relaxed text-muted">
-                Nine creators activated across SEO, content and growth. Every post
-                carried its own tracked link, so each trial could be attributed to the
-                creator who drove it.
-              </p>
-              <blockquote className="mt-8 border-l-2 border-brand pl-5">
-                <p className="text-sm italic leading-relaxed text-ink">
-                  “We manage €10M+ of influence budget every year. For B2B, Naano
-                  simply makes our life easier.”
-                </p>
-                <footer className="mt-3 text-xs font-semibold text-muted">
-                  David Zmirov · CEO, Zmirov Communication
-                </footer>
-              </blockquote>
-            </div>
-            <div className="grid grid-cols-1 gap-px bg-line sm:grid-cols-3 md:grid-cols-1">
-              {[
-                ["9", "creators activated"],
-                ["2,940", "qualified clicks"],
-                ["512", "trials started"],
-              ].map(([v, l]) => (
-                <div
-                  key={l}
-                  className="flex flex-col justify-center bg-[#f7faff] px-10 py-8"
-                >
-                  <div className="font-display text-4xl font-extrabold text-brand">{v}</div>
-                  <div className="mt-1 text-sm font-medium text-muted">{l}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <ProofSection />
 
       {/* --------------------------------------------------------------- pricing */}
       <section id="pricing" className="nn-sky scroll-mt-20 border-y border-line">
