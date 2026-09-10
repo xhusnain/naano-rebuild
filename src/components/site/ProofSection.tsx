@@ -39,10 +39,13 @@ export function ProofSection() {
           See how B2B teams turn creator trust into attributable demand with Naano.
         </p>
 
-        <div className="mt-12 rounded-[28px] border border-line/50 p-6">
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,470px)_minmax(0,1fr)]">
+        {/* Their frame carries no background, border or radius — just padding.
+            The two cards overlap by ~35px, left over right, which is why their
+            right card has 68px of left padding to clear it. */}
+        <div className="mx-auto mt-12 w-full max-w-[1260px] px-[26px] pb-[68px] pt-[34px]">
+          <div className="flex flex-col items-start lg:flex-row">
             {/* -------------------------------------------------- testimonial */}
-            <div className="rounded-[22px] border border-line/60 bg-white p-6">
+            <div className="relative z-10 w-full shrink-0 rounded-[28px] border border-line/60 bg-white p-[30px] lg:w-[514px]">
               <div className="text-[12px] font-bold uppercase tracking-[2.64px] text-[#9b9da3]">
                 Video testimonial
               </div>
@@ -91,7 +94,7 @@ export function ProofSection() {
             </div>
 
             {/* --------------------------------------------------- case study */}
-            <div className="rounded-[22px] border border-line/60 bg-white p-8">
+            <div className="w-full rounded-[28px] border border-line/60 bg-white pb-9 pl-[68px] pr-10 pt-9 max-lg:mt-6 max-lg:pl-8 lg:-ml-[35px] lg:w-[720px]">
               <div className="flex items-start justify-between gap-6">
                 <div className="text-[12px] font-bold uppercase tracking-[2.64px] text-[#9b9da3]">
                   Case study
