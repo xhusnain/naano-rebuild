@@ -3,6 +3,7 @@ import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { CreatorCard } from "@/components/CreatorCard";
 import { CREATORS } from "@/lib/creators";
+import { getCurrentUser } from "@/lib/session";
 
 const STEPS = [
   {
@@ -60,8 +61,9 @@ const FAQS = [
   ],
 ];
 
-export default function Home() {
+export default async function Home() {
   const featured = CREATORS.slice(0, 3);
+  const user = await getCurrentUser();
 
   return (
     <>
@@ -383,10 +385,10 @@ export default function Home() {
               Find creators
             </Link>
             <Link
-              href="/login"
+              href={user ? (user.role === "creator" ? "/studio" : "/app") : "/login"}
               className="rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
             >
-              Sign in to a demo account
+              {user ? "Go to your dashboard" : "Sign in to a demo account"}
             </Link>
           </div>
         </div>
