@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { CreatorCard } from "@/components/CreatorCard";
 import { CREATORS, VERTICALS, TIERS, COUNTRIES, followerTier } from "@/lib/creators";
 import { euro, cx } from "@/lib/format";
@@ -9,17 +10,47 @@ import { euro, cx } from "@/lib/format";
 type Sort = "match" | "price-asc" | "price-desc" | "reach";
 
 export function MarketplaceClient() {
-  const [q, setQ] = useState("");
-  const [verticals, setVerticals] = useState<string[]>([]);
-  const [tiers, setTiers] = useState<string[]>([]);
-  const [country, setCountry] = useState("");
-  const [maxPrice, setMaxPrice] = useState(1500);
-  const [sort, setSort] = useState<Sort>("match");
+  const router = useRouter();
+  const params = useSearchParams();
+
+  // Filters live in the URL so a filtered view can be shared, bookmarked and
+  // walked back through with the browser's own back button.
+  const [q, setQ] = useState(() => params.get("q") ?? "");
+  const [verticals, setVerticals] = useState<string[]>(
+    () => params.get("v")?.split(",").filter(Boolean) ?? []
+  );
+  const [tiers, setTiers] = useState<string[]>(
+    () => params.get("t")?.split(",").filter(Boolean) ?? []
+  );
+  const [country, setCountry] = useState(() => params.get("c") ?? "");
+  const [maxPrice, setMaxPrice] = useState(() => Number(params.get("max") ?? 1500));
+  const [sort, setSort] = useState<Sort>(() => (params.get("s") as Sort) ?? "match");
   const [selected, setSelected] = useState<string[]>([]);
   const [favourites, setFavourites] = useState<string[]>([]);
 
   const toggle = (list: string[], set: (v: string[]) => void, v: string) =>
     set(list.includes(v) ? list.filter((x) => x !== v) : [...list, v]);
+
+  // Debounced, because the search box and the price slider both fire per
+  // keystroke / per drag and each push would otherwise become a history entry.
+  useEffect(() => {
+    const id = setTimeout(() => {
+      const next = new URLSearchParams();
+      if (q.trim()) next.set("q", q.trim());
+      if (verticals.length) next.set("v", verticals.join(","));
+      if (tiers.length) next.set("t", tiers.join(","));
+      if (country) next.set("c", country);
+      if (maxPrice < 1500) next.set("max", String(maxPrice));
+      if (sort !== "match") next.set("s", sort);
+
+      const qs = next.toString();
+      const url = qs ? `/marketplace?${qs}` : "/marketplace";
+      if (url !== window.location.pathname + window.location.search) {
+        router.replace(url, { scroll: false });
+      }
+    }, 250);
+    return () => clearTimeout(id);
+  }, [q, verticals, tiers, country, maxPrice, sort, router]);
 
   const results = useMemo(() => {
     const needle = q.trim().toLowerCase();

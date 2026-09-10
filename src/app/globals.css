@@ -29,6 +29,26 @@
   html {
     -webkit-font-smoothing: antialiased;
   }
+
+  /* Keyboard users need to see where they are. :focus-visible keeps the ring
+     off mouse clicks, so this costs nothing visually for pointer users. */
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* The live counter pulses and spinners spin. Respect the OS setting. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
   body {
     background: #ffffff;
     color: var(--color-ink);

@@ -5,6 +5,7 @@ import { getCreator } from "@/lib/creators";
 import { euro, compact } from "@/lib/format";
 import { STAGE_LABEL } from "@/lib/lifecycle";
 import { StatusPill } from "@/components/app/StatusPill";
+import { SubmitButton } from "@/components/app/SubmitButton";
 import { acceptOffer, declineOffer, markPublished } from "./actions";
 
 export const dynamic = "force-dynamic";
@@ -82,14 +83,14 @@ export default async function StudioPage() {
 
                 <div className="mt-5 flex gap-2">
                   <form action={acceptOffer.bind(null, d.id)}>
-                    <button className="rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-strong">
+                    <SubmitButton pendingLabel="Accepting…" className="px-5 py-2.5 text-sm">
                       Accept {euro(d.price)}
-                    </button>
+                    </SubmitButton>
                   </form>
                   <form action={declineOffer.bind(null, d.id)}>
-                    <button className="rounded-full border border-line px-5 py-2.5 text-sm font-semibold text-muted transition hover:border-red-300 hover:text-red-600">
+                    <SubmitButton variant="danger" pendingLabel="Declining…" className="px-5 py-2.5 text-sm">
                       Decline
-                    </button>
+                    </SubmitButton>
                   </form>
                 </div>
               </div>
@@ -136,9 +137,9 @@ export default async function StudioPage() {
                           placeholder="Paste your post URL"
                           className="w-44 rounded-lg border border-line px-3 py-2 text-xs outline-none focus:border-brand"
                         />
-                        <button className="rounded-full bg-brand px-4 py-2 text-xs font-semibold text-white transition hover:bg-brand-strong">
+                        <SubmitButton pendingLabel="Publishing…">
                           Mark published
-                        </button>
+                        </SubmitButton>
                       </form>
                     )}
                     {d.status === "live" && (

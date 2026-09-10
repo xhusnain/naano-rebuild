@@ -6,6 +6,7 @@ import { STAGES, STAGE_LABEL, NEXT_ACTION, isTerminal } from "@/lib/lifecycle";
 import { StatusPill } from "@/components/app/StatusPill";
 import { DealPipeline } from "@/components/app/DealPipeline";
 import { CopyLink } from "@/components/app/CopyLink";
+import { SubmitButton } from "@/components/app/SubmitButton";
 import { advanceDeal, declineDeal, reopenDeal } from "./actions";
 
 export const dynamic = "force-dynamic";
@@ -122,32 +123,23 @@ export default async function DealsPage({
                   <div className="flex gap-2">
                     {!isTerminal(d.status) && (
                       <form action={advanceDeal.bind(null, d.id)}>
-                        <button
-                          type="submit"
-                          className="rounded-full bg-brand px-4 py-2 text-xs font-semibold text-white transition hover:bg-brand-strong"
-                        >
+                        <SubmitButton pendingLabel="Updating…">
                           {NEXT_ACTION[d.status] ?? "Advance"}
-                        </button>
+                        </SubmitButton>
                       </form>
                     )}
                     {d.status === "invited" && (
                       <form action={declineDeal.bind(null, d.id)}>
-                        <button
-                          type="submit"
-                          className="rounded-full border border-line px-4 py-2 text-xs font-semibold text-muted transition hover:border-red-300 hover:text-red-600"
-                        >
+                        <SubmitButton variant="danger" pendingLabel="Declining…">
                           Decline
-                        </button>
+                        </SubmitButton>
                       </form>
                     )}
                     {d.status === "declined" && (
                       <form action={reopenDeal.bind(null, d.id)}>
-                        <button
-                          type="submit"
-                          className="rounded-full border border-line px-4 py-2 text-xs font-semibold text-muted transition hover:border-brand hover:text-brand"
-                        >
+                        <SubmitButton variant="ghost" pendingLabel="Re-inviting…">
                           Re-invite
-                        </button>
+                        </SubmitButton>
                       </form>
                     )}
                   </div>

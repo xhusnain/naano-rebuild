@@ -6,6 +6,7 @@ import { euro, compact } from "@/lib/format";
 import { StatusPill } from "@/components/app/StatusPill";
 import { advanceDeal } from "@/app/app/deals/actions";
 import { CopyLink } from "@/components/app/CopyLink";
+import { SubmitButton } from "@/components/app/SubmitButton";
 import { LiveStatsProvider, LiveCount, LiveSum, LivePulse } from "@/components/app/LiveStats";
 
 export const dynamic = "force-dynamic";
@@ -110,12 +111,9 @@ export default async function CampaignDetail({
 
                 {d.status !== "paid" && d.status !== "declined" && (
                   <form action={advanceDeal.bind(null, d.id)}>
-                    <button
-                      type="submit"
-                      className="rounded-full border border-line bg-white px-4 py-2 text-xs font-semibold text-ink transition hover:border-brand hover:text-brand"
-                    >
+                    <SubmitButton variant="ghost" pendingLabel="Updating…">
                       Advance →
-                    </button>
+                    </SubmitButton>
                   </form>
                 )}
               </div>
