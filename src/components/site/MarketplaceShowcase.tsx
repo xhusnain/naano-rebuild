@@ -197,11 +197,11 @@ export function MarketplaceShowcase() {
  * and the README says so.
  */
 const CLUSTER = [
-  { file: "a", ring: 62, photo: 54, dy: 11 },
-  { file: "d", ring: 61, photo: 53, dy: 4 },
-  { file: "g", ring: 60, photo: 52, dy: 0 },
-  { file: "b", ring: 62, photo: 54, dy: 7 },
-  { file: "e", ring: 63, photo: 55, dy: 15 },
+  { file: "a", ring: 62, photo: 54, dy: 11, rot: "-5deg", delay: "0s" },
+  { file: "d", ring: 61, photo: 53, dy: 4, rot: "3deg", delay: "-0.7s" },
+  { file: "g", ring: 60, photo: 52, dy: 0, rot: "-2deg", delay: "-1.4s" },
+  { file: "b", ring: 62, photo: 54, dy: 7, rot: "4deg", delay: "-2.1s" },
+  { file: "e", ring: 63, photo: 55, dy: 15, rot: "-3deg", delay: "-2.8s" },
 ];
 
 function AvatarCluster() {
@@ -210,14 +210,19 @@ function AvatarCluster() {
       {CLUSTER.map((a, i) => (
         <span
           key={a.file}
-          className="grid shrink-0 place-items-center rounded-full bg-white/[0.94] shadow-[0_6px_16px_-6px_rgba(15,23,42,0.35)]"
-          style={{
-            width: a.ring,
-            height: a.ring,
-            marginLeft: i === 0 ? 0 : -2,
-            marginTop: a.dy,
-            zIndex: CLUSTER.length - i,
-          }}
+          className="nn-avatar-float grid shrink-0 place-items-center rounded-full bg-white/[0.94] shadow-[0_6px_16px_-6px_rgba(15,23,42,0.35)]"
+          style={
+            {
+              width: a.ring,
+              height: a.ring,
+              marginLeft: i === 0 ? 0 : -2,
+              marginTop: a.dy,
+              zIndex: CLUSTER.length - i,
+              // naano staggers by -0.7s so the five never bob in unison
+              animationDelay: a.delay,
+              "--avatar-rot": a.rot,
+            } as React.CSSProperties
+          }
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -234,24 +239,25 @@ function AvatarCluster() {
 
 /** Seven flags as raised chips, four over three. */
 function FlagGrid() {
+  const rot = ["-6deg", "4deg", "-3deg", "7deg", "5deg", "-5deg", "3deg"];
+  const delay = ["-0.4s", "-1.1s", "-1.8s", "-2.5s", "-3.2s", "-3.9s", "-4.6s"];
+  const chip =
+    "nn-flag-float grid h-[38px] w-[50px] place-items-center rounded-[10px] bg-white text-[23px] leading-none shadow-[0_4px_12px_-4px_rgba(15,23,42,0.32)]";
+  const style = (i: number) =>
+    ({ animationDelay: delay[i], "--flag-rot": rot[i] } as React.CSSProperties);
+
   return (
     <div className="flex w-full flex-col items-center gap-3.5 pt-1">
       <div className="flex gap-4">
-        {FLAGS.slice(0, 4).map((f) => (
-          <span
-            key={f}
-            className="grid h-[38px] w-[50px] place-items-center rounded-[10px] bg-white text-[23px] leading-none shadow-[0_4px_12px_-4px_rgba(15,23,42,0.32)]"
-          >
+        {FLAGS.slice(0, 4).map((f, i) => (
+          <span key={f} className={chip} style={style(i)}>
             {f}
           </span>
         ))}
       </div>
       <div className="flex gap-4">
-        {FLAGS.slice(4).map((f) => (
-          <span
-            key={f}
-            className="grid h-[38px] w-[50px] place-items-center rounded-[10px] bg-white text-[23px] leading-none shadow-[0_4px_12px_-4px_rgba(15,23,42,0.32)]"
-          >
+        {FLAGS.slice(4).map((f, i) => (
+          <span key={f} className={chip} style={style(i + 4)}>
             {f}
           </span>
         ))}
@@ -260,33 +266,48 @@ function FlagGrid() {
   );
 }
 
-/** A creator, a fit score, and the buyer segments it maps to. */
+/**
+ * naano lays this out as a three-column grid — 96px creator, 86px bridge,
+ * 110px segments — with an SVG arc (M3 37 C27 4 68 4 93 36) whose dashes crawl
+ * toward the score, and the score badge pulsing on top of it.
+ */
 function MatchDiagram() {
   return (
-    <div className="flex w-full items-center justify-center gap-2.5">
+    <div className="grid w-full justify-center gap-0 [grid-template-columns:96px_86px_110px]">
       <div className="flex flex-col items-center">
         <span className="grid size-[58px] place-items-center rounded-full bg-white shadow-[0_6px_16px_-6px_rgba(15,23,42,0.35)]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/lp/avatar-f.png" alt="" className="size-[52px] rounded-full object-cover" />
         </span>
-        <span className="mt-2 whitespace-nowrap text-[11.5px] font-medium text-[#55575e]">
+        <span className="mt-2 whitespace-nowrap text-[9px] font-bold text-[#66737c]">
           AI &amp; SaaS creator
         </span>
       </div>
 
-      <svg viewBox="0 0 40 60" className="h-[60px] w-[34px] shrink-0 text-[#c7d2e4]" fill="none" aria-hidden>
-        <path d="M2 30h16M18 30l18-16M18 30l18 16" stroke="currentColor" strokeWidth="1.4" strokeDasharray="3 3" />
-      </svg>
+      <div className="relative self-center">
+        <svg viewBox="0 0 96 52" className="h-[52px] w-[86px] overflow-visible" fill="none" aria-hidden>
+          <path
+            d="M3 37 C27 4 68 4 93 36"
+            stroke="#a9c4d6"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            strokeDasharray="5 6"
+            className="nn-match-dash"
+          />
+        </svg>
+        <span
+          className="nn-score-pulse absolute left-1/2 top-[-14px] grid size-[46px] place-items-center rounded-full border-[3px] border-white bg-[#e7f1f8] text-[15px] font-extrabold text-[#315b7c]"
+          style={{ transform: "translate(-50%)" }}
+        >
+          96%
+        </span>
+      </div>
 
-      <span className="grid size-[54px] shrink-0 place-items-center rounded-full border-4 border-[#dbeafe] bg-white text-[15px] font-bold text-[#1652f0]">
-        96%
-      </span>
-
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col justify-center gap-[7px]">
         {ICP_PILLS.map((p) => (
           <span
             key={p}
-            className="whitespace-nowrap rounded-full border border-line/70 bg-white px-3 py-1.5 text-[12px] font-semibold text-[#17181c] shadow-sm"
+            className="whitespace-nowrap rounded-full border border-[#e6eaee] bg-white px-2.5 py-[7px] text-center text-[9px] font-[750] text-[#56666f] shadow-[0_2px_6px_-3px_rgba(15,23,42,0.25)]"
           >
             {p}
           </span>

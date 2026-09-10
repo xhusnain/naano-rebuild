@@ -168,3 +168,40 @@
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
+
+/* --------------------------------------------------------------------------
+   naano's marketplace-signal animations, copied from their stylesheet.
+   Each element carries its own --avatar-rot / --flag-rot so the drift keeps
+   the tilt it was authored with instead of snapping to zero.
+   -------------------------------------------------------------------------- */
+@keyframes lpMarketplaceAvatarFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(var(--avatar-rot)); }
+  50%      { transform: translate3d(0, -7px, 0) rotate(calc(var(--avatar-rot) + 1deg)); }
+}
+
+@keyframes lpMarketplaceFlagFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(var(--flag-rot)); }
+  45%      { transform: translate3d(3px, -6px, 0) rotate(calc(var(--flag-rot) + 2deg)); }
+  75%      { transform: translate3d(-2px, -2px, 0) rotate(calc(var(--flag-rot) - 1deg)); }
+}
+
+@keyframes lpMarketplaceMatchDash {
+  100% { stroke-dashoffset: -54px; }
+}
+
+@keyframes lpMarketplaceScorePulse {
+  0%, 100% { transform: translate(-50%) scale(1);    box-shadow: 0 12px 28px #30576c24; }
+  50%      { transform: translate(-50%) scale(1.06); box-shadow: 0 16px 34px #30576c33; }
+}
+
+.nn-avatar-float { animation: lpMarketplaceAvatarFloat 5.2s ease-in-out infinite; }
+.nn-flag-float   { animation: lpMarketplaceFlagFloat 4.6s ease-in-out infinite; }
+.nn-match-dash   { animation: lpMarketplaceMatchDash 2.4s linear infinite; }
+.nn-score-pulse  { animation: lpMarketplaceScorePulse 3.6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .nn-avatar-float,
+  .nn-flag-float,
+  .nn-match-dash,
+  .nn-score-pulse { animation: none; }
+}
