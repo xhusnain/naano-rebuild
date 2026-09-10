@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { isNonHumanRequest } from "@/lib/tracking";
 
 export const dynamic = "force-dynamic";
 
@@ -29,15 +30,15 @@ export async function GET(
   // Link previews and prefetchers are not humans. Counting them would inflate
   // exactly the number the brand is paying against, so they redirect without
   // being recorded.
-  const purpose =
-    req.headers.get("purpose") ?? req.headers.get("x-purpose") ?? "";
   const ua = req.headers.get("user-agent") ?? "";
-  const isPrefetch =
-    purpose.toLowerCase() === "prefetch" ||
-    req.headers.get("sec-purpose")?.includes("prefetch") ||
-    /bot|crawler|spider|preview|slurp|facebookexternalhit|linkedinbot/i.test(ua);
+  const skip = isNonHumanRequest({
+    purpose: req.headers.get("purpose"),
+    xPurpose: req.headers.get("x-purpose"),
+    secPurpose: req.headers.get("sec-purpose"),
+    userAgent: ua,
+  });
 
-  if (!isPrefetch) {
+  if (!skip) {
     await prisma.click.create({
       data: {
         dealId: deal.id,
