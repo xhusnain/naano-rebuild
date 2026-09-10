@@ -49,16 +49,42 @@ export function CampaignJourney() {
         </div>
 
         <div className="relative mt-[62px] grid min-h-[350px] grid-cols-1 items-stretch gap-4 py-[34px] pb-[38px] sm:grid-cols-2 lg:grid-cols-5">
-          {/* the route naano draws behind the cards */}
-          <span
+          {/* .lp-journey__current — a wide soft cloud behind the row at 36%,
+              which is what gives the panel its tint as well as the cloud base */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/lp/journey-cloud.png"
+            alt=""
             aria-hidden
-            className="pointer-events-none absolute left-[-8px] right-[-8px] top-1/2 hidden border-t border-dashed border-[#c7d8e4] lg:block"
+            /* height is pinned so the cloud stays in the card band; left free it
+               rises past the heading and washes the type out */
+            className="pointer-events-none absolute bottom-[-20px] left-1/2 h-[330px] w-[1300px] max-w-none -translate-x-1/2 select-none object-cover object-bottom"
+            style={{ opacity: 0.36 }}
           />
+
+          {/* .lp-journey__route — not a straight rule: a curve that threads all
+              five steps, dashes flowing along it. Their exact path and stroke. */}
+          <svg
+            aria-hidden
+            viewBox="0 0 1280 360"
+            fill="none"
+            preserveAspectRatio="none"
+            className="pointer-events-none absolute inset-y-0 left-[-8px] z-[1] hidden h-full w-[calc(100%+16px)] overflow-visible lg:block"
+          >
+            <path
+              d="M34 186 C172 132 280 230 410 182 S646 142 770 188 S1026 226 1246 174"
+              stroke="#509dc2b8"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeDasharray="8 11"
+              className="nn-route-flow"
+            />
+          </svg>
 
           {STEPS.map((s) => (
             <div
               key={s.n}
-              className="relative z-10 flex flex-col rounded-[24px] border border-white/[0.92] bg-white/[0.74] px-[18px] pb-[22px] pt-[18px]"
+              className="relative z-[2] flex flex-col rounded-[24px] border border-white/[0.92] bg-white/[0.74] px-[18px] pb-[22px] pt-[18px] backdrop-blur-[2px] transition-[transform,box-shadow] duration-[440ms] [transition-timing-function:cubic-bezier(.16,1,.3,1)] hover:-translate-y-1 hover:shadow-[0_18px_44px_-24px_rgba(48,87,108,0.4)]"
             >
               <span
                 className="inline-flex h-[26px] w-fit items-center rounded-full border border-white/90 bg-white/70 px-2.5 text-[10px] font-extrabold tracking-[0.06em]"
@@ -67,8 +93,10 @@ export function CampaignJourney() {
                 {s.n}
               </span>
 
-              <div className="mt-3 flex-1 rounded-[20px] border border-white/90 bg-white/[0.56] p-3.5">
-                {s.mock}
+              <div className="mt-3 flex flex-1 items-center">
+                <div className="w-full rounded-[20px] border border-white/90 bg-white/[0.56] p-3.5">
+                  {s.mock}
+                </div>
               </div>
 
               <h3 className="mt-4 text-[17px] font-[650] leading-[22.1px] text-[#111318]">

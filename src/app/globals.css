@@ -205,3 +205,13 @@
   .nn-match-dash,
   .nn-score-pulse { animation: none; }
 }
+
+/* naano's journey route: dashes flow along the curve that threads the five steps */
+@keyframes lpRouteFlow {
+  to { stroke-dashoffset: -170px; }
+}
+.nn-route-flow { animation: lpRouteFlow 5.5s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .nn-route-flow { animation: none; }
+}
