@@ -113,6 +113,22 @@ Next.js 16 (App Router) · TypeScript · Tailwind v4 · Prisma 7 · SQLite · Vi
 Design tokens are taken from naano's live CSS: `#1652f0` brand, Plus Jakarta
 Sans + Inter, the soft sky-to-white gradients.
 
+## Deploying
+
+SQLite is for local development only — serverless filesystems are read-only and
+ephemeral, so a deployed SQLite database loses its click history between
+invocations and the attribution demo stops working.
+
+```bash
+npm run use:postgres        # flips the schema provider
+# set DATABASE_URL to a Postgres URL (Neon, Vercel Postgres, …)
+npx prisma db push
+npm run db:seed
+```
+
+`npm run use:sqlite` switches back. The driver adapter picks itself from the
+`DATABASE_URL` scheme, so no application query changes either way.
+
 ## Tests
 
 ```bash
