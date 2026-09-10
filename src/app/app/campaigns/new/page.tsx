@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CREATORS } from "@/lib/creators";
+import { allCreators } from "@/lib/creator-profile";
 import { getCurrentUser } from "@/lib/session";
 import { NewCampaignForm } from "@/components/app/NewCampaignForm";
 
@@ -10,7 +10,7 @@ export default async function NewCampaignPage({
 }) {
   const { creators: raw } = await searchParams;
   const ids = (raw ?? "").split(",").filter(Boolean);
-  const picked = CREATORS.filter((c) => ids.includes(c.id));
+  const picked = (await allCreators()).filter((c) => ids.includes(c.id));
   const user = await getCurrentUser();
 
   if (picked.length === 0) {

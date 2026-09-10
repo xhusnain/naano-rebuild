@@ -3,18 +3,20 @@ import { notFound } from "next/navigation";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { CREATORS, getCreator, followerTier } from "@/lib/creators";
+import { allCreators } from "@/lib/creator-profile";
 import { compact, euro } from "@/lib/format";
 
-export function generateStaticParams() {
-  return CREATORS.map((c) => ({ slug: c.slug }));
-}
+// Signed-up creators are not known at build time, so this page renders on
+// demand. generateStaticParams would only ever cover the seeded ones.
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const c = getCreator((await params).slug);
+  const slug = (await params).slug;
+  const c = getCreator(slug) ?? (await allCreators()).find((x) => x.slug === slug);
   return c
     ? { title: `${c.name} — Naano`, description: c.headline }
     : { title: "Creator not found — Naano" };
@@ -25,10 +27,12 @@ export default async function CreatorPage({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const c = getCreator((await params).slug);
+  const slug = (await params).slug;
+  const all = await allCreators();
+  const c = all.find((x) => x.slug === slug);
   if (!c) notFound();
 
-  const similar = CREATORS.filter(
+  const similar = all.filter(
     (x) => x.id !== c.id && x.verticals[0] === c.verticals[0]
   ).slice(0, 3);
 

@@ -95,7 +95,9 @@ export async function register(_prev: unknown, formData: FormData) {
   });
 
   await startSession(user.id);
-  redirect(user.role === "creator" ? "/studio" : "/app");
+  // A creator with no profile has no marketplace card, so no brand can find or
+  // book them. Onboarding is the first thing they see, not an empty studio.
+  redirect(user.role === "creator" ? "/studio/onboarding" : "/app");
 }
 
 export async function logout() {

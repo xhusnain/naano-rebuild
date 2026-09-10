@@ -2,6 +2,8 @@ import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
 import { getCreator } from "@/lib/creators";
+import { isOnboarded, toCreator } from "@/lib/creator-profile";
+import { redirect } from "next/navigation";
 import { euro, compact } from "@/lib/format";
 import { STAGE_LABEL } from "@/lib/lifecycle";
 import { StatusPill } from "@/components/app/StatusPill";
@@ -12,8 +14,14 @@ export const dynamic = "force-dynamic";
 
 export default async function StudioPage() {
   const user = await getCurrentUser();
+  if (user && user.role === "creator" && !isOnboarded(user)) {
+    redirect("/studio/onboarding");
+  }
+
   const slug = user?.creatorSlug ?? "";
-  const me = getCreator(slug);
+  // Seeded demo accounts point at a creator in the seed file; real signups
+  // carry their own profile on the user row.
+  const me = getCreator(slug) ?? (user ? toCreator(user) : null);
 
   const deals = await prisma.deal.findMany({
     where: { creatorSlug: slug },

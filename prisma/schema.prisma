@@ -25,9 +25,33 @@ model User {
   role         String
   // brands only
   companyName  String?
-  // creators only: links this account to a seeded creator in src/lib/creators.ts
+  // creators only: the slug this creator is booked under. For the demo account
+  // it points at a seeded creator; for a real signup it is generated at
+  // onboarding and must not collide with a seeded one.
+  // Not a database unique constraint: uniqueness must also hold against the
+  // seeded creators in src/lib/creators.ts, which are not rows, so the check
+  // lives in reserveCreatorSlug() where it can see both sets.
   creatorSlug  String?
   createdAt    DateTime   @default(now())
+
+  // ---- creator profile, filled in by the onboarding wizard ----------------
+  // Null until onboarding completes. A creator with no profile has no
+  // marketplace card, so no brand can find or book them.
+  onboardedAt      DateTime?
+  headline         String?
+  bio              String?
+  country          String?
+  countryCode      String?
+  flag             String?
+  // comma separated so the same column works on SQLite and Postgres
+  verticals        String?
+  icp              String?
+  avatarUrl        String?
+  followers        Int?
+  medianViews      Int?
+  postCost         Int?
+  reactionsPerPost Int?
+  commentsPerPost  Int?
 
   campaigns    Campaign[]
 }

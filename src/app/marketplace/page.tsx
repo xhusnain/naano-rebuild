@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { MarketplaceClient } from "@/components/MarketplaceClient";
+import { allCreators } from "@/lib/creator-profile";
 
 export const metadata = {
   title: "Marketplace — Naano",
@@ -9,7 +10,11 @@ export const metadata = {
     "Browse vetted B2B LinkedIn creators by vertical, audience size, price and country.",
 };
 
-export default function MarketplacePage() {
+export const dynamic = "force-dynamic";
+
+export default async function MarketplacePage() {
+  // seeded creators plus everyone who finished onboarding
+  const creators = await allCreators();
   return (
     <>
       <Nav />
@@ -31,7 +36,7 @@ export default function MarketplacePage() {
             </div>
           }
         >
-          <MarketplaceClient />
+          <MarketplaceClient creators={creators} />
         </Suspense>
       </main>
       <Footer />
