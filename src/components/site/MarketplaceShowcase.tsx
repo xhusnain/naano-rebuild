@@ -1,11 +1,25 @@
 import { CREATORS } from "@/lib/creators";
 import { CreatorCard } from "@/components/CreatorCard";
 
-const FEATURES = [
-  ["3,000+ vetted creators", "Specialist B2B voices, ready to collaborate."],
-  ["Across 100 countries", "Local expertise with genuinely global reach."],
-  ["Matched to your buyers", "Audience fit comes before follower count."],
+const CLAIMS = [
+  {
+    title: "3,000+ vetted creators",
+    body: "Specialist B2B voices, ready to collaborate.",
+  },
+  {
+    title: "Across 100 countries",
+    body: "Local expertise with genuinely global reach.",
+  },
+  {
+    title: "Matched to your buyers",
+    body: "Audience fit comes before follower count.",
+  },
 ] as const;
+
+/** naano shows these seven, in two rows of four and three. */
+const FLAGS = ["🇫🇷", "🇺🇸", "🇩🇪", "🇬🇧", "🇪🇸", "🇨🇦", "🇳🇱"];
+
+const ICP_PILLS = ["Founders", "Sales leaders", "GTM teams"];
 
 const RAIL = ["grid", "store", "hands", "layers", "chat", "card"] as const;
 
@@ -134,15 +148,126 @@ export function MarketplaceShowcase() {
         </div>
       </div>
 
-      {/* three claims under the preview */}
-      <div className="relative z-10 mx-auto mt-[56px] grid w-[1430px] max-w-[calc(100%-112px)] grid-cols-1 gap-6 md:grid-cols-3">
-        {FEATURES.map(([title, body]) => (
-          <div key={title} className="rounded-2xl border border-line/70 bg-white/70 p-8">
-            <div className="text-[19px] font-bold text-[#17181c]">{title}</div>
-            <div className="mt-2 text-[15px] leading-relaxed text-[#55575e]">{body}</div>
+      {/* Three claims under the preview. naano illustrates each one; mine were
+          text-only boxes. The avatars are this project's generated ones, not
+          the photographs of real creators theirs uses. */}
+      <div className="relative z-10 mx-auto mt-[64px] grid w-[1430px] max-w-[calc(100%-112px)] grid-cols-1 gap-6 md:grid-cols-3">
+        {CLAIMS.map((claim, i) => (
+          <div
+            key={claim.title}
+            className="flex min-h-[300px] flex-col overflow-hidden rounded-[24px] border border-line/60 bg-[linear-gradient(180deg,#ffffff_0%,#fbfcfe_58%,#eef6fd_100%)]"
+          >
+            <div className="flex flex-1 items-center justify-center px-8 pt-10">
+              {i === 0 && <AvatarCluster />}
+              {i === 1 && <FlagGrid />}
+              {i === 2 && <MatchDiagram />}
+            </div>
+            <div className="px-8 pb-8 pt-6">
+              <div className="text-[21px] font-bold tracking-[-0.01em] text-[#17181c]">
+                {claim.title}
+              </div>
+              <div className="mt-2 text-[16px] leading-relaxed text-[#55575e]">
+                {claim.body}
+              </div>
+            </div>
           </div>
         ))}
       </div>
     </section>
+  );
+}
+
+/** Five overlapping creator avatars with tinted rings. */
+function AvatarCluster() {
+  const faces = CREATORS.slice(6, 11);
+  const rings = ["#c4b5fd", "#93c5fd", "#a5b4fc", "#7dd3fc", "#f0abfc"];
+  return (
+    <div className="flex items-center">
+      {faces.map((c, i) => (
+        <span
+          key={c.id}
+          className="grid size-[62px] shrink-0 place-items-center rounded-full shadow-[0_4px_14px_-4px_rgba(15,23,42,0.28)]"
+          style={{
+            background: rings[i],
+            marginLeft: i === 0 ? 0 : -14,
+            zIndex: faces.length - i,
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={c.avatar}
+            alt=""
+            className="size-[54px] rounded-full border-2 border-white bg-white object-cover"
+          />
+        </span>
+      ))}
+    </div>
+  );
+}
+
+/** Seven flags as raised chips, four over three. */
+function FlagGrid() {
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <div className="flex gap-3">
+        {FLAGS.slice(0, 4).map((f) => (
+          <span
+            key={f}
+            className="grid h-[34px] w-[46px] place-items-center rounded-[9px] bg-white text-[20px] leading-none shadow-[0_3px_10px_-3px_rgba(15,23,42,0.3)]"
+          >
+            {f}
+          </span>
+        ))}
+      </div>
+      <div className="flex gap-3">
+        {FLAGS.slice(4).map((f) => (
+          <span
+            key={f}
+            className="grid h-[34px] w-[46px] place-items-center rounded-[9px] bg-white text-[20px] leading-none shadow-[0_3px_10px_-3px_rgba(15,23,42,0.3)]"
+          >
+            {f}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** A creator, a fit score, and the buyer segments it maps to. */
+function MatchDiagram() {
+  const c = CREATORS[2];
+  return (
+    <div className="flex w-full items-center justify-center gap-3">
+      <div className="flex flex-col items-center">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={c.avatar}
+          alt=""
+          className="size-[54px] rounded-full border-2 border-white bg-white object-cover shadow-[0_4px_14px_-4px_rgba(15,23,42,0.28)]"
+        />
+        <span className="mt-2 whitespace-nowrap text-[11px] font-medium text-[#55575e]">
+          AI &amp; SaaS creator
+        </span>
+      </div>
+
+      <svg viewBox="0 0 40 60" className="h-[60px] w-[34px] shrink-0 text-[#c7d2e4]" fill="none" aria-hidden>
+        <path d="M2 30h16M18 30l18-16M18 30l18 16" stroke="currentColor" strokeWidth="1.4" strokeDasharray="3 3" />
+      </svg>
+
+      <span className="grid size-[54px] shrink-0 place-items-center rounded-full border-4 border-[#dbeafe] bg-white text-[15px] font-bold text-[#1652f0]">
+        96%
+      </span>
+
+      <div className="flex flex-col gap-2">
+        {ICP_PILLS.map((p) => (
+          <span
+            key={p}
+            className="whitespace-nowrap rounded-full border border-line/70 bg-white px-3 py-1.5 text-[12px] font-semibold text-[#17181c] shadow-sm"
+          >
+            {p}
+          </span>
+        ))}
+      </div>
+    </div>
   );
 }
