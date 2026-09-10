@@ -4,7 +4,12 @@ import { LoginForm } from "./LoginForm";
 
 export const metadata = { title: "Sign in — Naano" };
 
-export default function LoginPage() {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ next?: string }>;
+}) {
+  const { next } = await searchParams;
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
       <AuthPanel
@@ -33,7 +38,7 @@ export default function LoginPage() {
             </p>
           </div>
 
-          <LoginForm />
+          <LoginForm next={next} />
         </div>
       </div>
     </div>

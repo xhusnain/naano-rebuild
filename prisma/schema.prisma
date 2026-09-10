@@ -81,8 +81,12 @@ model Click {
   trackingCode String
   referer      String?
   userAgent    String?
+  // Salted hash of the client IP, never the IP itself. Used only to collapse
+  // rapid repeats from one source; not reversible and not for identification.
+  ipHash       String?
   createdAt    DateTime @default(now())
 
   @@index([dealId])
   @@index([trackingCode])
+  @@index([dealId, ipHash, createdAt])
 }

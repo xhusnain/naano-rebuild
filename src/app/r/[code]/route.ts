@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { isNonHumanRequest } from "@/lib/tracking";
+import { isNonHumanRequest, clientIpHash, DEDUP_WINDOW_MS } from "@/lib/tracking";
 
 export const dynamic = "force-dynamic";
 
@@ -39,14 +39,34 @@ export async function GET(
   });
 
   if (!skip) {
-    await prisma.click.create({
-      data: {
-        dealId: deal.id,
-        trackingCode: code,
-        referer: req.headers.get("referer"),
-        userAgent: ua.slice(0, 400),
-      },
-    });
+    const ipHash = clientIpHash(req.headers);
+
+    // Collapse rapid repeats from one source. Without this a creator can curl
+    // their own tracked link in a loop and inflate the number the brand pays
+    // against — the most direct way to defraud this marketplace. A genuine
+    // visitor returning later still counts.
+    const recent = ipHash
+      ? await prisma.click.findFirst({
+          where: {
+            dealId: deal.id,
+            ipHash,
+            createdAt: { gt: new Date(Date.now() - DEDUP_WINDOW_MS) },
+          },
+          select: { id: true },
+        })
+      : null;
+
+    if (!recent) {
+      await prisma.click.create({
+        data: {
+          dealId: deal.id,
+          trackingCode: code,
+          referer: req.headers.get("referer"),
+          userAgent: ua.slice(0, 400),
+          ipHash,
+        },
+      });
+    }
   }
 
   const target = deal.campaign.landingUrl?.trim();

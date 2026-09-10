@@ -1,4 +1,4 @@
-import { randomBytes } from "node:crypto";
+import { randomBytes, createHash } from "node:crypto";
 
 const ALPHABET = "abcdefghijkmnpqrstuvwxyz23456789"; // no look-alikes: l, o, 0, 1
 
@@ -32,4 +32,25 @@ export function isNonHumanRequest(h: {
   return /bot|crawler|spider|preview|slurp|facebookexternalhit|linkedinbot|headless/i.test(
     h.userAgent ?? ""
   );
+}
+
+/** How long one source is collapsed into a single click on the same deal. */
+export const DEDUP_WINDOW_MS = 30_000;
+
+/**
+ * Salted, truncated hash of the client IP.
+ *
+ * The raw IP is never stored. This exists only to collapse rapid repeats from
+ * one source; it is deliberately not reversible and not an identifier.
+ */
+export function clientIpHash(headers: Headers): string | null {
+  const fwd = headers.get("x-forwarded-for");
+  const ip =
+    (fwd ? fwd.split(",")[0] : null)?.trim() ||
+    headers.get("x-real-ip")?.trim() ||
+    null;
+  if (!ip) return null;
+
+  const salt = process.env.SESSION_SECRET ?? "dev-salt";
+  return createHash("sha256").update(`${salt}:${ip}`).digest("hex").slice(0, 32);
 }

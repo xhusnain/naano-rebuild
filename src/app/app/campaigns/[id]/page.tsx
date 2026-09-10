@@ -29,7 +29,9 @@ export default async function CampaignDetail({
     },
   });
 
-  if (!campaign || (user && campaign.brandId !== user.id)) notFound();
+  // Defence in depth: the layout already requires a brand, but this page must
+  // not become readable if that guard is ever moved or removed.
+  if (!user || !campaign || campaign.brandId !== user.id) notFound();
 
   const clicks = campaign.deals.reduce((s, d) => s + d._count.clicks, 0);
   const spend = campaign.deals.reduce((s, d) => s + d.price, 0);

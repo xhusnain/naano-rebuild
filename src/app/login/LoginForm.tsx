@@ -4,7 +4,7 @@ import { useActionState, useState } from "react";
 import { login } from "./actions";
 import { authInput } from "@/components/AuthPanel";
 
-export function LoginForm() {
+export function LoginForm({ next }: { next?: string }) {
   const [state, action, pending] = useActionState(login, null as { error?: string } | null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,6 +28,9 @@ export function LoginForm() {
       </div>
 
       <form action={action} className="mt-6 space-y-4">
+        {/* Validated server-side by safeNextPath — an absolute URL here would
+            make the login page an open redirect. */}
+        {next && <input type="hidden" name="next" value={next} />}
         <label className="block">
           <span className="nn-eyebrow mb-1.5 block">Email</span>
           <input name="email" type="email" required value={email}
