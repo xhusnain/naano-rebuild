@@ -4,8 +4,19 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 /**
- * Mobile navigation. The desktop links are hidden below md, and without this
- * there was no way to navigate the site on a phone at all.
+ * naano's mobile menu, measured on their page at 390:
+ *
+ *   trigger  a round button in the bar that swaps to an ✕ when open
+ *   panel    .lp-nav-menu — 362 x 340 at y=73, i.e. inset 14px each side and
+ *            8px under the 65px bar; absolute, z 60, radius 18,
+ *            rgba(255,255,255,.9) with backdrop saturate(1.2) blur(18px)
+ *   items    16px / 500 / #17181c, padding 13px 6px, no dividers
+ *
+ * Sign in and Sign up are NOT in the panel on naano — they stay in the bar at
+ * every width, so they live in Nav rather than here.
+ *
+ * The panel is translucent on their site too: the hero reads through it. That
+ * is their design, reproduced rather than corrected.
  */
 export function MobileMenu({
   links,
@@ -33,63 +44,52 @@ export function MobileMenu({
   }, [open]);
 
   return (
-    <div className="md:hidden">
+    <div className="lg:hidden">
       <button
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-label={open ? "Close menu" : "Open menu"}
-        className="grid size-9 place-items-center rounded-full border border-line bg-white text-ink"
+        className="grid size-9 place-items-center rounded-full bg-white text-ink shadow-[0_1px_3px_rgba(15,23,42,0.08)]"
       >
         <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
           {open ? <path d="M6 6l12 12M18 6L6 18" /> : <><path d="M3 7h18" /><path d="M3 12h18" /><path d="M3 17h18" /></>}
         </svg>
       </button>
 
-      {open && (
-        <div className="fixed inset-x-0 top-16 z-50 border-b border-line bg-white px-5 pb-6 pt-3 shadow-lg">
-          <nav className="flex flex-col">
-            {links.map(([label, href]) => (
-              <Link
-                key={label}
-                href={href}
-                onClick={() => setOpen(false)}
-                className="border-b border-line/70 py-3 text-[15px] font-medium text-ink"
-              >
-                {label}
-              </Link>
-            ))}
-          </nav>
-
-          <div className="mt-5 flex flex-col gap-2">
-            {signedIn ? (
-              <Link
-                href={home}
-                onClick={() => setOpen(false)}
-                className="rounded-full bg-ink px-5 py-3 text-center text-sm font-semibold text-white"
-              >
-                {homeLabel}
-              </Link>
-            ) : (
-              <>
+      {open ? (
+        <>
+          {/* a click anywhere else closes it; naano has the same catcher */}
+          <button
+            aria-label="Close menu"
+            tabIndex={-1}
+            onClick={() => setOpen(false)}
+            className="fixed inset-0 z-[50] cursor-default"
+          />
+          <div className="absolute inset-x-[14px] top-[73px] z-[60] rounded-[18px] bg-white/90 px-3 py-3 shadow-[0_18px_48px_-24px_rgba(25,58,76,0.35)] backdrop-blur-[18px] backdrop-saturate-[1.2]">
+            <nav className="flex flex-col">
+              {links.map(([label, href]) => (
                 <Link
-                  href="/login"
+                  key={label}
+                  href={href}
                   onClick={() => setOpen(false)}
-                  className="rounded-full border border-line px-5 py-3 text-center text-sm font-semibold text-ink"
+                  className="px-1.5 py-[13px] text-[16px] font-medium leading-[19px] text-[#17181c]"
                 >
-                  Sign in
+                  {label}
                 </Link>
+              ))}
+              {signedIn ? (
                 <Link
-                  href="/register"
+                  href={home}
                   onClick={() => setOpen(false)}
-                  className="rounded-full bg-ink px-5 py-3 text-center text-sm font-semibold text-white"
+                  className="px-1.5 py-[13px] text-[16px] font-medium leading-[19px] text-[#17181c]"
                 >
-                  Sign up
+                  {homeLabel}
                 </Link>
-              </>
-            )}
+              ) : null}
+            </nav>
           </div>
-        </div>
-      )}
+        </>
+      ) : null}
     </div>
   );
 }
