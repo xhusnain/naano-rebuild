@@ -45,7 +45,7 @@ export default async function Home() {
           pill, then 34 / 26 / 38 / 29 / 41 between the blocks. naano has no
           stats bar in the hero, so there is none here either. */}
       <section className="nn-sky -mt-[73px] pt-[73px]">
-        <div className="w-full px-[56px] pb-16 pt-[148px] text-center">
+        <div className="w-full px-5 pb-12 pt-[104px] text-center lg:px-[56px] lg:pb-16 lg:pt-[148px]">
           <span className="inline-flex items-center gap-2 rounded-full bg-white/[0.92] pb-[9px] pl-[14px] pr-[18px] pt-[9px] text-[16px] font-normal leading-none text-[#17181c] shadow-[0_1px_3px_rgba(15,23,42,0.06)]">
             <svg viewBox="0 0 24 24" className="size-[15px]" aria-hidden fill="currentColor">
               <path d="M18.9 2H22l-7 8 8.2 12h-6.4l-5-7.3L5.9 22H2.8l7.5-8.6L2.4 2h6.6l4.5 6.7L18.9 2z" />

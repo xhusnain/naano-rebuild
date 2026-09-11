@@ -26,7 +26,7 @@ export function CampaignJourney() {
   return (
     <section
       id="how"
-      className="scroll-mt-20 px-[84px] pb-[126px] pt-[110px]"
+      className="scroll-mt-20 px-5 pb-[72px] pt-[64px] lg:px-[84px] lg:pb-[126px] lg:pt-[110px]"
       style={{ background: "linear-gradient(#f2faff 0%, #ffffff 27%, #ffffff 100%)" }}
     >
       <div className="mx-auto w-full max-w-[1320px]">
@@ -36,19 +36,19 @@ export function CampaignJourney() {
               <span className="size-[7px] rounded-full bg-[#93c5fd]" />
               One platform, from brief to results
             </div>
-            <h2 className="mt-[24px] text-[56px] font-semibold leading-[57.68px] tracking-[-0.045em] text-[#111318]">
+            <h2 className="mt-[24px] text-[34px] font-semibold leading-[1.08] tracking-[-0.035em] lg:text-[56px] lg:leading-[57.68px] lg:tracking-[-0.045em] text-[#111318]">
               Run creator campaigns
               <br />
               from one place.
             </h2>
           </div>
-          <p className="text-[19px] leading-[28.5px] text-[#55575e]">
+          <p className="text-[16px] leading-[1.5] text-[#55575e] lg:text-[19px] lg:leading-[28.5px]">
             Find the right voices, launch faster, and connect every post to
             measurable business results.
           </p>
         </div>
 
-        <div className="relative mt-[62px] grid min-h-[350px] grid-cols-1 items-stretch gap-4 py-[34px] pb-[38px] sm:grid-cols-2 lg:grid-cols-5">
+        <div className="relative mt-[62px] grid min-h-[350px] grid-cols-1 items-stretch gap-4 overflow-x-clip py-[34px] pb-[38px] sm:grid-cols-2 lg:grid-cols-5">
           {/* .lp-journey__current — a wide soft cloud behind the row at 36%,
               which is what gives the panel its tint as well as the cloud base */}
           {/* eslint-disable-next-line @next/next/no-img-element */}

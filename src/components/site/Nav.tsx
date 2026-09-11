@@ -47,7 +47,7 @@ export async function Nav() {
       {/* Full-bleed: naano has no max-width here. Their gutter is 3.35% of
           the viewport — 48px at 1440, 67px at 2000 — so it scales with the
           screen instead of the bar collapsing into a centred column. */}
-      <div className="flex h-[73px] w-full items-center justify-between px-[56px]">
+      <div className="flex h-[73px] w-full items-center justify-between px-5 lg:px-[56px]">
         <Wordmark />
 
         <div className="flex items-center gap-[62px]">

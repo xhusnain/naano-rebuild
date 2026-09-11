@@ -215,3 +215,19 @@
 @media (prefers-reduced-motion: reduce) {
   .nn-route-flow { animation: none; }
 }
+
+/* --------------------------------------------------------------------------
+   "Real teams. Measurable pipeline." — the two proof cards are very slightly
+   rotated on naano, and the video card is nudged down and right so it sits
+   lower than the case study it overlaps. Desktop only: below lg the cards
+   stack, and the offset would just read as a broken gap.
+   -------------------------------------------------------------------------- */
+@media (min-width: 1024px) {
+  .nn-proof-card--video {
+    transform: translate(14.4756px, 41.8385px) rotate(-0.65deg);
+  }
+
+  .nn-proof-card--case {
+    transform: rotate(0.28deg);
+  }
+}

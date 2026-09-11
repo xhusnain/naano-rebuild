@@ -59,13 +59,13 @@ export function MarketplaceShowcase() {
           "radial-gradient(circle at 50% 60%, rgba(208, 237, 251, 0.35), rgba(0, 0, 0, 0) 44%), linear-gradient(rgb(252, 252, 251) 0%, rgb(248, 252, 254) 62%, rgb(242, 250, 255) 100%)",
       }}
     >
-      <div className="relative z-10 px-[56px] text-center">
+      <div className="relative z-10 px-5 text-center lg:px-[56px]">
         <span className="inline-flex items-center gap-2 rounded-full bg-white/[0.68] px-[14px] py-[7px] text-[13px] font-[650] leading-none text-[#555b63]">
           <span className="size-[7px] rounded-full bg-[#93c5fd]" />
           The Naano creator marketplace
         </span>
 
-        <h2 className="mx-auto mt-[25px] max-w-[840px] text-[76px] font-semibold leading-[75.24px] tracking-[-0.052em] text-[#111318]">
+        <h2 className="mx-auto mt-[25px] max-w-[840px] text-[38px] font-semibold leading-[1.06] tracking-[-0.04em] lg:text-[76px] lg:leading-[75.24px] lg:tracking-[-0.052em] text-[#111318]">
           Work with all the
           <br />
           best creators.

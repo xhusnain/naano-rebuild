@@ -58,7 +58,7 @@ export function Testimonial() {
 
   return (
     <section className="bg-[#fcfcfb]" id="proof">
-      <div ref={ref} className="mx-auto flex flex-col items-center px-[56px] py-[120px] text-center">
+      <div ref={ref} className="mx-auto flex flex-col items-center px-5 py-[72px] text-center lg:px-[56px] lg:py-[120px]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/lp/logo-zmirov.png"
@@ -69,7 +69,7 @@ export function Testimonial() {
         />
         <span className="mt-[18px] block h-[2px] w-[52px] bg-[#2563eb]" />
 
-        <blockquote className="mt-[44px] max-w-[900px] text-[52px] font-semibold leading-[62.4px] tracking-[-0.022em]">
+        <blockquote className="mt-[44px] max-w-[900px] text-[26px] font-semibold leading-[1.28] lg:text-[52px] lg:leading-[62.4px] tracking-[-0.022em]">
           {words.map((w, i) => {
             const last = i === words.length - 1;
             // words light up a few at a time as the section rises
