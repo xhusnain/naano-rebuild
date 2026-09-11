@@ -21,7 +21,7 @@ export default function Home() {
         {/* Vertical rhythm measured off naano at 1440: 148px from the bar to the
           pill, then 34 / 26 / 38 / 29 / 41 between the blocks. naano has no
           stats bar in the hero, so there is none here either. */}
-        <section className="nn-sky -mt-[73px] pt-[73px]">
+        <section data-nav-hero className="nn-sky -mt-[73px] pt-[73px]">
           <div className="w-full px-5 pb-12 pt-[104px] text-center lg:px-[56px] lg:pb-16 lg:pt-[148px]">
             <span className="inline-flex items-center gap-2 rounded-full bg-white/[0.92] pb-[9px] pl-[14px] pr-[18px] pt-[9px] text-[16px] font-normal leading-none text-[#17181c] shadow-[0_1px_3px_rgba(15,23,42,0.06)]">
               <svg
@@ -70,7 +70,7 @@ export default function Home() {
                 </svg>
               </Link>
               <Link
-                href="/#how"
+                href="/#how-it-works"
                 className="inline-flex items-center gap-[11px] text-[16px] font-semibold leading-none text-[#17181c] transition hover:opacity-70"
               >
                 See how Naano works{" "}
@@ -168,25 +168,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* scroll affordance, as naano has */}
-            <div className="mt-12 flex justify-center">
-              <a
-                href="#how"
-                aria-label="Scroll to how it works"
-                className="grid size-9 place-items-center rounded-full bg-white/85 text-[#43454c] shadow-[0_1px_3px_rgba(15,23,42,0.08)] transition hover:bg-white"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  className="size-4"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  aria-hidden
-                >
-                  <path d="M6 9l6 6 6-6" />
-                </svg>
-              </a>
-            </div>
           </div>
         </section>
 

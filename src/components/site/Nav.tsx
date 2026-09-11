@@ -4,10 +4,11 @@ import { ResourcesMenu } from "./ResourcesMenu";
 import { RESOURCES } from "@/lib/nav-links";
 import { logout } from "@/app/login/actions";
 import { MobileMenu } from "./MobileMenu";
+import { NavShell } from "./NavShell";
 
 export function Wordmark({ className = "" }: { className?: string }) {
   // naano's nav wordmark is a single image containing both the mark and the
-  // lettering, 143 x 30 at their 1672px design width.
+  // lettering: 143 x 30 at rest, 124 x 26 once the bar shrinks.
   return (
     <Link href="/" className={`flex items-center ${className}`} aria-label="naano — home">
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -16,7 +17,7 @@ export function Wordmark({ className = "" }: { className?: string }) {
         alt="naano"
         width={143}
         height={30}
-        className="h-[30px] w-[143px] object-contain"
+        className="h-[30px] w-[143px] object-contain transition-[height,width] duration-300 group-data-[scrolled=true]/nav:h-[26px] group-data-[scrolled=true]/nav:w-[124px]"
       />
     </Link>
   );
@@ -39,17 +40,19 @@ const LINKS = [
  *     link row and actions are ONE right-hand group; the links are not centred
  *     link gaps 32px · Sign in 87x41 · Sign up 95x41
  */
-export async function Nav() {
+export async function Nav({ tone = "sky" }: { tone?: "sky" | "paper" } = {}) {
   const user = await getCurrentUser();
   const home = user?.role === "creator" ? "/studio" : "/app";
   const homeLabel = user?.role === "creator" ? "Creator studio" : "Dashboard";
 
   return (
-    <header className="relative z-50">
+    <NavShell tone={tone}>
       {/* Full-bleed: naano has no max-width here. Their gutter is 3.35% of
           the viewport — 48px at 1440, 67px at 2000 — so it scales with the
           screen instead of the bar collapsing into a centred column. */}
-      <div className="flex h-[73px] w-full items-center justify-between px-5 lg:px-[56px]">
+      <div
+        className="flex h-[73px] w-full items-center justify-between px-5 py-4 transition-[height,padding] duration-300 group-data-[scrolled=true]/nav:h-[61px] group-data-[scrolled=true]/nav:py-[10px] lg:px-[56px]"
+      >
         <Wordmark />
 
         <div className="flex items-center gap-[62px]">
@@ -113,6 +116,6 @@ export async function Nav() {
           </div>
         </div>
       </div>
-    </header>
+    </NavShell>
   );
 }

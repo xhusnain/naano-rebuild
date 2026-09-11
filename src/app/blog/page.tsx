@@ -24,7 +24,7 @@ const META = "text-[13px] leading-[17px] text-[#8b8d94]";
 export default function BlogPage() {
   return (
     <ScaleFrame>
-      <Nav />
+      <Nav tone="paper" />
 
       <section className="-mt-[73px] bg-[#fcfcfb] px-5 pb-14 pt-[144px] lg:px-[84px]">
         <div className="mx-auto max-w-[1200px]">

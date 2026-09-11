@@ -79,7 +79,7 @@ const CHAPTERS = [
 export default function BlogSeoCaseStudy() {
   return (
     <ScaleFrame>
-      <Nav />
+      <Nav tone="paper" />
 
       {/* ------------------------------------------------------------- hero */}
       <section className="-mt-[73px] bg-[#fcfcfb] px-5 pb-10 pt-[144px] lg:px-14">

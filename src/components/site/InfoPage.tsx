@@ -20,7 +20,7 @@ export function InfoPage({
 }) {
   return (
     <ScaleFrame>
-      <Nav />
+      <Nav tone="paper" />
       <main className="-mt-[73px] bg-[#fcfcfb] px-5 pb-24 pt-[144px] lg:px-[84px]">
         <div className="mx-auto max-w-[760px]">
           <div className="text-[12px] font-bold uppercase leading-[15px] tracking-[1.92px] text-[#315b7c]">

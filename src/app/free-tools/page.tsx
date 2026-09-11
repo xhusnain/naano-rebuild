@@ -73,7 +73,7 @@ const TOOL_FAQS: [string, string][] = [
 export default function FreeToolsPage() {
   return (
     <ScaleFrame>
-      <Nav />
+      <Nav tone="paper" />
 
       <section className="relative -mt-[73px] overflow-hidden bg-[#fcfcfb] px-5 pb-16 pt-[144px] lg:px-[84px]">
         <span

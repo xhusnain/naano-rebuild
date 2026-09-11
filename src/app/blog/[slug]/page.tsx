@@ -35,7 +35,7 @@ export default async function ArticlePage({ params }: Params) {
 
   return (
     <ScaleFrame>
-      <Nav />
+      <Nav tone="paper" />
 
       <article className="-mt-[73px] bg-[#fcfcfb] px-5 pb-20 pt-[144px] lg:px-[84px]">
         <div className="mx-auto max-w-[760px]">
