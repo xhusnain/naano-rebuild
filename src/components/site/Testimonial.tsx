@@ -58,7 +58,7 @@ export function Testimonial() {
 
   return (
     <section className="bg-[#fcfcfb]" id="proof">
-      <div ref={ref} className="mx-auto flex flex-col items-center px-5 py-[72px] text-center lg:px-[56px] lg:py-[120px]">
+      <div ref={ref} className="mx-auto flex flex-col items-center px-5 py-[72px] text-center lg:px-[84px] lg:py-[96px]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/lp/logo-zmirov.png"
@@ -67,9 +67,9 @@ export function Testimonial() {
           height={46}
           className="h-[46px] w-[164px] object-contain"
         />
-        <span className="mt-[18px] block h-[2px] w-[52px] bg-[#2563eb]" />
+        <span className="mt-[20px] block h-[2px] w-[46px] rounded-[2px] bg-[#2563eb]" />
 
-        <blockquote className="mt-[44px] max-w-[900px] text-[26px] font-semibold leading-[1.28] lg:text-[52px] lg:leading-[62.4px] tracking-[-0.022em]">
+        <blockquote className="mt-[44px] max-w-[1160px] text-[26px] font-medium leading-[1.28] lg:text-[52px] lg:leading-[62.4px] tracking-[-0.022em]">
           {words.map((w, i) => {
             const last = i === words.length - 1;
             // words light up a few at a time as the section rises
@@ -96,11 +96,11 @@ export function Testimonial() {
           alt=""
           width={104}
           height={104}
-          className="mt-[64px] size-[104px] rounded-full object-cover"
+          className="mt-[52px] size-[104px] rounded-full object-cover"
         />
-        <div className="mt-[20px] text-[19px] font-bold text-[#17181c]">David Zmirov</div>
-        <div className="mt-[6px] text-[16px] text-[#55575e]">CEO, Zmirov Communication</div>
-        <div className="mt-[4px] text-[15px] text-[#9b9da3]">Influence agency</div>
+        <div className="mt-[20px] text-[19px] font-bold leading-[23px] text-[#17181c]">David Zmirov</div>
+        <div className="mt-[6px] text-[16px] leading-5 text-[#55575e]">CEO, Zmirov Communication</div>
+        <div className="mt-[4px] text-[15px] leading-[19px] text-[#9b9da3]">Influence agency</div>
       </div>
     </section>
   );

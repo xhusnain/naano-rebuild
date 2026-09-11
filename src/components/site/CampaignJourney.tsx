@@ -26,39 +26,44 @@ export function CampaignJourney() {
   return (
     <section
       id="how"
-      className="scroll-mt-20 px-5 pb-[72px] pt-[64px] lg:px-[84px] lg:pb-[126px] lg:pt-[110px]"
+      className="relative scroll-mt-20 overflow-hidden px-5 pb-[72px] pt-[64px] lg:px-[84px] lg:pb-[126px] lg:pt-[110px]"
       style={{ background: "linear-gradient(#f2faff 0%, #ffffff 27%, #ffffff 100%)" }}
     >
-      <div className="mx-auto w-full max-w-[1320px]">
-        <div className="grid items-end gap-[60px] [grid-template-columns:minmax(0,720px)_minmax(280px,420px)] max-lg:grid-cols-1">
-          <div>
-            <div className="flex items-center gap-2.5 text-[12px] font-[750] uppercase tracking-[0.15em] text-[#60727c]">
-              <span className="size-[7px] rounded-full bg-[#93c5fd]" />
-              One platform, from brief to results
-            </div>
-            <h2 className="mt-[24px] text-[34px] font-semibold leading-[1.08] tracking-[-0.035em] lg:text-[56px] lg:leading-[57.68px] lg:tracking-[-0.045em] text-[#111318]">
-              Run creator campaigns
-              <br />
-              from one place.
-            </h2>
+      {/* .lp-system-platform::before — a 290px cloud band hung above the top
+          edge at 11%, which is what softens the seam from the marketplace. */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute left-[-100.3px] right-[-100.3px] top-[-90px] z-0 h-[290px] bg-[url('/lp/book-clouds.jpg')] bg-cover bg-[50%_76%] opacity-[0.11]"
+      />
+
+      <div className="relative z-[2] mx-auto w-full max-w-[1320px]">
+        {/* Their header is a two-row grid — the eyebrow sits on its own row
+            above the heading, with the same 60px gap between rows. */}
+        <div className="grid items-end gap-[60px] max-lg:grid-cols-1 lg:[grid-template-columns:minmax(0,720px)_minmax(280px,420px)]">
+          <div className="flex items-center gap-2.5 text-[12px] font-[750] uppercase leading-[15px] tracking-[1.8px] text-[#60727c] lg:col-start-1 lg:row-start-1">
+            <span className="size-[8px] rounded-full bg-[#92cbe5] shadow-[0_0_0_5px_rgba(146,203,229,0.16)]" />
+            One platform, from brief to results
           </div>
-          <p className="text-[16px] leading-[1.5] text-[#55575e] lg:text-[19px] lg:leading-[28.5px]">
+          <h2 className="mt-[18px] text-[34px] font-semibold leading-[1.08] tracking-[-0.035em] text-[#111318] lg:col-start-1 lg:row-start-2 lg:text-[56px] lg:leading-[57.68px] lg:tracking-[-0.045em]">
+            Run creator campaigns
+            <br />
+            from one place.
+          </h2>
+          <p className="mb-[3px] mt-5 max-w-[400px] text-[16px] leading-[1.5] text-[#55575e] lg:col-start-2 lg:row-start-2 lg:text-[19px] lg:leading-[28.5px]">
             Find the right voices, launch faster, and connect every post to
             measurable business results.
           </p>
         </div>
 
-        <div className="relative mt-[62px] grid min-h-[350px] grid-cols-1 items-stretch gap-4 overflow-x-clip py-[34px] pb-[38px] sm:grid-cols-2 lg:grid-cols-5">
+        <div className="relative mt-[62px] grid min-h-[350px] grid-cols-1 items-stretch gap-4 overflow-x-clip py-[34px] pb-[38px] sm:grid-cols-2 lg:grid-cols-5 lg:grid-rows-[351.188px]">
           {/* .lp-journey__current — a wide soft cloud behind the row at 36%,
               which is what gives the panel its tint as well as the cloud base */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/lp/journey-cloud.png"
+            src="/lp/journey-cloud-current.jpg"
             alt=""
             aria-hidden
-            /* height is pinned so the cloud stays in the card band; left free it
-               rises past the heading and washes the type out */
-            className="pointer-events-none absolute bottom-[-20px] left-1/2 h-[330px] w-[1300px] max-w-none -translate-x-1/2 select-none object-cover object-bottom"
+            className="pointer-events-none absolute inset-x-0 bottom-[-20px] z-0 h-[485px] w-full select-none object-cover"
             style={{ opacity: 0.36 }}
           />
 
