@@ -19,7 +19,7 @@ export default function Page() {
           </section>
           <section>
             <h2>Publishing</h2>
-            <p>Creators write in their own voice. A brief may set an angle, a hook and a call to action, but editorial control stays with the creator, and disclosure follows the platform's rules.</p>
+            <p>Creators write in their own voice. A brief may set an angle, a hook and a call to action, but editorial control stays with the creator, and disclosure follows the platform&rsquo;s rules.</p>
           </section>
           <section>
             <h2>Cancellation</h2>

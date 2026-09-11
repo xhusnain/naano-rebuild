@@ -19,7 +19,7 @@ export default function Page() {
           </section>
           <section>
             <h2>Who it is for</h2>
-            <p>B2B teams whose buyers are already on LinkedIn and who would rather borrow a practitioner's trust than buy another impression.</p>
+            <p>B2B teams whose buyers are already on LinkedIn and who would rather borrow a practitioner&rsquo;s trust than buy another impression.</p>
           </section>
           <section>
             <h2>About this build</h2>

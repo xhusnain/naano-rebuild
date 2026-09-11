@@ -19,7 +19,7 @@ export default function Page() {
           </section>
           <section>
             <h2>Click tracking</h2>
-            <p>Tracked links record a timestamp, a coarse referrer and a one-way hash of the visitor's IP address. Raw IP addresses are never written to the database; the hash exists only to stop one visitor inflating a creator's click count.</p>
+            <p>Tracked links record a timestamp, a coarse referrer and a one-way hash of the visitor&rsquo;s IP address. Raw IP addresses are never written to the database; the hash exists only to stop one visitor inflating a creator&rsquo;s click count.</p>
           </section>
           <section>
             <h2>Retention and contact</h2>

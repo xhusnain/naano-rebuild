@@ -27,7 +27,7 @@ export default function Page() {
           </section>
           <section>
             <h2>About this page</h2>
-            <p>The underlying datasets are Naano's. This rebuild reproduces the navigation, not their numbers.</p>
+            <p>The underlying datasets are Naano&rsquo;s. This rebuild reproduces the navigation, not their numbers.</p>
           </section>
     </InfoPage>
   );
