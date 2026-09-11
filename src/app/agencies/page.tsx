@@ -98,7 +98,7 @@ export default function AgenciesPage() {
         {/* naano runs a 74px spacer above a 926px hero; the clouds still sit
             behind the transparent bar, so the section carries the bar's height
             and the content centres in the 926 below it. */}
-        <div className="relative z-[2] flex min-h-[560px] flex-col items-center justify-center px-5 pb-[88px] pt-[64px] lg:min-h-[926px] lg:px-[84px]">
+        <div className="relative z-[2] flex min-h-[560px] flex-col items-center justify-center px-5 pb-[88px] pt-[64px] lg:min-h-[calc(100vh/var(--nn-zoom,1)-73px)] lg:px-[84px]">
           <div className="flex rounded-full border border-white/95 bg-white/95 px-[18px] py-[9px] text-[12px] font-[750] uppercase leading-[17px] tracking-[1.56px] text-[#526978] shadow-[0_4px_14px_rgba(42,73,117,0.055)] backdrop-blur-[8px]">
             Naano for agencies
           </div>

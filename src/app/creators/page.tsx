@@ -203,7 +203,7 @@ export default function CreatorsPage() {
           aria-hidden
           className="absolute left-0 top-0 z-0 h-full w-full max-w-none select-none object-cover lg:left-[-59px] lg:h-[990.8px] lg:w-[1789px]"
         />
-        <div className="relative z-[2] flex min-h-[560px] flex-col items-center justify-center px-5 pb-[60px] pt-10 lg:min-h-[926px] lg:px-[84px]">
+        <div className="relative z-[2] flex min-h-[560px] flex-col items-center justify-center px-5 pb-[60px] pt-10 lg:min-h-[calc(100vh/var(--nn-zoom,1)-73px)] lg:px-[84px]">
           <div className="flex items-center gap-2.5 rounded-full border border-white/95 bg-white/95 py-[9px] pl-[14px] pr-[18px] shadow-[0_4px_14px_rgba(42,73,117,0.055)] backdrop-blur-[8px]">
             <span className="flex items-center">
               {["avatar-b", "avatar-f", "avatar-a"].map((a, i) => (
@@ -466,18 +466,18 @@ export default function CreatorsPage() {
 
       {/* -------------------------------------------------------- community */}
       <section className="px-5 pb-[72px] pt-[64px] lg:px-[84px] lg:pb-[100px] lg:pt-20">
-        <div className="mx-auto max-w-[1320px]">
-          <div className="text-center text-[12px] font-bold leading-[15px] tracking-[1.92px] text-[#315b7c]">
-            FROM THE COMMUNITY
+        <div className="w-full">
+          <div className="text-center text-[12px] font-bold uppercase leading-[17px] tracking-[1.92px] text-[#315b7c]">
+            From the community
           </div>
           <h2 className="mt-5 text-center text-[34px] font-semibold leading-[1.08] tracking-[-0.03em] text-[#111318] lg:text-[52px] lg:leading-[63px] lg:tracking-[-1.56px]">
             What creators say.
           </h2>
-          <p className="mx-auto mt-4 max-w-[620px] text-center text-[17px] leading-[27px] text-[#55575e] lg:text-[19px] lg:leading-[28.5px]">
+          <p className="mt-4 text-center text-[17px] leading-[23px] text-[#55575e] lg:text-[19px]">
             2,000+ creators already getting paid on Naano.
           </p>
 
-          <div className="mx-auto mt-11 flex h-[67px] max-w-[760px] flex-wrap items-center justify-center gap-x-14 gap-y-6 text-center">
+          <div className="mt-11 flex h-[67px] w-full flex-wrap items-center justify-center gap-x-14 gap-y-6 text-center">
             {[["2,000+", "Creators"], ["€500", "Avg. per deal"], ["€1,500", "Top deal"]].map(
               ([v, l]) => (
                 <div key={l}>
@@ -490,19 +490,25 @@ export default function CreatorsPage() {
             )}
           </div>
 
-          <div className="mx-auto mt-[60px] grid max-w-[1160px] grid-cols-1 gap-[22px] sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mx-auto mt-[60px] w-full max-w-[1160px] gap-[22px] [column-gap:22px] lg:columns-3">
             {VOICES.map(([quote, name, meta, avatar]) => (
               <figure
                 key={name}
-                className="flex flex-col rounded-[22px] border border-[#e4ecf1] bg-white px-7 pb-7 pt-6 shadow-[0_22px_55px_-40px_rgba(35,75,114,0.35)]"
+                className="mb-[22px] flex break-inside-avoid flex-col rounded-[20px] border border-[#edebe7] bg-white px-6 py-[26px] shadow-[0_22px_55px_-40px_rgba(35,75,114,0.35)]"
               >
-                <span aria-hidden className="text-[30px] font-bold leading-none text-[#cbdfeb]">
+                {/* their mark is a 70px brand-blue quote glyph whose own line
+                    box overlaps the text below it, not a small pale accent */}
+                <span
+                  aria-hidden
+                  className="-mb-[50px] block h-[70px] text-[70px] font-bold leading-[70px] text-[#2563eb]"
+                >
                   &rdquo;
                 </span>
-                <blockquote className="mt-3 flex-1 text-[15.5px] leading-[25px] text-[#42454c]">
+                <blockquote className="mt-4 flex-1 text-[16px] leading-[25.6px] text-[#2b2d33]">
                   {quote}
                 </blockquote>
-                <figcaption className="mt-6 flex items-center gap-3">
+                <div className="mt-[22px] h-px w-full bg-[#edebe7]" />
+                <figcaption className="mt-[18px] flex h-12 items-center gap-3">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={`/lp/${avatar}.png`} alt="" className="size-10 rounded-full object-cover" />
                   <div>
@@ -521,6 +527,7 @@ export default function CreatorsPage() {
         items={CREATOR_FAQS}
         lead="Everything you need to know before you start earning."
         padding="px-5 pb-[80px] pt-10 lg:px-[83.6px] lg:pb-[100px]"
+        layout="stacked"
       />
 
       {/* -------------------------------------------------------------- cta */}

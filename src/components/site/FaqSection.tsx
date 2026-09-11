@@ -63,6 +63,12 @@ type Props = {
   id?: string;
   /** naano pads this block differently on the landing page and /creators. */
   padding?: string;
+  /**
+   * naano uses two arrangements: the landing page splits a sticky 360 intro
+   * beside a 730 accordion; /creators stacks a centred heading over an 820
+   * accordion with no "still have questions" row.
+   */
+  layout?: "split" | "stacked";
 };
 
 export function FaqSection({
@@ -71,7 +77,9 @@ export function FaqSection({
   lead = "Everything you need to know before getting started.",
   id = "faq",
   padding = "px-5 pb-[80px] pt-[72px] lg:px-[84px] lg:pb-[144px] lg:pt-[130px]",
+  layout = "split",
 }: Props) {
+  const stacked = layout === "stacked";
   const [open, setOpen] = useState(0);
 
   return (
@@ -79,14 +87,21 @@ export function FaqSection({
       id={id}
       className={`relative scroll-mt-20 overflow-hidden bg-white ${padding}`}
     >
-      <div className="relative z-[2] mx-auto grid w-full max-w-[1180px] grid-cols-1 justify-between gap-10 lg:grid-cols-[360px_730px] lg:gap-[90px]">
-        <div className="lg:sticky lg:top-28 lg:h-fit lg:w-[360px]">
-          <h2 className="text-[34px] font-semibold leading-[1.08] tracking-[-0.035em] text-[#111318] nn-h2">
+      <div
+        className={
+          stacked
+            ? "relative z-[2] w-full"
+            : "relative z-[2] mx-auto grid w-full max-w-[1180px] grid-cols-1 justify-between gap-10 lg:grid-cols-[360px_730px] lg:gap-[90px]"
+        }
+      >
+        <div className={stacked ? "text-center" : "lg:sticky lg:top-28 lg:h-fit lg:w-[360px]"}>
+          <h2 className="nn-h2 text-[34px] font-semibold leading-[1.08] tracking-[-0.035em] text-[#111318]">
             {heading}
           </h2>
-          <p className="mt-4 text-[17px] leading-[26px] text-[#55575e] lg:text-[19px] lg:leading-[28.5px]">
+          <p className={`mt-4 text-[17px] text-[#55575e] lg:text-[19px] ${stacked ? "leading-[23px]" : "leading-[26px] lg:leading-[28.5px]"}`}>
             {lead}
           </p>
+          {stacked ? null : (
           <div className="mt-7 flex flex-wrap items-center gap-2.5 text-[15px] leading-[19px] text-[#70747b]">
             <span>Still have questions?</span>
             <Link
@@ -100,9 +115,10 @@ export function FaqSection({
               </svg>
             </Link>
           </div>
+          )}
         </div>
 
-        <div className="lg:w-[730px]">
+        <div className={stacked ? "mx-auto mt-[60px] w-full max-w-[820px]" : "lg:w-[730px]"}>
           {items.map(([q, a], i) => {
             const isOpen = open === i;
             return (
