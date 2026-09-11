@@ -84,7 +84,7 @@ export function PricingSection() {
     >
       <div className="relative z-[2] mx-auto w-full max-w-[1504px]">
         <div className="max-w-[720px] lg:ml-[162px]">
-          <h2 className="text-[34px] font-semibold leading-[1.08] tracking-[-0.035em] text-[#111318] lg:text-[56px] lg:leading-[57.68px] lg:tracking-[-0.045em]">
+          <h2 className="text-[34px] font-semibold leading-[1.08] tracking-[-0.035em] text-[#111318] nn-h2">
             Pricing.
           </h2>
           <p className="mt-[26px] text-[19px] font-semibold leading-[1.25] tracking-[-0.015em] text-[#17181c] lg:text-[21px]">

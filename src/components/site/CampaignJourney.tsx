@@ -15,12 +15,17 @@
 const NAVY = "#315b7c";
 
 const STEPS = [
-  { n: "01", title: "Find creators your buyers trust", mock: <MockMatch /> },
-  { n: "02", title: "Build a campaign brief in minutes", mock: <MockBrief /> },
-  { n: "03", title: "Manage every collaboration", mock: <MockManage /> },
-  { n: "04", title: "Track reach, clicks, and leads", mock: <MockTrack /> },
-  { n: "05", title: "Pay creators without the admin", mock: <MockPay /> },
+  { n: "01", title: "Find creators your buyers trust", mock: <MockMatch />, panel: false },
+  { n: "02", title: "Build a campaign brief in minutes", mock: <MockBrief />, panel: true },
+  { n: "03", title: "Manage every collaboration", mock: <MockManage />, panel: true },
+  { n: "04", title: "Track reach, clicks, and leads", mock: <MockTrack />, panel: true },
+  { n: "05", title: "Pay creators without the admin", mock: <MockPay />, panel: true },
 ];
+
+/** 02-05 sit their mock on a white card inside the well; 01 is bare tiles. */
+const MOCK_PANEL =
+  "w-full max-w-[272px] rounded-[16px] border border-[rgba(203,224,238,0.72)] " +
+  "bg-white/90 p-[18px] shadow-[0_20px_48px_-32px_rgba(56,96,128,0.32)]";
 
 export function CampaignJourney() {
   return (
@@ -44,7 +49,7 @@ export function CampaignJourney() {
             <span className="size-[8px] rounded-full bg-[#92cbe5] shadow-[0_0_0_5px_rgba(146,203,229,0.16)]" />
             One platform, from brief to results
           </div>
-          <h2 className="mt-[18px] text-[34px] font-semibold leading-[1.08] tracking-[-0.035em] text-[#111318] lg:col-start-1 lg:row-start-2 lg:text-[56px] lg:leading-[57.68px] lg:tracking-[-0.045em]">
+          <h2 className="mt-[18px] text-[34px] font-semibold leading-[1.08] tracking-[-0.035em] text-[#111318] lg:col-start-1 lg:row-start-2 nn-h2">
             Run creator campaigns
             <br />
             from one place.
@@ -55,7 +60,7 @@ export function CampaignJourney() {
           </p>
         </div>
 
-        <div className="relative mt-[62px] grid min-h-[350px] grid-cols-1 items-stretch gap-4 overflow-x-clip py-[34px] pb-[38px] sm:grid-cols-2 lg:grid-cols-5 lg:grid-rows-[351.188px]">
+        <div className="relative mt-[62px] grid min-h-[350px] grid-cols-1 items-stretch gap-4 py-[34px] pb-[38px] sm:grid-cols-2 lg:grid-cols-5 lg:grid-rows-[351.188px]">
           {/* .lp-journey__current — a wide soft cloud behind the row at 36%,
               which is what gives the panel its tint as well as the cloud base */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -63,8 +68,12 @@ export function CampaignJourney() {
             src="/lp/journey-cloud-current.jpg"
             alt=""
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 bottom-[-20px] z-0 h-[485px] w-full select-none object-cover"
-            style={{ opacity: 0.36 }}
+            /* naano hangs this 66px to the left of the grid and reads the
+               frame at 50% 58%, which is what puts cloud under the cards
+               rather than a flat band across them. The section clips it, so
+               it can bleed past the grid without causing page overflow. */
+            className="pointer-events-none absolute bottom-[-20px] left-0 z-0 h-[485px] w-full select-none object-cover lg:left-[-66px]"
+            style={{ opacity: 0.36, objectPosition: "50% 58%" }}
           />
 
           {/* .lp-journey__route — not a straight rule: a curve that threads all
@@ -89,22 +98,20 @@ export function CampaignJourney() {
           {STEPS.map((s) => (
             <div
               key={s.n}
-              className="relative z-[2] flex flex-col rounded-[24px] border border-white/[0.92] bg-white/[0.74] px-[18px] pb-[22px] pt-[18px] backdrop-blur-[2px] transition-[transform,box-shadow] duration-[440ms] [transition-timing-function:cubic-bezier(.16,1,.3,1)] hover:-translate-y-1 hover:shadow-[0_18px_44px_-24px_rgba(48,87,108,0.4)]"
+              className="relative z-[2] flex flex-col rounded-[24px] border border-white/[0.92] bg-white/[0.74] px-[18px] pb-[22px] pt-[18px] shadow-[0_22px_58px_-44px_rgba(56,96,128,0.38)] backdrop-blur-[14px] transition-[transform,box-shadow] duration-[440ms] [transition-timing-function:cubic-bezier(.16,1,.3,1)] hover:-translate-y-1 hover:shadow-[0_18px_44px_-24px_rgba(48,87,108,0.4)]"
             >
               <span
-                className="inline-flex h-[26px] w-fit items-center rounded-full border border-white/90 bg-white/70 px-2.5 text-[10px] font-extrabold tracking-[0.06em]"
-                style={{ color: "#54778a" }}
+                className="absolute -top-[14px] left-[18px] z-[4] grid h-[28px] w-[36px] place-items-center rounded-full border border-[rgba(143,187,209,0.4)] bg-[#f4fbfe] text-[10px] font-extrabold leading-none tracking-[0.8px] text-[#54778a]"
               >
                 {s.n}
               </span>
 
-              <div className="mt-3 flex flex-1 items-center">
-                <div className="w-full rounded-[20px] border border-white/90 bg-white/[0.56] p-3.5">
-                  {s.mock}
-                </div>
+              {/* the well: flex-1 so it takes whatever the fixed row leaves */}
+              <div className="flex min-h-[158px] flex-1 items-center justify-center overflow-hidden rounded-[20px] border border-white/90 bg-white/[0.56] px-4 py-[18px]">
+                {s.panel ? <div className={MOCK_PANEL}>{s.mock}</div> : s.mock}
               </div>
 
-              <h3 className="mt-4 text-[17px] font-[650] leading-[22.1px] text-[#111318]">
+              <h3 className="mx-1 mt-[18px] text-[17px] font-[650] leading-[22.1px] tracking-[-0.34px] text-[#111318]">
                 {s.title}
               </h3>
             </div>
@@ -188,14 +195,18 @@ function MockManage() {
     { file: "e", name: "Nada", state: "Live" },
   ];
   return (
-    <div className="space-y-3">
+    <div>
       {rows.map((r) => (
-        <div key={r.name} className="flex items-center gap-2">
+        <div key={r.name} className="flex items-center gap-2.5 pb-[11px] last:pb-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={`/lp/avatar-${r.file}.png`} alt="" className="size-[30px] shrink-0 rounded-full object-cover" />
-          <span className="min-w-0 flex-1 truncate text-[10.5px] font-bold text-ink">{r.name}</span>
+          {/* naano sizes the name to its content and lets the status chip wrap
+              to two lines — 30 + 10 + 45.2 + 10 + 46 fills their 141.2 row. */}
+          <span className="shrink-0 text-[11.5px] font-bold leading-[14px] text-[#17181c]">
+            {r.name}
+          </span>
           <span
-            className="shrink-0 rounded-full px-2 py-1 text-[9.5px] font-bold leading-none"
+            className="ml-auto w-[46px] shrink-0 rounded-[8px] px-1.5 py-1 text-center text-[9.5px] font-bold leading-[1.3]"
             style={{ background: "#e7f1f8", color: NAVY }}
           >
             {r.state}

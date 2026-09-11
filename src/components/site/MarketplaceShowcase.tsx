@@ -65,7 +65,7 @@ export function MarketplaceShowcase() {
           The Naano creator marketplace
         </span>
 
-        <h2 className="mx-auto mt-[25px] max-w-[840px] text-[38px] font-semibold leading-[1.06] tracking-[-0.04em] lg:text-[76px] lg:leading-[75.24px] lg:tracking-[-0.052em] text-[#111318]">
+        <h2 className="mx-auto mt-[25px] max-w-[840px] text-[38px] font-semibold leading-[1.06] tracking-[-0.04em] nn-h2--marketplace text-[#111318]">
           Work with all the
           <br />
           best creators.

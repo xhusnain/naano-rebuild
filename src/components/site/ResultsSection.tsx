@@ -63,9 +63,11 @@ export function ResultsSection() {
         </span>
       </div>
 
-      <h2 className="relative z-[2] mx-auto mt-[24px] max-w-[940px] text-center text-[34px] font-semibold leading-[1.08] tracking-[-0.035em] text-[#111318] lg:text-[56px] lg:leading-[57.68px] lg:tracking-[-0.045em]">
+      <h2 className="relative z-[2] mx-auto mt-[24px] max-w-[940px] text-center text-[34px] font-semibold leading-[1.08] tracking-[-0.035em] text-[#111318] nn-h2">
+        {/* naano's heading only wraps once the fluid size caps at 56px, which
+            is 1556px of viewport. Below that it sits on one line. */}
         Proven across thousands
-        <br className="max-lg:hidden" /> of campaigns.
+        <br className="hidden min-[1556px]:inline" /> of campaigns.
       </h2>
 
       {/* ------------------------------------------------------- stat band */}

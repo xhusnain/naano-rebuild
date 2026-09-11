@@ -38,7 +38,7 @@ export function BookSection() {
         <div className="text-[12px] font-bold leading-[15px] tracking-[1.92px] text-[#315b7c]">
           READY TO LAUNCH?
         </div>
-        <h2 className="mt-5 text-[36px] font-semibold leading-[1.06] tracking-[-0.04em] text-[#111318] lg:text-[60px] lg:leading-[61.8px] lg:tracking-[-2.7px]">
+        <h2 className="mt-5 text-[36px] font-semibold leading-[1.06] tracking-[-0.04em] text-[#111318] nn-h2--book">
           Your next creator
           <br className="max-lg:hidden" /> campaign starts here.
         </h2>

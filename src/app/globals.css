@@ -231,3 +231,33 @@
     transform: rotate(0.28deg);
   }
 }
+
+/* --------------------------------------------------------------------------
+   naano's section headings are fluid, not fixed. Measured on their page at
+   1180 / 1440 / 1672 the size tracks the viewport and then caps:
+
+     most sections   min(3.6vw, 56px)   line-height 1.03   tracking -0.045em
+     marketplace     min(5.2vw, 76px)   line-height 0.99   tracking -0.052em
+     book / cta      min(4vw,   60px)   line-height 1.03   tracking -0.045em
+
+   Only from lg up — below that each section keeps its own phone size.
+   -------------------------------------------------------------------------- */
+@media (min-width: 1024px) {
+  .nn-h2 {
+    font-size: min(3.6vw, 56px);
+    line-height: 1.03;
+    letter-spacing: -0.045em;
+  }
+
+  .nn-h2--marketplace {
+    font-size: min(5.2vw, 76px);
+    line-height: 0.99;
+    letter-spacing: -0.052em;
+  }
+
+  .nn-h2--book {
+    font-size: min(4vw, 60px);
+    line-height: 1.03;
+    letter-spacing: -0.045em;
+  }
+}

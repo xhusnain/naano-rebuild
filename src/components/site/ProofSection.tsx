@@ -54,7 +54,7 @@ export function ProofSection() {
   return (
     <section id="proof-teams" className="bg-[#fbfdfe] px-5 pb-[76px] pt-[64px] lg:px-[84px] lg:pb-[150px] lg:pt-[118px]">
       <div className="mx-auto w-full max-w-[1260px]">
-        <h2 className="text-[34px] font-semibold leading-[1.08] tracking-[-0.035em] lg:text-[56px] lg:leading-[57.68px] lg:tracking-[-0.045em] text-[#111318]">
+        <h2 className="text-[34px] font-semibold leading-[1.08] tracking-[-0.035em] nn-h2 text-[#111318]">
           Real teams. Measurable pipeline.
         </h2>
         <p className="mt-4 text-[16px] leading-[1.45] text-[#55575e] lg:text-[19px] lg:leading-[normal]">

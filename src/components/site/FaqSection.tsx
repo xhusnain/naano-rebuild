@@ -81,7 +81,7 @@ export function FaqSection({
     >
       <div className="relative z-[2] mx-auto grid w-full max-w-[1180px] grid-cols-1 justify-between gap-10 lg:grid-cols-[360px_730px] lg:gap-[90px]">
         <div className="lg:sticky lg:top-28 lg:h-fit lg:w-[360px]">
-          <h2 className="text-[34px] font-semibold leading-[1.08] tracking-[-0.035em] text-[#111318] lg:text-[56px] lg:leading-[57.68px] lg:tracking-[-0.045em]">
+          <h2 className="text-[34px] font-semibold leading-[1.08] tracking-[-0.035em] text-[#111318] nn-h2">
             {heading}
           </h2>
           <p className="mt-4 text-[17px] leading-[26px] text-[#55575e] lg:text-[19px] lg:leading-[28.5px]">
