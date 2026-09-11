@@ -1,41 +1,15 @@
 import Link from "next/link";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
-import { CREATORS } from "@/lib/creators";
 import { ScaleFrame } from "@/components/site/ScaleFrame";
 import { Testimonial } from "@/components/site/Testimonial";
 import { MarketplaceShowcase } from "@/components/site/MarketplaceShowcase";
 import { CampaignJourney } from "@/components/site/CampaignJourney";
 import { ProofSection } from "@/components/site/ProofSection";
-import { getCurrentUser } from "@/lib/session";
+import { ResultsSection } from "@/components/site/ResultsSection";
 
-const FAQS = [
-  [
-    "How much does a post cost?",
-    "Creators set their own flat fee per post, starting at €20. The median is €84 under 5K followers, €180 between 5K and 10K, and €312 between 10K and 25K. Top creators charge €400 to €1,500.",
-  ],
-  [
-    "How is this different from LinkedIn Ads?",
-    "You are borrowing trust, not buying impressions. In Q1 2026 our campaigns averaged €18 per lead against €55–90 on LinkedIn Ads, at a 12% click-through rate against a 0.8% benchmark.",
-  ],
-  [
-    "How do you track results?",
-    "Every post carries a unique tracked link. When somebody clicks it we record the click against that specific creator and campaign, then follow it through to leads and pipeline.",
-  ],
-  [
-    "Are creators vetted?",
-    "Yes. Around 2,000–3,000 creators across 100 countries, from roughly 1K to 500K followers, all working in B2B verticals: sales, RevOps, devtools, HR-tech, product, marketing ops, fintech and vertical SaaS.",
-  ],
-  [
-    "What do I pay Naano?",
-    "Self-Serve is €0 per month — you pay only for the posts you book. Managed is €700 per month and we run the campaigns for you.",
-  ],
-];
 
-export default async function Home() {
-  const featured = CREATORS.slice(0, 3);
-  const user = await getCurrentUser();
-
+export default function Home() {
   return (
     <ScaleFrame>
       <Nav />
@@ -164,126 +138,7 @@ export default async function Home() {
 
       <ProofSection />
 
-      {/* --------------------------------------------------------------- pricing */}
-      <section id="pricing" className="nn-sky scroll-mt-20 border-y border-line">
-        <div className="mx-auto max-w-5xl px-5 py-24">
-          <div className="text-center">
-            <div className="nn-eyebrow">Pricing</div>
-            <h2 className="mt-3 font-sans text-4xl font-semibold tracking-[-0.03em] text-ink">
-              Pay per post, or hand it over
-            </h2>
-          </div>
-          <div className="mt-14 grid gap-6 md:grid-cols-2">
-            <div className="nn-card flex flex-col p-9">
-              <h3 className="font-display text-lg font-bold text-ink">Self-Serve</h3>
-              <div className="mt-4 font-display text-5xl font-extrabold text-ink">
-                €0<span className="text-lg font-bold text-grey">/mo</span>
-              </div>
-              <p className="mt-3 text-sm text-muted">
-                Browse, book and track yourself. You pay only for the posts you book.
-              </p>
-              <ul className="mt-7 space-y-3 text-sm text-ink">
-                {[
-                  "Full marketplace access",
-                  "AI-drafted campaign briefs",
-                  "Tracked links and attribution",
-                  "Contracts, invoices and payouts",
-                ].map((f) => (
-                  <li key={f} className="flex gap-2.5">
-                    <span className="text-success">✓</span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href="/register?role=saas"
-                className="mt-auto pt-8 text-center"
-              >
-                <span className="block rounded-full border border-line bg-white px-5 py-3 text-sm font-semibold text-ink transition hover:border-grey">
-                  Start free
-                </span>
-              </Link>
-            </div>
-
-            <div className="nn-card relative flex flex-col border-brand/30 p-9 ring-1 ring-brand/20">
-              <span className="absolute -top-3 left-9 rounded-full bg-brand px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
-                Done for you
-              </span>
-              <h3 className="font-display text-lg font-bold text-ink">Managed</h3>
-              <div className="mt-4 font-display text-5xl font-extrabold text-ink">
-                €700<span className="text-lg font-bold text-grey">/mo</span>
-              </div>
-              <p className="mt-3 text-sm text-muted">
-                We select the creators, write the briefs and run the campaigns.
-              </p>
-              <ul className="mt-7 space-y-3 text-sm text-ink">
-                {[
-                  "Everything in Self-Serve",
-                  "Creator selection and outreach",
-                  "Brief writing and review",
-                  "Monthly performance reporting",
-                ].map((f) => (
-                  <li key={f} className="flex gap-2.5">
-                    <span className="text-success">✓</span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <Link href="/register?role=saas" className="mt-auto pt-8 text-center">
-                <span className="block rounded-full bg-brand px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-strong">
-                  Talk to us
-                </span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------------------- faq */}
-      <section className="mx-auto max-w-3xl px-5 py-24">
-        <h2 className="text-center font-sans text-4xl font-semibold tracking-[-0.03em] text-ink">
-          Questions
-        </h2>
-        <div className="mt-12 divide-y divide-line">
-          {FAQS.map(([q, a]) => (
-            <details key={q} className="group py-5">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display font-bold text-ink marker:hidden">
-                {q}
-                <span className="text-xl text-grey transition group-open:rotate-45">
-                  +
-                </span>
-              </summary>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{a}</p>
-            </details>
-          ))}
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------------------- cta */}
-      <section className="mx-auto max-w-6xl px-5 pb-24">
-        <div className="overflow-hidden rounded-3xl bg-[linear-gradient(120deg,#1240d0,#1652f0_55%,#3080ff)] px-10 py-16 text-center">
-          <h2 className="font-sans text-4xl font-semibold tracking-[-0.03em] text-white">
-            Launch your first campaign this week
-          </h2>
-          <p className="mx-auto mt-4 max-w-lg text-white/80">
-            Browse the marketplace free. Pay only when you book a post.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link
-              href="/register?role=saas"
-              className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-brand transition hover:bg-brand-soft"
-            >
-              Find creators
-            </Link>
-            <Link
-              href={user ? (user.role === "creator" ? "/studio" : "/app") : "/login"}
-              className="rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-            >
-              {user ? "Go to your dashboard" : "Sign in to a demo account"}
-            </Link>
-          </div>
-        </div>
-      </section>
+      <ResultsSection />
 
       <Footer />
     </ScaleFrame>
