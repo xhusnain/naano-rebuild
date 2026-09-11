@@ -21,7 +21,7 @@ import { useState } from "react";
  * ink, so that is what happens here too.
  */
 
-const FAQS: [string, string][] = [
+export const LANDING_FAQS: [string, string][] = [
   [
     "What is Naano?",
     "Naano is a B2B LinkedIn creator marketplace: companies discover and book vetted creators for sponsored LinkedIn campaigns, each at a fixed price per post set by the creator. The marketplace spans creators from niche voices with around 1,000 followers to established B2B creators with audiences of several hundred thousand.",
@@ -56,21 +56,36 @@ const FAQS: [string, string][] = [
   ],
 ];
 
-export function FaqSection() {
+type Props = {
+  items?: [string, string][];
+  heading?: string;
+  lead?: string;
+  id?: string;
+  /** naano pads this block differently on the landing page and /creators. */
+  padding?: string;
+};
+
+export function FaqSection({
+  items = LANDING_FAQS,
+  heading = "Frequently asked questions.",
+  lead = "Everything you need to know before getting started.",
+  id = "faq",
+  padding = "px-5 pb-[80px] pt-[72px] lg:px-[84px] lg:pb-[144px] lg:pt-[130px]",
+}: Props) {
   const [open, setOpen] = useState(0);
 
   return (
     <section
-      id="faq"
-      className="relative scroll-mt-20 overflow-hidden bg-white px-5 pb-[80px] pt-[72px] lg:px-[84px] lg:pb-[144px] lg:pt-[130px]"
+      id={id}
+      className={`relative scroll-mt-20 overflow-hidden bg-white ${padding}`}
     >
       <div className="relative z-[2] mx-auto grid w-full max-w-[1180px] grid-cols-1 justify-between gap-10 lg:grid-cols-[360px_730px] lg:gap-[90px]">
         <div className="lg:sticky lg:top-28 lg:h-fit lg:w-[360px]">
           <h2 className="text-[34px] font-semibold leading-[1.08] tracking-[-0.035em] text-[#111318] lg:text-[56px] lg:leading-[57.68px] lg:tracking-[-0.045em]">
-            Frequently asked questions.
+            {heading}
           </h2>
           <p className="mt-4 text-[17px] leading-[26px] text-[#55575e] lg:text-[19px] lg:leading-[28.5px]">
-            Everything you need to know before getting started.
+            {lead}
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-2.5 text-[15px] leading-[19px] text-[#70747b]">
             <span>Still have questions?</span>
@@ -88,7 +103,7 @@ export function FaqSection() {
         </div>
 
         <div className="lg:w-[730px]">
-          {FAQS.map(([q, a], i) => {
+          {items.map(([q, a], i) => {
             const isOpen = open === i;
             return (
               <div

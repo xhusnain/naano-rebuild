@@ -70,7 +70,9 @@ const RESOURCES = [
   ["Naano vs alternatives", "/blog/naano-vs-alternatives"],
 ] as const;
 
-export function Footer() {
+export function Footer({
+  tagline = "Turn LinkedIn creators into your best acquisition channel.",
+}: { tagline?: string } = {}) {
   return (
     <footer className="relative -mt-[10px] overflow-hidden px-5 pt-[120px] lg:px-[83.6px] lg:pt-[290px]">
       <span
@@ -91,7 +93,7 @@ export function Footer() {
             className="h-[28px] w-[133.72px] object-contain"
           />
           <p className="mt-[22px] w-[210px] text-[15px] leading-[23.25px] text-[#5f737e]">
-            Turn LinkedIn creators into your best acquisition channel.
+            {tagline}
           </p>
           <a
             href="https://www.linkedin.com/company/naano"
