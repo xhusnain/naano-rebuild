@@ -48,102 +48,187 @@ const BRANDS: [string, number][] = [
 ];
 
 /** The six monetize cells. The first is the heading block, not a card. */
-const CELLS: { caption: string; mock: React.ReactNode; tall: boolean }[] = [
+/**
+ * The six monetize cells. The first is the heading block, not a card.
+ *
+ * Colours read off naano's own cells rather than guessed:
+ *   brand        #2563eb            muted text   #8a8c92
+ *   blue pill    #eaf3ff / #2563eb  red pill     #fdecec / #e0455a
+ *   green pill   #e7f7ec / #16a34a  border       #cfedd8
+ *   indigo pill  #eef0ff / #5b5fe0  neutral row  #fbfaf8 / #edebe7
+ *   chart bars   #e7e4df, #dfe9fb, #2563eb
+ */
+const CELLS: { caption: string; mock: React.ReactNode; panel?: boolean }[] = [
   {
     caption: "Launch a professional media kit in minutes",
-    tall: true,
+    panel: true,
     mock: (
-      <div className="w-full space-y-3">
-        <div className="flex items-center gap-2.5">
-          <span className="size-9 rounded-full bg-[#dfeef8]" />
-          <div>
-            <div className="text-[13.5px] font-bold text-[#17181c]">in LinkedIn</div>
-            <div className="text-[12px] text-[#8b8d94]">B2B &amp; AI · 34K followers</div>
+      <div className="w-full">
+        <div className="flex items-start gap-2.5">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/lp/avatar-e.png" alt="" className="size-[42px] shrink-0 rounded-full bg-[#edebe7] object-cover" />
+          <div className="min-w-0 flex-1">
+            <div className="text-[14px] font-bold leading-[18px] text-[#17181c]">Robin Tempe</div>
+            <div className="text-[11.5px] leading-[15px] text-[#8a8c92]">B2B SaaS · Product</div>
           </div>
+          <span className="shrink-0 rounded-[6px] bg-[#eaf3ff] px-2 py-[3px] text-[10.5px] font-bold leading-[15px] text-[#2563eb]">
+            in LinkedIn
+          </span>
         </div>
-        <div className="flex gap-2">
-          <span className="rounded-full bg-white/80 px-2.5 py-1 text-[12px] text-[#55575e]">▶ 97K views</span>
-          <span className="rounded-full bg-white/80 px-2.5 py-1 text-[12px] text-[#55575e]">◎ 34K reach</span>
+
+        <div className="mt-3 flex gap-2">
+          <span className="rounded-[7px] bg-[#fdecec] px-2.5 py-[5px] text-[11.5px] font-bold leading-[17px] text-[#e0455a]">
+            ▶ 97K views
+          </span>
+          <span className="rounded-[7px] bg-[#eaf3ff] px-2.5 py-[5px] text-[11.5px] font-bold leading-[17px] text-[#2563eb]">
+            ◎ 34K reach
+          </span>
         </div>
-        <div className="rounded-[12px] bg-white/85 px-3 py-2.5">
-          <div className="text-[12px] text-[#8b8d94]">Starting rate</div>
-          <div className="text-[19px] font-bold text-[#17181c]">€800 / post</div>
+
+        <div className="mt-4 flex h-[44px] items-end gap-2">
+          {[
+            [17, "#e7e4df"],
+            [27, "#dfe9fb"],
+            [23, "#e7e4df"],
+            [39, "#2563eb"],
+            [31, "#dfe9fb"],
+            [44, "#2563eb"],
+          ].map(([h, c], i) => (
+            <span
+              key={i}
+              className="w-[33px] rounded-t-[4px]"
+              style={{ height: h as number, background: c as string }}
+            />
+          ))}
+        </div>
+
+        <div className="mt-3.5 flex items-center justify-between">
+          <span className="text-[11.5px] leading-[14px] text-[#8a8c92]">Starting rate</span>
+          <span className="text-[14px] font-extrabold leading-[17px] text-[#17181c]">€800 / post</span>
         </div>
       </div>
     ),
   },
   {
     caption: "Instant payment",
-    tall: true,
+    panel: true,
     mock: (
-      <div className="w-full space-y-3 text-center">
-        <div className="text-[12px] text-[#8b8d94]">Today</div>
-        <div className="text-[40px] font-extrabold leading-none tracking-[-0.03em] text-[#17181c]">
+      <div className="w-full">
+        <div className="flex items-center justify-between">
+          <span className="flex items-center gap-1.5 text-[12.5px] font-bold leading-4 text-[#16a34a]">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <circle cx="12" cy="12" r="9" />
+              <path d="M8 12.5l2.5 2.5L16 9.5" />
+            </svg>
+            Payment received
+          </span>
+          <span className="text-[10.5px] leading-[13px] text-[#8a8c92]">Today</span>
+        </div>
+
+        <div className="mt-2.5 text-[40px] font-extrabold leading-[40px] tracking-[-0.03em] text-[#17181c]">
           €5,000
         </div>
-        <div className="flex justify-center gap-2">
-          <span className="rounded-full bg-[#e7f7ee] px-2.5 py-1 text-[12px] font-semibold text-[#1c7c4a]">⚡ Instant · SEPA</span>
+
+        <div className="mt-3 flex items-center gap-2.5">
+          <span className="rounded-[6px] bg-[#e7f7ec] px-2 py-[5px] text-[10.5px] font-bold leading-[15px] text-[#16a34a]">
+            ⚡ Instant · SEPA
+          </span>
+          <span className="text-[11px] leading-[14px] text-[#8a8c92]">Attio campaign</span>
         </div>
-        <div className="rounded-[12px] bg-white/85 px-3 py-2 text-[13px] text-[#55575e]">
-          Attio campaign
+
+        <div className="mt-3.5 flex items-center gap-2.5 border-t border-[#edebe7] pt-3.5">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/lp/avatar-d.png" alt="" className="size-7 shrink-0 rounded-full bg-[#edebe7] object-cover" />
+          <div>
+            <div className="text-[12.5px] font-bold leading-4 text-[#17181c]">Paid to your account</div>
+            <div className="text-[11px] leading-[14px] text-[#8a8c92]">No invoice, no chasing</div>
+          </div>
         </div>
       </div>
     ),
   },
   {
     caption: "Get sponsored by our network",
-    tall: false,
     mock: (
-      <div className="flex w-full flex-wrap items-center justify-center gap-x-6 gap-y-4">
-        {BRANDS.slice(0, 6).map(([b, h]) => (
-          /* eslint-disable-next-line @next/next/no-img-element */
-          <img key={b} src={`/lp/logo-${b}.png`} alt={b} style={{ maxHeight: h }} className="w-auto object-contain" />
+      <div className="grid w-full max-w-[268px] grid-cols-3 gap-4">
+        {["lemlist", "gojiberry", "ringover", "folk", "chatseo"].map((b) => (
+          <span
+            key={b}
+            className="grid aspect-square place-items-center rounded-[16px] border border-[#edebe7] bg-white shadow-[0_6px_16px_-10px_rgba(15,23,42,0.35)]"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={`/lp/logo-${b}.png`} alt="" className="max-h-7 max-w-[64%] object-contain" />
+          </span>
         ))}
+        <span className="grid aspect-square place-items-center rounded-[16px] bg-[#2563eb] shadow-[0_6px_16px_-10px_rgba(15,23,42,0.35)]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/lp/naano-logo-nav.png" alt="" className="max-w-[70%] object-contain brightness-0 invert" />
+        </span>
       </div>
     ),
   },
   {
     caption: "Bring your own deals & earn extra",
-    tall: false,
+    panel: true,
     mock: (
-      <div className="w-full space-y-3">
-        <div className="text-[12px] font-semibold uppercase tracking-[1.2px] text-[#8b8d94]">
-          A deal you sourced
+      <div className="w-full">
+        <div className="flex items-center gap-2.5">
+          <span className="grid size-[34px] shrink-0 place-items-center rounded-[9px] bg-[#eaf3ff] text-[18px] font-bold leading-none text-[#2563eb]">
+            +
+          </span>
+          <div className="text-[13.5px] font-semibold leading-4 text-[#17181c]">A deal you sourced</div>
         </div>
-        <div className="flex items-center justify-between rounded-[12px] bg-white/85 px-3 py-2.5">
-          <span className="text-[13.5px] text-[#55575e]">yourbrand.com</span>
-          <span className="text-[16px] font-bold text-[#17181c]">€2,000</span>
+
+        <div className="mt-3 flex items-center justify-between rounded-[9px] border border-[#edebe7] bg-[#fbfaf8] px-3 py-2.5">
+          <span className="text-[13px] leading-4 text-[#8a8c92]">yourbrand.com</span>
+          <span className="text-[13px] font-bold leading-4 text-[#17181c]">€2,000</span>
         </div>
-        <div className="flex items-center justify-between rounded-[12px] bg-[#e7f7ee] px-3 py-2.5">
-          <span className="text-[13.5px] text-[#1c7c4a]">Naano bonus</span>
-          <span className="text-[16px] font-bold text-[#1c7c4a]">+ €300</span>
+
+        <div className="mt-2.5 flex items-center justify-between rounded-[9px] border border-[#cfedd8] bg-[#e7f7ec] px-3 py-2.5">
+          <span className="flex items-center gap-1.5 text-[12px] font-bold leading-[15px] text-[#16a34a]">
+            ⚡ Naano bonus
+          </span>
+          <span className="text-[13px] font-extrabold leading-4 text-[#16a34a]">+ €300</span>
         </div>
-        <div className="text-[13px] leading-[19px] text-[#8b8d94]">
+
+        <p className="mt-3 text-[11px] leading-[14px] text-[#8a8c92]">
           Contract &amp; payout handled. You just close it.
-        </div>
+        </p>
       </div>
     ),
   },
   {
     caption: "Workflows to accelerate collaborations",
-    tall: false,
+    panel: true,
     mock: (
-      <div className="w-full space-y-3">
-        <div className="flex items-center gap-2">
-          <span className="text-[15px]">🔔</span>
-          <span className="rounded-full bg-white/85 px-2.5 py-1 text-[12px] font-semibold text-[#55575e]">
+      <div className="w-full">
+        <div className="flex items-start gap-2.5">
+          <span className="grid size-7 shrink-0 place-items-center rounded-[8px] bg-[#eef0ff] text-[13px] leading-none">
+            🔔
+          </span>
+          <div className="text-[13px] leading-[17px] text-[#26272c]">
+            <span className="font-bold">Attio</span> sent a collaboration request
+          </div>
+        </div>
+
+        <div className="mt-3 flex items-center gap-2">
+          <span className="rounded-full bg-[#eef0ff] px-2.5 py-1 text-[11.5px] font-bold leading-4 text-[#5b5fe0]">
             ◆ Sponsored post
           </span>
-          <span className="ml-auto text-[16px] font-bold text-[#17181c]">€1,000</span>
+          <span className="ml-auto rounded-[7px] bg-[#eaf3ff] px-2.5 py-1 text-[11.5px] font-bold leading-4 text-[#2563eb]">
+            €1,000
+          </span>
         </div>
-        <div className="rounded-[12px] bg-white/85 px-3 py-2.5 text-[13px] text-[#55575e]">
+
+        <div className="mt-3 text-[11px] leading-[14px] text-[#8a8c92]">
           Deliver by · Aug 12 · 1 post + 1 repost
         </div>
-        <div className="flex gap-2">
-          <span className="flex-1 rounded-[10px] bg-[#17181c] py-2 text-center text-[13px] font-semibold text-white">
+
+        <div className="mt-3 flex gap-2.5">
+          <span className="flex-1 rounded-[8px] bg-[#17181c] py-2 text-center text-[12.5px] font-semibold leading-[15px] text-white">
             Accept
           </span>
-          <span className="flex-1 rounded-[10px] bg-white/85 py-2 text-center text-[13px] font-semibold text-[#55575e]">
+          <span className="flex-1 rounded-[8px] bg-[#f4f2ee] py-2 text-center text-[12.5px] font-semibold leading-[15px] text-[#55575e]">
             Decline
           </span>
         </div>
@@ -285,7 +370,7 @@ export default function CreatorsPage() {
         <div className="mx-auto grid w-full max-w-[1240px] grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-[405.3px_397.3px_397.3px] lg:grid-rows-[430px_389px]">
           <div className="flex flex-col justify-end pb-[26px] pl-1 pr-2 pt-1">
             <h2 className="text-[34px] font-semibold leading-[1.06] tracking-[-0.035em] text-[#17181c] lg:text-[50px] lg:leading-[52px] lg:tracking-[-1.75px]">
-              Monetize your content on Naano.
+              Monetize your content on Naano<span className="text-[#2563eb]">.</span>
             </h2>
             <p className="mt-5 max-w-[400px] text-[17px] leading-[26px] text-[#55575e] lg:text-[19px] lg:leading-[28.5px]">
               Accept deals from brands you know, or bring your own onto the
@@ -296,7 +381,13 @@ export default function CreatorsPage() {
           {CELLS.map((cell) => (
             <div key={cell.caption} className={`flex flex-col px-[30px] pb-[34px] pt-[30px] ${CARD}`}>
               <div className="flex min-h-[200px] flex-1 items-center justify-center rounded-[16px] border border-white/90 bg-white/[0.56] px-6 py-7">
-                {cell.mock}
+                {cell.panel ? (
+                  <div className="w-full max-w-[272px] rounded-[14px] border border-[#edebe7] bg-white p-4 shadow-[0_20px_48px_-32px_rgba(56,96,128,0.32)]">
+                    {cell.mock}
+                  </div>
+                ) : (
+                  cell.mock
+                )}
               </div>
               <div className="mt-6 text-center text-[20px] font-semibold tracking-[-0.4px] text-[#17181c]">
                 {cell.caption}
