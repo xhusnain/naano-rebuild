@@ -285,3 +285,17 @@
   transform-origin: top left;
   transform: scale(calc(100cqw / 1664px));
 }
+
+
+/* --------------------------------------------------------------------------
+   naano's content pages — /free-tools and /blog — are not inside the 1672
+   design frame (their document height is identical at 1440 and 1672) and they
+   set body copy in Plus Jakarta Sans rather than the Inter the marketing pages
+   use. Measured on their pages:
+
+     /free-tools   h1 60/63 w600 -2.4px · h2 20/27.5 w600 -0.4px · p 19/30.875
+     /blog         h1 68/69.36 w300      ·                        p 18/29.25
+   -------------------------------------------------------------------------- */
+.nn-doc {
+  font-family: var(--font-display);
+}

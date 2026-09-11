@@ -20,7 +20,40 @@ export const CATEGORIES = [
   "LinkedIn micro-creators",
   "Naano vs alternatives",
   "Creator-led growth",
+  "LinkedIn algorithm",
+  "Founder-led distribution",
 ] as const;
+
+/**
+ * Card art. naano draws no photography on the journal — each card is a two-stop
+ * 135deg gradient chosen by category, under a white dotted overlay at 16%.
+ * These are their six pairs, read off their cards.
+ */
+const ART: Record<string, string> = {
+  "CPL economics": "linear-gradient(135deg, #22C55E 0%, #0A66C2 100%)",
+  "LinkedIn micro-creators": "linear-gradient(135deg, #0A66C2 0%, #22D3EE 100%)",
+  "Naano vs alternatives": "linear-gradient(135deg, #111827 0%, #1652F0 100%)",
+  "Creator-led growth": "linear-gradient(135deg, #1652F0 0%, #0A66C2 100%)",
+  "LinkedIn algorithm": "linear-gradient(135deg, #7C3AED 0%, #0A66C2 100%)",
+  "Founder-led distribution": "linear-gradient(135deg, #F59E0B 0%, #1652F0 100%)",
+};
+
+export function artFor(category: string) {
+  return ART[category] ?? ART["Creator-led growth"];
+}
+
+/**
+ * naano credits a named author on every card. Ours are this project's own
+ * bylines, assigned from the slug so a post keeps the same author on the index,
+ * the article page and any related-post rail.
+ */
+const AUTHORS = ["Alexis Jarre", "Justine Namour", "Thomas Marcelle", "Lea Fontaine"];
+
+export function authorFor(slug: string) {
+  let h = 0;
+  for (const ch of slug) h = (h * 31 + ch.charCodeAt(0)) % 100000;
+  return AUTHORS[h % AUTHORS.length];
+}
 
 export const FEATURED: Post = {
   slug: "b2b-creator-campaign-tracking-template",

@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Nav } from "@/components/site/Nav";
-import { Footer } from "@/components/site/Footer";
-import { ScaleFrame } from "@/components/site/ScaleFrame";
+import { DocsNav } from "@/components/site/DocsNav";
+import { DocsFooter } from "@/components/site/DocsFooter";
 import { ALL_POSTS, findPost } from "@/lib/blog";
 
 /**
@@ -34,33 +33,33 @@ export default async function ArticlePage({ params }: Params) {
   const more = ALL_POSTS.filter((p) => p.slug !== post.slug && p.category === post.category).slice(0, 3);
 
   return (
-    <ScaleFrame>
-      <Nav tone="paper" />
+    <div className="nn-doc bg-white">
+      <DocsNav />
 
-      <article className="bg-[#fcfcfb] px-5 pb-20 pt-[144px] lg:px-[84px]">
-        <div className="mx-auto max-w-[760px]">
-          <Link href="/blog" className="text-[14px] font-semibold text-[#2563eb] transition hover:opacity-70">
+      <article className="px-4 pb-24 pt-32 sm:px-6 sm:pt-36">
+        <div className="mx-auto max-w-[884px]">
+          <Link href="/blog" className="text-[14px] font-medium text-[#1652F0] transition hover:opacity-70">
             ← Naano Journal
           </Link>
           <div className="mt-6 flex flex-wrap items-center gap-3">
-            <span className="rounded-full bg-[#eef8fd] px-3 py-1 text-[12px] font-bold uppercase tracking-[1.2px] text-[#315b7c]">
+            <span className="rounded-full border border-[#E5E7EB] px-3 py-1 text-[12px] text-[#4B5563]">
               {post.category}
             </span>
-            <span className="text-[13px] text-[#8b8d94]">
+            <span className="text-[13px] text-[#6B7280]">
               {post.readMins} min read · {post.date}
             </span>
           </div>
 
-          <h1 className="mt-6 text-[34px] font-semibold leading-[1.1] tracking-[-0.03em] text-[#111318] lg:text-[48px]">
+          <h1 className="mt-6 font-light leading-[1.04] tracking-[-0.025em] text-[#111827] text-[clamp(32px,4.6vw,58px)]">
             {post.title}
           </h1>
-          <p className="mt-6 text-[19px] leading-[30px] text-[#55575e]">{post.excerpt}</p>
+          <p className="mt-6 text-[19px] leading-[1.7] text-[#111827]">{post.excerpt}</p>
 
-          <div className="mt-10 rounded-[20px] border border-[#e4ecf1] bg-white p-7">
-            <div className="text-[15px] font-bold text-[#17181c]">
+          <div className="mt-10 rounded-[18px] border border-[#ECEAE6] bg-[#FAFAF9] p-7">
+            <div className="text-[15px] font-semibold text-[#17181C]">
               The full article lives on naano.com
             </div>
-            <p className="mt-2.5 text-[15px] leading-[24px] text-[#69717a]">
+            <p className="mt-2.5 text-[15px] leading-[1.65] text-[#55575E]">
               This build is a rebuild of naano.com made as a take-home exercise.
               The Journal index, categories and links are reproduced so the site
               navigates exactly as theirs does, but the writing is Naano&rsquo;s
@@ -70,7 +69,7 @@ export default async function ArticlePage({ params }: Params) {
               href={`https://naano.com/blog/${post.slug}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-5 inline-flex items-center gap-2 text-[15px] font-semibold text-[#2563eb] transition hover:opacity-70"
+              className="mt-5 inline-flex items-center gap-2 text-[15px] font-semibold text-[#1652F0] transition hover:opacity-70"
             >
               Read it on naano.com
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -82,20 +81,20 @@ export default async function ArticlePage({ params }: Params) {
 
           {more.length ? (
             <div className="mt-14">
-              <div className="text-[12px] font-bold uppercase leading-[15px] tracking-[1.92px] text-[#8b8d94]">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#6B7280]">
                 More on {post.category}
               </div>
-              <ul className="mt-5 divide-y divide-[#ecebe7]">
+              <ul className="mt-5 divide-y divide-[#ECEAE6]">
                 {more.map((p) => (
                   <li key={p.slug}>
                     <Link
                       href={`/blog/${p.slug}`}
                       className="flex items-center justify-between gap-6 py-4 transition hover:opacity-70"
                     >
-                      <span className="text-[16px] font-semibold leading-[24px] text-[#17181c]">
+                      <span className="text-[16px] font-medium leading-[24px] text-[#111827]">
                         {p.title}
                       </span>
-                      <span className="shrink-0 text-[13px] text-[#8b8d94]">{p.readMins} min</span>
+                      <span className="shrink-0 text-[13px] text-[#6B7280]">{p.readMins} min</span>
                     </Link>
                   </li>
                 ))}
@@ -105,7 +104,7 @@ export default async function ArticlePage({ params }: Params) {
         </div>
       </article>
 
-      <Footer />
-    </ScaleFrame>
+      <DocsFooter />
+    </div>
   );
 }
