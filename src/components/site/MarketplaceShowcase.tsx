@@ -52,14 +52,14 @@ export function MarketplaceShowcase() {
 
   return (
     <section
-      className="relative overflow-hidden pb-[120px] pt-[132px]"
+      className="relative overflow-hidden px-5 pb-[96px] pt-[96px] lg:px-[83.6px] lg:pb-[160px] lg:pt-[132px]"
       style={{
         // verbatim from naano's computed styles
         backgroundImage:
           "radial-gradient(circle at 50% 60%, rgba(208, 237, 251, 0.35), rgba(0, 0, 0, 0) 44%), linear-gradient(rgb(252, 252, 251) 0%, rgb(248, 252, 254) 62%, rgb(242, 250, 255) 100%)",
       }}
     >
-      <div className="relative z-10 px-5 text-center lg:px-[56px]">
+      <div className="relative z-10 text-center">
         <span className="inline-flex items-center gap-2 rounded-full bg-white/[0.68] px-[14px] py-[7px] text-[13px] font-[650] leading-none text-[#555b63]">
           <span className="size-[7px] rounded-full bg-[#93c5fd]" />
           The Naano creator marketplace
@@ -78,22 +78,33 @@ export function MarketplaceShowcase() {
       </div>
 
       {/* app preview, sitting on their atmosphere backdrop */}
-      <div className="relative z-10 mx-auto mt-[64px] w-[1430px] max-w-[calc(100%-112px)]">
+      <div className="relative z-10 mx-auto mt-[88px] w-[1380px] max-w-[calc(100%-112px)]">
         {/* naano's backdrop file, marketplace-atmosphere-v1.png, is not a clean
             gradient — it bakes in their own app screenshot, so their creators'
             faces bleed through above and below the window. Drawn as a gradient
             panel instead. */}
-        <div className="rounded-[28px] bg-[linear-gradient(180deg,#cfe7fa_0%,#e3f1fd_45%,#f4f9ff_100%)] p-[18px] pt-[26px]">
-          <div className="overflow-hidden rounded-[18px] bg-white shadow-[0_24px_70px_-30px_rgba(15,23,42,0.35)]">
+        {/* .lp-marketplace__stage — 1380 wide, padding 82/68/90, radius 48.
+            Their backdrop file bakes in a screenshot of their own app, so the
+            real creators' faces bleed through it; drawn as a gradient instead. */}
+        <div className="rounded-[48px] border border-[rgba(139,189,215,0.32)] bg-[linear-gradient(180deg,#dff3fc_0%,#edf9fe_72%,#ffffff_100%)] px-[68px] pb-[90px] pt-[82px] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_42px_90px_-48px_rgba(69,119,145,0.38)] lg:h-[873px]">
+          {/* .lp-marketplace__product-shell — 1242 x 767, radius 25 */}
+          <div className="mx-auto h-[767px] w-full max-w-[1242px] overflow-hidden rounded-[25px] border border-[rgba(17,19,24,0.12)] bg-white shadow-[inset_0_2px_0_0_rgba(255,255,255,0.9),0_44px_96px_-40px_rgba(25,58,76,0.46)]">
             {/* browser chrome */}
-            <div className="flex h-[52px] items-center gap-4 border-b border-line/70 px-5">
+            <div className="flex h-[54px] items-center gap-4 border-b border-line/70 bg-[rgba(250,252,253,0.96)] px-[23px]">
               <div className="flex gap-[7px]">
                 <span className="size-[11px] rounded-full bg-[#e2e2df]" />
                 <span className="size-[11px] rounded-full bg-[#e2e2df]" />
                 <span className="size-[11px] rounded-full bg-[#e2e2df]" />
               </div>
-              <div className="mx-auto flex h-[30px] w-[330px] items-center justify-center gap-2 rounded-lg bg-[#f4f4f2] text-[13px] text-[#6b7280]">
-                <svg viewBox="0 0 24 24" className="size-3" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+              <div className="mx-auto flex h-[31px] w-[420px] items-center justify-center gap-[7px] rounded-[9px] border border-[#e6eaed] bg-white text-[12px] text-[#76808a]">
+                <svg
+                  viewBox="0 0 24 24"
+                  className="size-3"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  aria-hidden
+                >
                   <rect x="5" y="11" width="14" height="9" rx="2" />
                   <path d="M8 11V8a4 4 0 018 0v3" />
                 </svg>
@@ -101,50 +112,80 @@ export function MarketplaceShowcase() {
               </div>
             </div>
 
-            {/* app body: icon rail + card grid */}
-            <div className="flex">
-              <div className="flex w-[64px] shrink-0 flex-col items-center gap-5 border-r border-line/70 py-5">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/lp/naano-logo-nav.png" alt="" className="h-[16px] w-auto object-contain" />
-                {RAIL.map((k, i) => (
-                  <span
-                    key={k}
-                    className={`grid size-8 place-items-center rounded-lg ${
-                      i === 1 ? "bg-brand-soft text-brand" : "text-[#b4b4b0]"
-                    }`}
-                  >
-                    <svg viewBox="0 0 24 24" className="size-[18px]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                      <path d={RAIL_PATHS[k]} />
-                    </svg>
-                  </span>
-                ))}
-                <span className="mt-auto size-8 rounded-full bg-[#17181c]" />
-              </div>
-
-              <div className="relative flex-1 bg-[#fbfcff]">
-                <div className="grid grid-cols-3 gap-5 p-6">
-                  {featured.map((c, i) => (
-                    <CreatorCard key={c.id} creator={c} rank={i + 1} preview />
+            {/* naano drops a 1664-wide screenshot of the real app into a
+                1240 window — scaled to 0.745. Ours renders the live markup at
+                that same native width and scales it identically, so the cards
+                keep the proportions they have in the product instead of being
+                redrawn at a smaller size. */}
+            <div className="h-[711px] overflow-hidden bg-[#f5f7fa]">
+              <div className="flex w-[1664px] origin-top-left scale-[0.745]">
+                <div className="flex w-[64px] shrink-0 flex-col items-center gap-5 border-r border-line/70 py-5">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/lp/naano-logo-nav.png"
+                    alt=""
+                    className="h-[16px] w-auto object-contain"
+                  />
+                  {RAIL.map((k, i) => (
+                    <span
+                      key={k}
+                      className={`grid size-8 place-items-center rounded-lg ${
+                        i === 1 ? "bg-brand-soft text-brand" : "text-[#b4b4b0]"
+                      }`}
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        className="size-[18px]"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden
+                      >
+                        <path d={RAIL_PATHS[k]} />
+                      </svg>
+                    </span>
                   ))}
+                  <span className="mt-auto size-8 rounded-full bg-[#17181c]" />
                 </div>
 
-                {/* the small chevron naano floats between the rows */}
-                <span className="pointer-events-none absolute bottom-[86px] left-1/2 grid size-8 -translate-x-1/2 place-items-center rounded-full border border-line bg-white text-[#9b9da3] shadow-sm">
-                  <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-                    <path d="M6 9l6 6 6-6" />
-                  </svg>
-                </span>
+                <div className="relative flex-1 bg-[#f5f7fa]">
+                  <div className="grid grid-cols-3 gap-6 p-8">
+                    {featured.map((c, i) => (
+                      <CreatorCard
+                        key={c.id}
+                        creator={c}
+                        rank={i + 1}
+                        preview
+                      />
+                    ))}
+                  </div>
+
+                  {/* the small chevron naano floats between the rows */}
+                  <span className="pointer-events-none absolute bottom-[86px] left-1/2 grid size-8 -translate-x-1/2 place-items-center rounded-full border border-line bg-white text-[#9b9da3] shadow-sm">
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="size-4"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      aria-hidden
+                    >
+                      <path d="M6 9l6 6 6-6" />
+                    </svg>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
-
         </div>
       </div>
 
       {/* Three claims under the preview. naano illustrates each one; mine were
           text-only boxes. The avatars are this project's generated ones, not
           the photographs of real creators theirs uses. */}
-      <div className="relative z-10 mx-auto mt-[64px] grid w-[1280px] max-w-[calc(100%-112px)] grid-cols-1 gap-5 md:grid-cols-3">
+      <div className="relative z-10 mx-auto mt-[28px] grid w-[1280px] max-w-[calc(100%-112px)] grid-cols-1 gap-5 md:grid-cols-3">
         {CLAIMS.map((claim, i) => (
           <div
             key={claim.title}
@@ -152,7 +193,7 @@ export function MarketplaceShowcase() {
                The cloud is not a gradient — it is .lp-marketplace__signal-cloud,
                a child painting cloud-layer-bottom-v1.png at 145% size, pulled
                28px left and 42px below the card so it bleeds and gets clipped. */
-            className="relative flex h-[268px] flex-col justify-between overflow-hidden rounded-[26px] bg-white/[0.82] px-7 pb-7 pt-[26px] shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+            className="relative flex h-[276px] flex-col justify-between overflow-hidden rounded-[26px] bg-white/[0.82] px-7 pb-7 pt-[26px] shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
           >
             <span
               aria-hidden
@@ -244,7 +285,7 @@ function FlagGrid() {
   const chip =
     "nn-flag-float grid h-[38px] w-[50px] place-items-center rounded-[10px] bg-white text-[23px] leading-none shadow-[0_4px_12px_-4px_rgba(15,23,42,0.32)]";
   const style = (i: number) =>
-    ({ animationDelay: delay[i], "--flag-rot": rot[i] } as React.CSSProperties);
+    ({ animationDelay: delay[i], "--flag-rot": rot[i] }) as React.CSSProperties;
 
   return (
     <div className="flex w-full flex-col items-center gap-3.5 pt-1">
@@ -277,7 +318,11 @@ function MatchDiagram() {
       <div className="flex flex-col items-center">
         <span className="grid size-[58px] place-items-center rounded-full bg-white shadow-[0_6px_16px_-6px_rgba(15,23,42,0.35)]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/lp/avatar-f.png" alt="" className="size-[52px] rounded-full object-cover" />
+          <img
+            src="/lp/avatar-f.png"
+            alt=""
+            className="size-[52px] rounded-full object-cover"
+          />
         </span>
         <span className="mt-2 whitespace-nowrap text-[9px] font-bold text-[#66737c]">
           AI &amp; SaaS creator
@@ -285,7 +330,12 @@ function MatchDiagram() {
       </div>
 
       <div className="relative self-center">
-        <svg viewBox="0 0 96 52" className="h-[52px] w-[86px] overflow-visible" fill="none" aria-hidden>
+        <svg
+          viewBox="0 0 96 52"
+          className="h-[52px] w-[86px] overflow-visible"
+          fill="none"
+          aria-hidden
+        >
           <path
             d="M3 37 C27 4 68 4 93 36"
             stroke="#a9c4d6"

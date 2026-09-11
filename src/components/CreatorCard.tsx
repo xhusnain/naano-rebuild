@@ -129,7 +129,10 @@ export function CreatorCard({
       </div>
 
       {/* ------------------------------------------------------- identity */}
-      <div className="-mt-[42px] flex flex-col items-center px-5 text-center">
+      {/* relative z-10: the strip above is positioned, so it paints in the
+          positioned layer and was covering the lower half of the avatar that
+          overlaps it. This block has to join that layer to sit on top. */}
+      <div className="relative z-10 -mt-[42px] flex flex-col items-center px-5 text-center">
         {/* ring-1: a plain white border vanishes against the cloud strip */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img

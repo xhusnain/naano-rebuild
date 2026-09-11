@@ -18,7 +18,7 @@ export default async function MarketplacePage() {
   return (
     <>
       <Nav />
-      <main className="min-h-screen bg-[#fbfcff]">
+      <main className="min-h-screen bg-[#fbfcff] pt-[73px]">
         {/* useSearchParams needs a Suspense boundary so the shell can still
             stream while the filtered grid resolves. */}
         <Suspense

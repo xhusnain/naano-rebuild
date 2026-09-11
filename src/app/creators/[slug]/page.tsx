@@ -39,7 +39,7 @@ export default async function CreatorPage({
   return (
     <>
       <Nav />
-      <main className="min-h-screen bg-[#fbfcff]">
+      <main className="min-h-screen bg-[#fbfcff] pt-[73px]">
         <div className="nn-sky border-b border-line">
           <div className="mx-auto max-w-5xl px-5 pb-12 pt-10">
             <Link href="/marketplace" className="text-sm font-medium text-muted hover:text-ink">
