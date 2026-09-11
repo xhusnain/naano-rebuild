@@ -24,7 +24,7 @@ export function BookSection() {
   return (
     <section
       id="book"
-      className="relative overflow-hidden px-5 pb-[96px] pt-[76px] lg:px-[84px] lg:pb-[170px] lg:pt-[128px]"
+      className="relative overflow-hidden px-5 pb-[100px] pt-[86px] lg:px-[84px] lg:pb-[170px] lg:pt-[128px]"
       style={{
         background: "linear-gradient(#ffffff 0%, #e5f5fc 54%, #d8effa 100%)",
       }}

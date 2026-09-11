@@ -23,7 +23,7 @@ export default function Home() {
             with a fixed top padding. The rhythm between the pieces is theirs:
             40 / 30 / 44 / 34 / 48. They have no stats bar, so neither do we. */}
         <section data-nav-hero className="nn-sky pt-[73px]">
-          <div className="flex w-full flex-col items-center justify-center px-5 pb-[60px] pt-10 text-center lg:min-h-[calc(100vh-73px)] lg:px-[84px]">
+          <div className="flex w-full flex-col items-center justify-center px-5 pb-[60px] pt-10 text-center lg:min-h-[calc(100vh/var(--nn-zoom,1)-73px)] lg:px-[84px]">
             <span className="inline-flex items-center gap-2.5 rounded-full bg-white/[0.92] pb-[9px] pl-[14px] pr-[18px] pt-[9px] text-[16px] font-normal leading-[21px] text-[#17181c] shadow-[0_1px_3px_rgba(15,23,42,0.06)]">
               <svg
                 viewBox="0 0 24 24"

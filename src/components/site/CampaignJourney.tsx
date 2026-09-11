@@ -60,7 +60,7 @@ export function CampaignJourney() {
           </p>
         </div>
 
-        <div className="relative mt-[62px] grid min-h-[350px] grid-cols-1 items-stretch gap-4 py-[34px] pb-[38px] sm:grid-cols-2 lg:grid-cols-5 lg:grid-rows-[351.188px]">
+        <div className="relative mt-[62px] grid min-h-[350px] grid-cols-1 items-stretch gap-4 py-[34px] pb-[38px] lg:grid-cols-5 lg:grid-rows-[351.188px]">
           {/* .lp-journey__current — a wide soft cloud behind the row at 36%,
               which is what gives the panel its tint as well as the cloud base */}
           {/* eslint-disable-next-line @next/next/no-img-element */}

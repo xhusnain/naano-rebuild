@@ -27,13 +27,19 @@ export function ScaleFrame({ children }: { children: React.ReactNode }) {
     const apply = () => {
       const vw = document.documentElement.clientWidth;
       if (vw >= 1024) {
+        const zoom = vw / DESIGN_WIDTH;
         el.style.width = `${DESIGN_WIDTH}px`;
         // `zoom` takes a unitless factor; it cannot be expressed as a CSS calc
         // over 100vw, which is why naano sets it from script too.
-        el.style.zoom = String(vw / DESIGN_WIDTH);
+        el.style.zoom = String(zoom);
+        // Anything sized in vh inside the frame is scaled by the zoom as well,
+        // so 100vh renders as 100vh * zoom. Publish the factor and divide it
+        // back out where a block needs to be a real viewport tall.
+        el.style.setProperty("--nn-zoom", String(zoom));
       } else {
         el.style.width = "100%";
         el.style.zoom = "1";
+        el.style.setProperty("--nn-zoom", "1");
       }
     };
 

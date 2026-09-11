@@ -262,3 +262,26 @@
     letter-spacing: -0.045em;
   }
 }
+
+
+/* --------------------------------------------------------------------------
+   The marketplace mockup. naano drops a 1664-wide screenshot of the app into
+   the browser shell, so it shrinks with the shell on small screens instead of
+   reflowing. Ours renders the live app at that same 1664 canvas and scales it
+   by the shell's own width, which is what container units are for.
+   -------------------------------------------------------------------------- */
+.nn-app-shell {
+  container-type: inline-size;
+}
+
+.nn-app-screen {
+  /* length / length gives a number; length / number would give a length and
+     the whole declaration is dropped as invalid. */
+  height: calc(711px * (100cqw / 1664px));
+}
+
+.nn-app-canvas {
+  width: 1664px;
+  transform-origin: top left;
+  transform: scale(calc(100cqw / 1664px));
+}

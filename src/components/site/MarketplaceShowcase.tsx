@@ -52,7 +52,7 @@ export function MarketplaceShowcase() {
 
   return (
     <section
-      className="relative overflow-hidden px-5 pb-[96px] pt-[96px] lg:px-[83.6px] lg:pb-[160px] lg:pt-[132px]"
+      className="relative overflow-hidden px-5 pb-[94px] pt-[78px] sm:pb-[104px] sm:pt-[86px] lg:px-[83.6px] lg:pb-[160px] lg:pt-[132px]"
       style={{
         // verbatim from naano's computed styles
         backgroundImage:
@@ -78,7 +78,7 @@ export function MarketplaceShowcase() {
       </div>
 
       {/* app preview, sitting on their atmosphere backdrop */}
-      <div className="relative z-10 mx-auto mt-[88px] w-[1380px] max-w-[calc(100%-112px)]">
+      <div className="relative z-10 mx-auto mt-12 w-full lg:mt-[88px] lg:w-[1380px] lg:max-w-[calc(100%-112px)]">
         {/* naano's backdrop file, marketplace-atmosphere-v1.png, is not a clean
             gradient — it bakes in their own app screenshot, so their creators'
             faces bleed through above and below the window. Drawn as a gradient
@@ -86,9 +86,9 @@ export function MarketplaceShowcase() {
         {/* .lp-marketplace__stage — 1380 wide, padding 82/68/90, radius 48.
             Their backdrop file bakes in a screenshot of their own app, so the
             real creators' faces bleed through it; drawn as a gradient instead. */}
-        <div className="rounded-[48px] border border-[rgba(139,189,215,0.32)] bg-[linear-gradient(180deg,#dff3fc_0%,#edf9fe_72%,#ffffff_100%)] px-[68px] pb-[90px] pt-[82px] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_42px_90px_-48px_rgba(69,119,145,0.38)] lg:h-[873px]">
+        <div className="@container rounded-[28px] border border-[rgba(139,189,215,0.32)] bg-[linear-gradient(180deg,#dff3fc_0%,#edf9fe_72%,#ffffff_100%)] px-[10px] pb-9 pt-7 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_42px_90px_-48px_rgba(69,119,145,0.38)] lg:rounded-[48px] lg:px-[68px] lg:pb-[90px] lg:pt-[82px] lg:h-[873px]">
           {/* .lp-marketplace__product-shell — 1242 x 767, radius 25 */}
-          <div className="mx-auto h-[767px] w-full max-w-[1242px] overflow-hidden rounded-[25px] border border-[rgba(17,19,24,0.12)] bg-white shadow-[inset_0_2px_0_0_rgba(255,255,255,0.9),0_44px_96px_-40px_rgba(25,58,76,0.46)]">
+          <div className="nn-app-shell mx-auto w-full max-w-[1242px] overflow-hidden rounded-[18px] border border-[rgba(17,19,24,0.12)] bg-white shadow-[inset_0_2px_0_0_rgba(255,255,255,0.9),0_44px_96px_-40px_rgba(25,58,76,0.46)] lg:h-[767px] lg:rounded-[25px]">
             {/* browser chrome */}
             <div className="flex h-[54px] items-center gap-4 border-b border-line/70 bg-[rgba(250,252,253,0.96)] px-[23px]">
               <div className="flex gap-[7px]">
@@ -117,8 +117,8 @@ export function MarketplaceShowcase() {
                 that same native width and scales it identically, so the cards
                 keep the proportions they have in the product instead of being
                 redrawn at a smaller size. */}
-            <div className="h-[711px] overflow-hidden bg-[#f5f7fa]">
-              <div className="flex w-[1664px] origin-top-left scale-[0.745]">
+            <div className="nn-app-screen overflow-hidden bg-[#f5f7fa]">
+              <div className="nn-app-canvas flex">
                 <div className="flex w-[64px] shrink-0 flex-col items-center gap-5 border-r border-line/70 py-5">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -185,7 +185,7 @@ export function MarketplaceShowcase() {
       {/* Three claims under the preview. naano illustrates each one; mine were
           text-only boxes. The avatars are this project's generated ones, not
           the photographs of real creators theirs uses. */}
-      <div className="relative z-10 mx-auto mt-[28px] grid w-[1280px] max-w-[calc(100%-112px)] grid-cols-1 gap-5 md:grid-cols-3">
+      <div className="relative z-10 mx-auto mt-[28px] grid w-[1280px] max-w-[calc(100%-112px)] grid-cols-1 gap-5 lg:grid-cols-3">
         {CLAIMS.map((claim, i) => (
           <div
             key={claim.title}

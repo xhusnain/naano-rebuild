@@ -102,7 +102,7 @@ export function ResultsSection() {
       </div>
 
       {/* ------------------------------------------------------- post cards */}
-      <div className="relative z-[1] mx-auto mt-[50px] grid w-full max-w-[1320px] grid-cols-1 gap-[18px] px-0 pb-[28px] pt-[10px] sm:grid-cols-2 lg:grid-cols-4 lg:px-[6px]">
+      <div className="relative z-[1] mx-auto mt-[50px] grid w-full max-w-[1320px] grid-cols-1 gap-[18px] px-0 pb-[28px] pt-[10px] lg:grid-cols-4 lg:px-[6px]">
         {POSTS.map((post) => (
           <PostCard key={post.name} post={post} />
         ))}

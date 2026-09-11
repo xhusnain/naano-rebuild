@@ -80,7 +80,7 @@ export function PricingSection() {
   return (
     <section
       id="pricing"
-      className="relative scroll-mt-20 overflow-x-clip bg-[#fcfcfb] px-5 pb-[88px] pt-[56px] lg:px-[84px] lg:pb-[160px] lg:pt-[72px]"
+      className="relative scroll-mt-20 overflow-x-clip bg-[#fcfcfb] px-5 pb-[100px] pt-[62px] lg:px-[84px] lg:pb-[160px] lg:pt-[72px]"
     >
       <div className="relative z-[2] mx-auto w-full max-w-[1180px]">
         <div className="max-w-[720px]">

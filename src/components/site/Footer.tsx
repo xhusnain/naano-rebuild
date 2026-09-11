@@ -93,7 +93,7 @@ export function Footer({
         }}
       />
 
-      <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 items-start gap-10 pb-[46px] pt-[34px] sm:grid-cols-2 lg:grid-cols-[220.8px_124.5px_144.5px_164.6px_441.6px] lg:gap-[46px]">
+      <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 items-start gap-10 pb-[46px] pt-[34px] lg:grid-cols-[220.8px_124.5px_144.5px_164.6px_441.6px] lg:gap-[46px]">
         {/* ------------------------------------------------------------ brand */}
         <div className="flex flex-col items-start">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -155,8 +155,8 @@ export function Footer({
         </nav>
 
         {/* -------------------------------------------------------- resources */}
-        <nav className="grid gap-x-[22px] gap-y-3 sm:grid-cols-2 lg:grid-cols-[209.8px_209.8px]">
-          <div className={`${HEADING} sm:col-span-2`}>RESOURCES</div>
+        <nav className="grid gap-x-[22px] gap-y-3 lg:grid-cols-[209.8px_209.8px]">
+          <div className={`${HEADING} lg:col-span-2`}>RESOURCES</div>
           {RESOURCES.map(([label, href]) => (
             <Link key={label} href={href} className={LINK}>
               {label}
