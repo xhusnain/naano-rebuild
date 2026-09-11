@@ -80,10 +80,10 @@ export function PricingSection() {
   return (
     <section
       id="pricing"
-      className="relative scroll-mt-20 overflow-hidden bg-[#fcfcfb] px-5 pb-[88px] pt-[56px] lg:px-[84px] lg:pb-[160px] lg:pt-[72px]"
+      className="relative scroll-mt-20 overflow-x-clip bg-[#fcfcfb] px-5 pb-[88px] pt-[56px] lg:px-[84px] lg:pb-[160px] lg:pt-[72px]"
     >
-      <div className="relative z-[2] mx-auto w-full max-w-[1504px]">
-        <div className="max-w-[720px] lg:ml-[162px]">
+      <div className="relative z-[2] mx-auto w-full max-w-[1180px]">
+        <div className="max-w-[720px]">
           <h2 className="text-[34px] font-semibold leading-[1.08] tracking-[-0.035em] text-[#111318] nn-h2">
             Pricing.
           </h2>
@@ -96,9 +96,13 @@ export function PricingSection() {
           </p>
         </div>
 
-        <div className="relative mx-auto mt-[54px] grid w-full max-w-[1180px] grid-cols-1 items-stretch gap-6 lg:grid-cols-[569px_569px] lg:justify-center lg:gap-[42px]">
+        <div className="relative mx-auto mt-[54px] grid w-full grid-cols-1 items-stretch gap-6 lg:grid-cols-2 lg:gap-[42px]">
           {/* Their card grid carries the cloud bank on ::before / ::after —
-              two halves that overlap in the middle, hung below the cards. */}
+              two halves that overlap in the middle, hung 136px below the cards
+              and 118px past each side. naano's section is overflow:visible so
+              they bleed into the block underneath; clipping them square was
+              what made the corners look boxy. Clipped on x only, so the bleed
+              survives without giving the page a horizontal scrollbar. */}
           <span
             aria-hidden
             className="pointer-events-none absolute bottom-[-136px] left-[-118px] z-0 hidden h-[390px] w-[731.6px] bg-[url('/lp/cloud-layer-left-v1.png')] bg-contain bg-[50%_100%] bg-no-repeat opacity-[0.86] lg:block"
@@ -153,7 +157,7 @@ export function PricingSection() {
               ) : (
                 <Link
                   href={plan.href}
-                  className="mt-10 flex w-fit items-center gap-[9px] pb-[3px] text-[16px] font-bold leading-6 tracking-[-0.16px] text-[#17181c] transition hover:opacity-70"
+                  className="mt-10 flex w-fit items-center gap-[9px] border-b border-[#17181c] pb-[3px] text-[16px] font-bold leading-6 tracking-[-0.16px] text-[#17181c] transition hover:opacity-70"
                 >
                   {plan.cta}
                   {ARROW}
