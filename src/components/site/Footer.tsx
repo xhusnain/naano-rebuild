@@ -28,8 +28,8 @@ const LINK =
 
 const PRODUCT = [
   ["Features", "/#how-it-works"],
-  ["Pricing", "/pricing"],
-  ["FAQs", "/faq"],
+  ["Pricing", "/#pricing"],
+  ["FAQs", "/#faq"],
   ["Blog", "/blog"],
   ["Reports & benchmarks", "/reports"],
   ["About", "/about"],
@@ -43,7 +43,7 @@ const COMPANY = [
 
 const AGENTS = [
   ["llms.txt", "/llms.txt"],
-  ["pricing.md", "/pricing"],
+  ["pricing.md", "/#pricing"],
   ["Reports & data", "/reports"],
 ] as const;
 

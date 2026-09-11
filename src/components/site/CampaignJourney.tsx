@@ -25,7 +25,7 @@ const STEPS = [
 export function CampaignJourney() {
   return (
     <section
-      id="how"
+      id="how-it-works"
       className="relative scroll-mt-20 overflow-hidden px-5 pb-[72px] pt-[64px] lg:px-[84px] lg:pb-[126px] lg:pt-[110px]"
       style={{ background: "linear-gradient(#f2faff 0%, #ffffff 27%, #ffffff 100%)" }}
     >

@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { getCurrentUser } from "@/lib/session";
+import { ResourcesMenu } from "./ResourcesMenu";
+import { RESOURCES } from "@/lib/nav-links";
 import { logout } from "@/app/login/actions";
 import { MobileMenu } from "./MobileMenu";
 
@@ -20,12 +22,12 @@ export function Wordmark({ className = "" }: { className?: string }) {
   );
 }
 
+/** naano's own routes: companies is the landing page itself. */
 const LINKS = [
-  ["For companies", "/marketplace"],
-  ["For creators", "/register?role=influencer"],
-  ["For agencies", "/#pricing"],
-  ["How it works", "/#how"],
-  ["Resources", "/#faq"],
+  ["For companies", "/"],
+  ["For creators", "/creators"],
+  ["For agencies", "/agencies"],
+  ["How it works", "/#how-it-works"],
 ] as const;
 
 /**
@@ -59,13 +61,9 @@ export async function Nav() {
                 className="inline-flex items-center gap-1 whitespace-nowrap text-[15px] font-medium leading-none text-[#17181c] transition hover:opacity-70"
               >
                 {label}
-                {label === "Resources" && (
-                  <svg viewBox="0 0 24 24" className="mt-px size-[13px]" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden>
-                    <path d="M6 9l6 6 6-6" />
-                  </svg>
-                )}
               </Link>
             ))}
+            <ResourcesMenu />
           </nav>
 
           <div className="flex items-center gap-[20px]">
@@ -111,7 +109,7 @@ export async function Nav() {
               </div>
             )}
 
-            <MobileMenu links={LINKS} signedIn={!!user} home={home} homeLabel={homeLabel} />
+            <MobileMenu links={[...LINKS, ...RESOURCES]} signedIn={!!user} home={home} homeLabel={homeLabel} />
           </div>
         </div>
       </div>
