@@ -7,6 +7,9 @@ import { MarketplaceShowcase } from "@/components/site/MarketplaceShowcase";
 import { CampaignJourney } from "@/components/site/CampaignJourney";
 import { ProofSection } from "@/components/site/ProofSection";
 import { ResultsSection } from "@/components/site/ResultsSection";
+import { PricingSection } from "@/components/site/PricingSection";
+import { FaqSection } from "@/components/site/FaqSection";
+import { BookSection } from "@/components/site/BookSection";
 
 
 export default function Home() {
@@ -139,6 +142,12 @@ export default function Home() {
       <ProofSection />
 
       <ResultsSection />
+
+      <PricingSection />
+
+      <FaqSection />
+
+      <BookSection />
 
       <Footer />
     </ScaleFrame>
