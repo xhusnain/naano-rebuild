@@ -74,7 +74,17 @@ export function Footer({
   tagline = "Turn LinkedIn creators into your best acquisition channel.",
 }: { tagline?: string } = {}) {
   return (
-    <footer className="relative -mt-[10px] overflow-hidden px-5 pt-[120px] lg:px-[83.6px] lg:pt-[290px]">
+    <footer
+      className="relative -mt-[10px] overflow-hidden px-5 pt-[120px] lg:px-[83.6px] lg:pt-[290px]"
+      style={{
+        // naano's own two layers: the gradient sits under the cloud plate, and
+        // the outward glow is what dissolves the booking block into the footer
+        // rather than leaving a seam between the two.
+        backgroundImage:
+          "linear-gradient(#e9f7fc 0%, #edf9fd 48%, #ffffff 100%)",
+        boxShadow: "0 -54px 96px 44px rgba(233, 247, 252, 0.96)",
+      }}
+    >
       <span
         aria-hidden
         className="absolute inset-x-0 bottom-0 top-[-1px] -z-10 bg-[url('/lp/footer-cloud-transition.jpg')] bg-cover bg-[50%_100%]"

@@ -195,7 +195,7 @@ export default function CreatorsPage() {
       <Nav />
 
       {/* ------------------------------------------------------------- hero */}
-      <section data-nav-hero className="relative -mt-[73px] overflow-hidden bg-[#c5ebfd] pt-[73px] text-center">
+      <section data-nav-hero className="relative overflow-hidden bg-[#c5ebfd] pt-[73px] text-center">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/lp/hero-clouds-cotton.jpg"

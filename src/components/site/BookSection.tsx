@@ -73,7 +73,7 @@ export function BookSection() {
             {BULLETS.map((b) => (
               <div
                 key={b}
-                className="flex items-center gap-[11px] border-t border-[rgba(203,224,238,0.72)] py-[15px] text-[15.5px] leading-5 text-[#26272c]"
+                className="flex items-center gap-[11px] border-t border-[rgba(203,224,238,0.72)] py-[15px] text-[15.5px] leading-[19px] text-[#26272c]"
               >
                 <span className="size-[5px] shrink-0 rounded-full bg-[#315b7c]" />
                 {b}

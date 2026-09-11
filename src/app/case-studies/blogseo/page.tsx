@@ -82,7 +82,7 @@ export default function BlogSeoCaseStudy() {
       <Nav tone="paper" />
 
       {/* ------------------------------------------------------------- hero */}
-      <section className="-mt-[73px] bg-[#fcfcfb] px-5 pb-10 pt-[144px] lg:px-14">
+      <section className="bg-[#fcfcfb] px-5 pb-10 pt-[144px] lg:px-14">
         <div className="mx-auto grid max-w-[1240px] grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_460px]">
           <div>
             <div className="flex flex-wrap items-center gap-3">

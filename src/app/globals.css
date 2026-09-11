@@ -111,6 +111,7 @@
   .nn-marquee-track {
     display: inline-flex;
     align-items: center;
+    height: 48px;
     white-space: nowrap;
     animation: naanoMarquee 26s linear infinite;
   }

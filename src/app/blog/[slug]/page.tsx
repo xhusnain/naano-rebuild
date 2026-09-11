@@ -37,7 +37,7 @@ export default async function ArticlePage({ params }: Params) {
     <ScaleFrame>
       <Nav tone="paper" />
 
-      <article className="-mt-[73px] bg-[#fcfcfb] px-5 pb-20 pt-[144px] lg:px-[84px]">
+      <article className="bg-[#fcfcfb] px-5 pb-20 pt-[144px] lg:px-[84px]">
         <div className="mx-auto max-w-[760px]">
           <Link href="/blog" className="text-[14px] font-semibold text-[#2563eb] transition hover:opacity-70">
             ← Naano Journal

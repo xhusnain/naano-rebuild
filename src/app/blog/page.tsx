@@ -26,7 +26,7 @@ export default function BlogPage() {
     <ScaleFrame>
       <Nav tone="paper" />
 
-      <section className="-mt-[73px] bg-[#fcfcfb] px-5 pb-14 pt-[144px] lg:px-[84px]">
+      <section className="bg-[#fcfcfb] px-5 pb-14 pt-[144px] lg:px-[84px]">
         <div className="mx-auto max-w-[1200px]">
           <div className="flex flex-wrap items-center gap-3 text-[12px] font-bold uppercase leading-[15px] tracking-[1.92px] text-[#315b7c]">
             Naano Journal

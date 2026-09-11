@@ -75,7 +75,7 @@ export default function FreeToolsPage() {
     <ScaleFrame>
       <Nav tone="paper" />
 
-      <section className="relative -mt-[73px] overflow-hidden bg-[#fcfcfb] px-5 pb-16 pt-[144px] lg:px-[84px]">
+      <section className="relative overflow-hidden bg-[#fcfcfb] px-5 pb-16 pt-[144px] lg:px-[84px]">
         <span
           aria-hidden
           className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[523px]"

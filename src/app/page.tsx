@@ -18,12 +18,13 @@ export default function Home() {
         <Nav />
 
         {/* ---------------------------------------------------------------- hero */}
-        {/* Vertical rhythm measured off naano at 1440: 148px from the bar to the
-          pill, then 34 / 26 / 38 / 29 / 41 between the blocks. naano has no
-          stats bar in the hero, so there is none here either. */}
-        <section data-nav-hero className="nn-sky -mt-[73px] pt-[73px]">
-          <div className="w-full px-5 pb-12 pt-[104px] text-center lg:px-[56px] lg:pb-16 lg:pt-[148px]">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/[0.92] pb-[9px] pl-[14px] pr-[18px] pt-[9px] text-[16px] font-normal leading-none text-[#17181c] shadow-[0_1px_3px_rgba(15,23,42,0.06)]">
+        {/* naano's hero is a centred flex column filling the viewport below the
+            bar — min-height calc(100vh - 74), padding 40/84/60 — not a block
+            with a fixed top padding. The rhythm between the pieces is theirs:
+            40 / 30 / 44 / 34 / 48. They have no stats bar, so neither do we. */}
+        <section data-nav-hero className="nn-sky pt-[73px]">
+          <div className="flex w-full flex-col items-center justify-center px-5 pb-[60px] pt-10 text-center lg:min-h-[calc(100vh-73px)] lg:px-[84px]">
+            <span className="inline-flex items-center gap-2.5 rounded-full bg-white/[0.92] pb-[9px] pl-[14px] pr-[18px] pt-[9px] text-[16px] font-normal leading-[21px] text-[#17181c] shadow-[0_1px_3px_rgba(15,23,42,0.06)]">
               <svg
                 viewBox="0 0 24 24"
                 className="size-[15px]"
@@ -50,10 +51,10 @@ export default function Home() {
               post.
             </p>
 
-            <div className="mt-[44px] flex flex-wrap items-center justify-center gap-x-9 gap-y-3">
+            <div className="mt-[44px] flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
               <Link
                 href="/register?role=saas"
-                className="inline-flex items-center gap-[11px] rounded-xl bg-[#17181c] px-7 py-[16px] text-[16px] font-semibold leading-none text-white transition hover:opacity-90"
+                className="inline-flex items-center gap-[11px] rounded-xl bg-[#17181c] px-7 py-4 text-[16px] font-semibold leading-5 text-white transition hover:opacity-90"
               >
                 Launch a campaign{" "}
                 <svg
@@ -89,7 +90,7 @@ export default function Home() {
               </Link>
             </div>
 
-            <p className="mt-[34px] inline-flex items-center gap-2 text-[15px] font-medium text-[#43454c]">
+            <p className="mt-[34px] inline-flex items-center gap-[11px] text-[16px] font-normal leading-5 text-[#43454c]">
               <svg
                 viewBox="0 0 24 24"
                 className="size-4"

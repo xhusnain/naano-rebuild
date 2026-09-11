@@ -24,7 +24,7 @@ export default function BookPage() {
       <Nav />
 
       <main
-        className="relative -mt-[73px] overflow-hidden px-5 pb-24 pt-[144px] lg:px-[84px]"
+        className="relative overflow-hidden px-5 pb-24 pt-[144px] lg:px-[84px]"
         style={{ background: "linear-gradient(#ffffff 0%, #e5f5fc 54%, #d8effa 100%)" }}
       >
         <span

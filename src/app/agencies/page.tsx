@@ -76,7 +76,7 @@ export default function AgenciesPage() {
       <Nav />
 
       {/* ------------------------------------------------------------- hero */}
-      <section data-nav-hero className="relative -mt-[73px] overflow-hidden bg-[#c5ebfd] pt-[73px] text-center">
+      <section data-nav-hero className="relative overflow-hidden bg-[#c5ebfd] pt-[73px] text-center">
         {/* .lp-cloud-scene — their photo is larger than the hero and offset
             left, so the sky reads open at the top with cloud only at the edges. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
