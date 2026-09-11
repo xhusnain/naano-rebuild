@@ -72,7 +72,7 @@ const CARDS = [
 
 export default function AgenciesPage() {
   return (
-    <ScaleFrame>
+    <ScaleFrame maxZoom={1}>
       <Nav />
 
       {/* ------------------------------------------------------------- hero */}
