@@ -277,7 +277,7 @@ const CARD =
 export default function CreatorsPage() {
   return (
     <ScaleFrame>
-      <Nav />
+      <Nav cta={{ label: "Start earning", href: "/register?role=influencer" }} />
 
       {/* ------------------------------------------------------------- hero */}
       <section data-nav-hero className="relative overflow-hidden bg-[#c5ebfd] pt-[73px] text-center">

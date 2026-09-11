@@ -73,7 +73,7 @@ const CARDS = [
 export default function AgenciesPage() {
   return (
     <ScaleFrame maxZoom={1}>
-      <Nav />
+      <Nav cta={{ label: "Choose your agency", href: "/agencies#choose" }} />
 
       {/* ------------------------------------------------------------- hero */}
       <section data-nav-hero className="relative overflow-hidden bg-[#c5ebfd] pt-[73px] text-center">

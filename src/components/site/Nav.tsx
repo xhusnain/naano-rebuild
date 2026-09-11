@@ -27,12 +27,12 @@ export function Wordmark({ className = "" }: { className?: string }) {
   );
 }
 
-/** naano's own routes: companies is the landing page itself. */
+/** naano's own routes: companies is the landing page itself. "How it works"
+ *  is deliberately not here — removed at husnain's direction. */
 const LINKS = [
   ["For companies", "/"],
   ["For creators", "/creators"],
   ["For agencies", "/agencies"],
-  ["How it works", "/#how-it-works"],
 ] as const;
 
 /**
@@ -44,8 +44,17 @@ const LINKS = [
  *     link row and actions are ONE right-hand group; the links are not centred
  *     link gaps 32px · Sign in 87x41 · Sign up 95x41
  */
-export async function Nav({ tone = "sky" }: { tone?: "sky" | "paper" } = {}) {
+export async function Nav({
+  tone = "sky",
+  cta,
+}: {
+  tone?: "sky" | "paper";
+  /** naano relabels the last button per page: Sign up on the landing page,
+   *  Start earning on /creators, Choose your agency on /agencies. */
+  cta?: { label: string; href: string };
+} = {}) {
   const user = await getCurrentUser();
+  const action = cta ?? { label: "Sign up", href: "/register" };
   const home = user?.role === "creator" ? "/studio" : "/app";
   const homeLabel = user?.role === "creator" ? "Creator studio" : "Dashboard";
 
@@ -120,10 +129,10 @@ export async function Nav({ tone = "sky" }: { tone?: "sky" | "paper" } = {}) {
                   Sign in
                 </Link>
                 <Link
-                  href="/register"
+                  href={action.href}
                   className="whitespace-nowrap rounded-full bg-[#17181c] px-4 py-2.5 text-[14px] font-semibold leading-none text-white transition hover:opacity-90 lg:px-[20px] lg:py-[13px] lg:text-[15px]"
                 >
-                  Sign up
+                  {action.label}
                 </Link>
               </div>
             )}
